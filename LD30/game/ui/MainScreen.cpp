@@ -42,7 +42,7 @@ bool MainScreen::init(DisplayData* data)
         int x = leftBegin;
         for (int i = 0; i < NumOptions; i++)
         {
-            buttonRegions.push_back(sf::IntRect(x, 25, OptionsString[i].size() + 2, 3));
+            buttonRegions.push_back(sf::IntRect(x, 15, OptionsString[i].size() + 2, 3));
             x += buttonRegions[i].width + spaceBetweenButton;
         }
     }
@@ -90,7 +90,7 @@ void MainScreen::update(const sf::Time& delta)
 
 void MainScreen::draw(const sf::Time& delta)
 {
-    mainWindow->putString_row(0, 20, manager.displayRegion.width, zf::TermWindow::TextAlignmentX::Center, 0, "Grow");
+    mainWindow->putString_row(0, 8, manager.displayRegion.width, zf::TermWindow::TextAlignmentX::Center, 0, "Grow");
     for (int i = 0; i < NumOptions; i++)
     {
         int state = colors::Mod_Base | (i == selected ? colors::Mod_Selected : 0);

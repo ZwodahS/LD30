@@ -3,7 +3,7 @@
 #include "../zf/zf_sprite.hpp"
 #include <iostream>
 const std::string Game::Title("LD30");
-const sf::Vector2i Game::WorldSize(20, 15);
+const sf::Vector2i Game::WorldSize(15, 15);
 const sf::Vector2i Game::TermSize(2 * WorldSize.x + 1, 2 * WorldSize.y + 2);
 const sf::Vector2i Game::ImageSize(32, 32);
 const int Game::NO_KEY = -1;
