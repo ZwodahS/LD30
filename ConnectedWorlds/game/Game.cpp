@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "c_colors.hpp"
 #include "../zf/zf_sprite.hpp"
+#include "ResourcePath.hpp"
 #include <iostream>
 const std::string Game::Title("LD30");
 const sf::Vector2i Game::WorldSize(15, 15);
@@ -14,6 +15,11 @@ const int Game::DOWN_KEY = 128 + 2;
 const int Game::LEFT_KEY = 128 + 4;
 const int Game::RIGHT_KEY = 128 + 8;
 const int Game::Framerate = 30;
+#ifdef APPBUNDLE
+const std::string Game::RootPath = resourcePath();
+#else
+const std::string Game::RootPath = "";
+#endif
 
 Game::Game()
     : renderWindow(nullptr), terminal(nullptr), cellSize(24), displayStack(nullptr)
@@ -164,7 +170,7 @@ int Game::getNextKey()
 //////////////////// Assets ////////////////////
 void Game::initAssets()
 {
-    terminal->autoLoad("data/font_32");
+    terminal->autoLoad(RootPath + "/data/font_32");
 }
 
 sf::Sprite Game::getPlayerSprite(int worldId)

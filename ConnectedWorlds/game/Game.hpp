@@ -13,6 +13,8 @@ class Game
 
 //////////////////// Constants ////////////////////
 public:
+
+    static const std::string RootPath;
     static const int NO_KEY;
     static const int ENTER_KEY;
     static const int ESCAPE_KEY;
