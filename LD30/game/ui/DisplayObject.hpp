@@ -12,10 +12,6 @@ public:
     DisplayManager& manager;
     bool done;
   
-    /**
-     * Init this display with this data.
-     * The data will be freed by the manager after it is consumed.
-     */
     virtual bool init(DisplayData* data) = 0; 
     virtual DisplayData* getReturnValue() = 0;
     virtual void destroy() = 0;

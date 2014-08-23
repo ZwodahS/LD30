@@ -1,6 +1,9 @@
 #include "DisplayManager.hpp"
 #include "DisplayObject.hpp"
 #include "DisplayData.hpp"
+#include "MainScreen.hpp"
+#include "GameScreen.hpp"
+#include "RootObject.hpp"
 DisplayManager::DisplayManager(Game& game, zf::Terminal& term, const sf::IntRect& displayRegion)
     : game(game), terminal(term), displayRegion(displayRegion)
 {
@@ -63,4 +66,25 @@ void DisplayManager::putDisplay(DisplayObject& object)
 bool DisplayManager::empty() const
 {
     return stack.size() == 0;
+}
+
+DisplayObject* DisplayManager::makeRoot()
+{
+    DisplayObject* object = new RootObject(*this);
+    object->init(nullptr);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeMainScreen()
+{
+    DisplayObject* object = new MainScreen(*this);
+    object->init(nullptr);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeGameScreen()
+{
+    DisplayObject* object = new GameScreen(*this);
+    object->init(nullptr);
+    return object;
 }

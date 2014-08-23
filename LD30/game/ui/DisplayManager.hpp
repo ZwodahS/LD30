@@ -22,6 +22,13 @@ public:
 
     const sf::IntRect displayRegion; 
     bool empty() const;
+
+    
+    DisplayObject* makeRoot();
+    DisplayObject* makeMainScreen();
+    DisplayObject* makeGameScreen();
+
+
 private:
     std::list<DisplayObject*> stack;
 };

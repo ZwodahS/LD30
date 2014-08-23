@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "c_colors.hpp"
+#include <iostream>
 const std::string Game::Title("LD30");
 const sf::Vector2i Game::TermSize(80, 60);
 const sf::Vector2i Game::ImageSize(32, 32);
@@ -48,7 +49,8 @@ void Game::initUI()
 
     terminal->init(sf::Vector2i(cellSize, cellSize), ImageSize);
     terminal->autoLoad("data/font_32");
-    displayStack = new DisplayManager(*this, *terminal, sf::IntRect(0, 0, TermSize.x, TermSize.y - 1));
+    displayStack = new DisplayManager(*this, *terminal, sf::IntRect(0, 0, TermSize.x, TermSize.y));
+    displayStack->putDisplay(*displayStack->makeRoot());
 }
 
 void Game::initAssets()
