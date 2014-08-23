@@ -138,7 +138,19 @@ void World::move(zf::Direction direction)
         auto targetPosition = player->position + mod;
         if (inRange(targetPosition))
         {
-            player->position = targetPosition;
+            auto object = getObject(targetPosition);
+            if (!object)
+            {
+                moveObject(*player, targetPosition);
+            }
         }
     }
 }
+
+void World::moveObject(WorldObject& object, const sf::Vector2i& position)
+{
+    objects[object.position.x][object.position.y] = nullptr;
+    object.position = position;
+    objects[object.position.x][object.position.y] = &object;
+}
+

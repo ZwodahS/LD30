@@ -38,6 +38,7 @@ private:
     PlayerObject* player;
 
     void move(zf::Direction direction);
-    
+
+    void moveObject(WorldObject& object, const sf::Vector2i& position);
 };
 #endif

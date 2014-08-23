@@ -11,7 +11,6 @@ BlockObject::BlockObject(Game& game, World& world, int colorType, zf::Direction 
     if (outDirection.size() == 2)
     {
         int bitValue = zf::toBit(outDirection[0]) | zf::toBit(outDirection[1]);
-        std::cout << bitValue << std::endl;
         sprite = game.getSpecialCharSprite(zf::Cross[bitValue]);
     }
     sprite.setColor(sf::Color::White);
