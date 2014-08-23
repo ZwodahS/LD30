@@ -1,5 +1,5 @@
 #include "GameScreen.hpp"
-
+#include "../Game.hpp"
 GameScreen::GameScreen(DisplayManager& manager)
     : DisplayObject(manager)
 {

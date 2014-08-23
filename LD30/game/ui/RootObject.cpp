@@ -2,8 +2,9 @@
 #include "../c_colors.hpp"
 #include "../../zf/zf_conversion.hpp"
 #include "DisplayManager.hpp"
+#include "MainScreen.hpp"
 RootObject::RootObject(DisplayManager& manager)
-    : DisplayObject(manager), fps(nullptr)
+    : DisplayObject(manager), fps(nullptr), currentChild(nullptr)
 {
 }
 
@@ -13,8 +14,7 @@ RootObject::~RootObject()
 
 bool RootObject::init(DisplayData* data)
 {
-    auto region = manager.displayRegion;
-    fps = manager.terminal.newWindow(sf::IntRect(region.left, region.top + region.height - 1 , region.width, 1));
+    fps = manager.terminal.newWindow(manager.debugRegion);
     return true;
 }
 
@@ -34,10 +34,35 @@ bool RootObject::processKey(int key)
 
 void RootObject::childReturned(DisplayObject* child, DisplayData* data)
 {
+    if (child == currentChild)
+    {
+        currentChild = nullptr;
+        if (data)
+        {
+            if (data->type == MainScreen::OutDataType)
+            {
+                auto outData = static_cast<MainScreen::OutData*>(data);
+                if (outData->choice == MainScreen::NewGame)
+                {
+                    currentChild = manager.makeGameScreen();
+                    manager.putDisplay(*currentChild);
+                }
+                else if (outData->choice == MainScreen::Exit)
+                {
+                    done = true;
+                }
+            }
+        }
+    }
 }
 
 void RootObject::update(const sf::Time& delta)
 {
+    if (!currentChild)
+    {
+        currentChild = manager.makeMainScreen();
+        manager.putDisplay(*currentChild);
+    }    
 }
 
 void RootObject::draw(const sf::Time& delta)

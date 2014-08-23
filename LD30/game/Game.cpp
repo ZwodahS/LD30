@@ -2,7 +2,8 @@
 #include "c_colors.hpp"
 #include <iostream>
 const std::string Game::Title("LD30");
-const sf::Vector2i Game::TermSize(80, 60);
+const sf::Vector2i Game::WorldSize(40, 30);
+const sf::Vector2i Game::TermSize(2 * WorldSize.x, 2 * WorldSize.y + 1);
 const sf::Vector2i Game::ImageSize(32, 32);
 const int Game::NO_KEY = -1;
 const int Game::ENTER_KEY = 10;
@@ -37,6 +38,7 @@ Game::~Game()
 void Game::init()
 {
     initUI();
+    initKeys();
 }
 
 void Game::initUI()
@@ -49,8 +51,26 @@ void Game::initUI()
 
     terminal->init(sf::Vector2i(cellSize, cellSize), ImageSize);
     terminal->autoLoad("data/font_32");
-    displayStack = new DisplayManager(*this, *terminal, sf::IntRect(0, 0, TermSize.x, TermSize.y));
+    displayStack = new DisplayManager(*this, *terminal, sf::IntRect(0, 0, TermSize.x, TermSize.y - 1), sf::IntRect(0, TermSize.y - 1, TermSize.x, 1));
     displayStack->putDisplay(*displayStack->makeRoot());
+}
+
+void Game::initKeys()
+{
+    keyMap.addMapping('w', Action::Up);
+    keyMap.addMapping('a', Action::Left);
+    keyMap.addMapping('s', Action::Down);
+    keyMap.addMapping('d', Action::Right);
+
+    keyMap.addMapping('k', Action::Up);
+    keyMap.addMapping('h', Action::Left);
+    keyMap.addMapping('j', Action::Down);
+    keyMap.addMapping('l', Action::Right);
+
+    keyMap.addMapping(' ', Action::Select);
+    keyMap.addMapping(ENTER_KEY, Action::Select);
+    keyMap.addMapping(ESCAPE_KEY, Action::Cancel);
+
 }
 
 void Game::initAssets()
@@ -119,7 +139,7 @@ void Game::draw(const sf::Time& delta)
 {
     renderWindow->clear(colors::General_ClearColor);
     displayStack->drawAll(delta);
-    terminal->updateRenderWindow();
+    terminal->updateRenderWindow(false);
     renderWindow->display();
 }
 

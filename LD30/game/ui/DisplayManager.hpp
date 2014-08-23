@@ -8,7 +8,7 @@ class DisplayObject;
 class DisplayManager
 {
 public:
-    DisplayManager(Game& game, zf::Terminal& term, const sf::IntRect& displayRegion);
+    DisplayManager(Game& game, zf::Terminal& term, const sf::IntRect& displayRegion, const sf::IntRect& debugRegion);
     ~DisplayManager();
 
     Game& game;
@@ -21,6 +21,7 @@ public:
     void putDisplay(DisplayObject& state);
 
     const sf::IntRect displayRegion; 
+    const sf::IntRect debugRegion;
     bool empty() const;
 
     

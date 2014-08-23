@@ -4,8 +4,9 @@
 #include "MainScreen.hpp"
 #include "GameScreen.hpp"
 #include "RootObject.hpp"
-DisplayManager::DisplayManager(Game& game, zf::Terminal& term, const sf::IntRect& displayRegion)
-    : game(game), terminal(term), displayRegion(displayRegion)
+#include <iostream>
+DisplayManager::DisplayManager(Game& game, zf::Terminal& term, const sf::IntRect& displayRegion, const sf::IntRect& debugRegion)
+    : game(game), terminal(term), displayRegion(displayRegion), debugRegion(debugRegion)
 {
 }
 

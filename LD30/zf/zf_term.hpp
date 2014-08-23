@@ -149,7 +149,8 @@ namespace zf
         void setVisible(bool visibility);
         void bringToFront();
     private:
-        void updateScreen();
+        void updateScreen(bool putMode);
+        void directDraw(sf::RenderWindow& window);
         Terminal& screen;
         sf::IntRect bound;
         /**
@@ -215,8 +216,11 @@ namespace zf
 
         /**
          * Draw what we have onto the render window.
+         * if single draw is true, only one cell will be draw.
+         * If single draw if false, then each window will draw onto the render window directly,
+         * in the order that they in.
          */
-        void updateRenderWindow();
+        void updateRenderWindow(bool singleDraw = true);
 
         /**
          * Create a new window in this region.
@@ -269,6 +273,7 @@ namespace zf
          * directly put this cell into this position.
          */
         void directPut(const TermCell& cell, int x, int y);
+        void directDraw(TermCell& cell, int x, int y);
         /**
          * Pass in when update? 
          */

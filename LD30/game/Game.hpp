@@ -4,8 +4,10 @@
 #include <string>
 #include <vector>
 #include <list>
+#include "KeyMap.hpp"
 #include "../zf/zf_term.hpp"
 #include "ui/DisplayManager.hpp"
+#include "f_log.hpp"
 class Game
 {
 
@@ -18,7 +20,10 @@ public:
     static const int DOWN_KEY;
     static const int LEFT_KEY;
     static const int RIGHT_KEY;
+
+
     static const int Framerate;
+    static const sf::Vector2i WorldSize;
     static const sf::Vector2i TermSize;
     // size of the individual sprite
     static const sf::Vector2i ImageSize;
@@ -49,6 +54,7 @@ private:
 public:
     int getNextKey();
     void clearKeQueue();
+    KeyMap keyMap;
 private:
     std::list<int> keyQueue;
 //////////////////// display state manager ////////////////////

@@ -294,13 +294,26 @@ namespace zf
         screen.bringToFront(*this);
     }
 
-    void TermWindow::updateScreen() 
+    void TermWindow::updateScreen(bool putMode) 
     {
-        for (int x = 0; x < bound.width; x++)
+        if (putMode)
         {
-            for (int y = 0; y < bound.height; y++)
+            for (int x = 0; x < bound.width; x++)
             {
-                screen.directPut(cells[x][y], x + bound.left, y + bound.top);
+                for (int y = 0; y < bound.height; y++)
+                {
+                    screen.directPut(cells[x][y], x + bound.left, y + bound.top);
+                }
+            }
+        }
+        else
+        {
+            for (int x = 0; x < bound.width; x++)
+            {
+                for (int y = 0; y < bound.height; y++)
+                {
+                    screen.directDraw(cells[x][y], x + bound.left, y + bound.top);
+                }
             }
         }
     }
@@ -417,24 +430,27 @@ namespace zf
         return termBound.contains(x, y);
     }
 
-    void Terminal::updateRenderWindow()
+    void Terminal::updateRenderWindow(bool singleDraw)
     {
         for (auto window : windows)
         {
             if (window->isVisible())
             {
-                window->updateScreen();
+                window->updateScreen(singleDraw);
             }
         }
-        /**
-         * We always assume that the sprites are already in the correct position.
-         */
-        for (int x = 0; x < termBound.width; x++)
+        if (singleDraw)
         {
-            for (int y = 0; y < termBound.height; y++)
+            /**
+             * We always assume that the sprites are already in the correct position.
+             */
+            for (int x = 0; x < termBound.width; x++)
             {
-                renderWindow.draw(cells[x][y].background);
-                renderWindow.draw(cells[x][y].foreground);
+                for (int y = 0; y < termBound.height; y++)
+                {
+                    renderWindow.draw(cells[x][y].background);
+                    renderWindow.draw(cells[x][y].foreground);
+                }
             }
         }
     }
@@ -476,6 +492,17 @@ namespace zf
             cells[x][y].background = cell.background;
             cells[x][y].foreground.setPosition(x * cellSize.x, y * cellSize.y);
             cells[x][y].background.setPosition(x * cellSize.y, y * cellSize.y);
+        }
+    }
+
+    void Terminal::directDraw(TermCell& cell, int x, int y)
+    {
+        if (inRange(x, y))
+        {
+            cell.foreground.setPosition(x * cellSize.x, y * cellSize.y);
+            cell.background.setPosition(x * cellSize.y, y * cellSize.y);
+            renderWindow.draw(cell.background);
+            renderWindow.draw(cell.foreground);
         }
     }
 
