@@ -23,12 +23,15 @@ World::~World()
 {
 }
 
-void World::draw(zf::TermWindow* window, const sf::Time& delta)
+void World::draw(zf::TermWindow* window, zf::TermWindow* overlayWindow, const sf::Time& delta)
 {
-    window->clear(sf::Color(80, 80, 80, 255));
     if (selected)
     {
-        window->drawEdgeBorder();
+        window->clear(sf::Color(150, 150, 150, 255));
+    }
+    else 
+    {
+        window->clear(sf::Color(80, 80, 80, 255));
     }
     for (auto object : objectsAsList)
     {
@@ -43,7 +46,22 @@ void World::setSelected(bool selected)
 
 void World::processAction(Action action)
 {
-
+    if (action == Action::Up)
+    {
+        move(zf::Direction::North);
+    }
+    else if (action == Action::Down)
+    {
+        move(zf::Direction::South);
+    }
+    else if (action == Action::Left)
+    {
+        move(zf::Direction::West);
+    }
+    else if (action == Action::Right)
+    {
+        move(zf::Direction::East);
+    }
 }
 
 bool World::inRange(const sf::Vector2i& position) const
@@ -75,4 +93,17 @@ bool World::addObject(WorldObject* object, const sf::Vector2i& position)
 WorldObject* World::getObject(const sf::Vector2i& position) const
 {
     return inRange(position) ? objects[position.x][position.y] : nullptr;
+}
+
+void World::move(zf::Direction direction)
+{
+    if (player)
+    {
+        auto mod = zf::getModifier(direction);
+        auto targetPosition = player->position + mod;
+        if (inRange(targetPosition))
+        {
+            player->position = targetPosition;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 #ifndef _GAME_WORLD_HPP_
 #define _GAME_WORLD_HPP_
 #include "../zf/zf_term.hpp"
+#include "../zf/zf_direction.hpp"
 #include "KeyMap.hpp"
 #include <vector>
 #include <list>
@@ -16,7 +17,7 @@ public:
     World(Game& game, int worldId);
     ~World();
 
-    void draw(zf::TermWindow* window, const sf::Time& delta);
+    void draw(zf::TermWindow* window, zf::TermWindow* overlayWindow, const sf::Time& delta);
 
     void setSelected(bool selected);
 
@@ -33,5 +34,8 @@ private:
 
     std::list<WorldObject*> objectsAsList;
     PlayerObject* player;
+
+    void move(zf::Direction direction);
+
 };
 #endif

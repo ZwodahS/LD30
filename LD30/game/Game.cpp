@@ -16,7 +16,7 @@ const int Game::RIGHT_KEY = 128 + 8;
 const int Game::Framerate = 30;
 
 Game::Game()
-    : renderWindow(nullptr), terminal(nullptr), cellSize(16), displayStack(nullptr)
+    : renderWindow(nullptr), terminal(nullptr), cellSize(24), displayStack(nullptr)
 {
 }
 
@@ -174,7 +174,7 @@ sf::Sprite Game::getPlayerSprite(int worldId)
                 worldId == 1 ? sf::Color(100, 255, 100) :
                 worldId == 2 ? sf::Color(100, 100, 255) :
                 sf::Color(255, 255, 100);
-    return zf::setCopyColor(terminal->getSpecialChar(zf::Fill).createSprite(), color);
+    return zf::setCopyColor(terminal->getChar('@').createSprite(), color);
 }
 
 sf::Sprite Game::getCharSprite(char c)

@@ -5,7 +5,7 @@
 #include "../../zf/zf_sprite.hpp"
 #include <iostream>
 GameScreen::GameScreen(DisplayManager& manager)
-    : DisplayObject(manager)
+    : DisplayObject(manager), currentWorld(0)
 {
 }
 
@@ -28,7 +28,8 @@ bool GameScreen::init(DisplayData* data)
         worldWindows.push_back(window);
         worlds.push_back(world);
     } 
-    
+    auto termSize = manager.game.TermSize;
+    overlayWindow = manager.terminal.newWindow(sf::IntRect(0, 0, termSize.x, termSize.y));
     worldActions.push_back(Action::Up);
     worldActions.push_back(Action::Down);
     worldActions.push_back(Action::Left);
@@ -76,7 +77,7 @@ void GameScreen::draw(const sf::Time& delta)
 {
     for (int i = 0; i < worlds.size(); i++)
     {
-        worlds[i]->draw(worldWindows[i], delta);
+        worlds[i]->draw(worldWindows[i], overlayWindow, delta);
     }
 }
 
@@ -86,7 +87,6 @@ void GameScreen::selectWorld(int world)
     {
         return;
     }
-    currentWorld = world;
     worlds[currentWorld]->setSelected(false);
     currentWorld = world;
     worlds[currentWorld]->setSelected(true);
