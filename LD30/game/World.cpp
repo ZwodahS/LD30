@@ -1,10 +1,12 @@
 #include "World.hpp"
-#include "WorldObject.hpp"
-#include "PlayerObject.hpp"
+#include "objects/WorldObject.hpp"
+#include "objects/PlayerObject.hpp"
+#include "objects/BlockObject.hpp"
 #include "Game.hpp"
+#include "f_rng.hpp"
 #include <iostream>
 World::World(Game& game, int worldId)
-    : selected(false), game(game), player(nullptr)
+    : selected(false), game(game), player(nullptr), worldId(worldId)
 {
     for (int x = 0; x < Game::WorldSize.x; x++)
     {
@@ -15,8 +17,25 @@ World::World(Game& game, int worldId)
         } 
         objects.push_back(columns);
     }
-    player = new PlayerObject(game, worldId);
+    player = new PlayerObject(game, *this);
     addObject(player, sf::Vector2i(5, 5));
+    
+    std::vector<BlockObject*> blocks;
+    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::North, 1));
+    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::NorthEast, 1));
+    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::NorthWest, 1));
+    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::South, 1));
+    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::SouthEast, 1));
+    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::SouthWest, 1));
+    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::East, 1));
+    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::West, 1));
+
+    auto availablePositions = getAvailablePositions();
+    for (auto block : blocks)
+    {
+        auto position = rng::randomItem(availablePositions, sf::Vector2i(0, 0), true);
+        addObject(block, position);
+    }
 }
 
 World::~World()
@@ -62,6 +81,22 @@ void World::processAction(Action action)
     {
         move(zf::Direction::East);
     }
+}
+
+std::vector<sf::Vector2i> World::getAvailablePositions() const
+{
+    std::vector<sf::Vector2i> positions;
+    for (int x = 0; x < game.WorldSize.x; x++)
+    {
+        for (int y = 0; y < game.WorldSize.y; y++)
+        {
+            if (objects[x][y] == nullptr)
+            {
+                positions.push_back(sf::Vector2i(x, y));
+            }
+        }
+    }
+    return positions;
 }
 
 bool World::inRange(const sf::Vector2i& position) const

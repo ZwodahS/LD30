@@ -184,5 +184,5 @@ sf::Sprite Game::getCharSprite(char c)
 
 sf::Sprite Game::getSpecialCharSprite(int c)
 {
-    return terminal ? terminal->getChar(c).createSprite() : sf::Sprite();
+    return terminal ? terminal->getSpecialChar(c).createSprite() : sf::Sprite();
 }

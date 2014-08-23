@@ -17,6 +17,7 @@ public:
     World(Game& game, int worldId);
     ~World();
 
+    const int worldId;
     void draw(zf::TermWindow* window, zf::TermWindow* overlayWindow, const sf::Time& delta);
 
     void setSelected(bool selected);
@@ -28,6 +29,7 @@ public:
     bool canAddObject(WorldObject* object, const sf::Vector2i& position) const;
     bool addObject(WorldObject* object, const sf::Vector2i& position);
     WorldObject* getObject(const sf::Vector2i& position) const;
+    std::vector<sf::Vector2i> getAvailablePositions() const;
 private:
     bool selected;
     Game& game;
@@ -36,6 +38,6 @@ private:
     PlayerObject* player;
 
     void move(zf::Direction direction);
-
+    
 };
 #endif

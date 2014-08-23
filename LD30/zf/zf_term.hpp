@@ -202,7 +202,7 @@ namespace zf
          * 
          * Assumption : square cell
          */
-        void init(const sf::Vector2i& cellSize, const sf::Vector2i& spriteSize, const int maxRow = 15, const int maxCol = 15);
+        void init(const sf::Vector2i& cellSize, const sf::Vector2i& spriteSize, const int maxRow = 20, const int maxCol = 20);
         
         /**
          * Get the term bound 

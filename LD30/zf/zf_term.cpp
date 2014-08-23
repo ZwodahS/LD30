@@ -25,6 +25,9 @@
 namespace zf
 {
     //////////////////// special characters ////////////////////
+    /**
+     * The bit here mirrors that of zf_direction
+     */
     const int NORTH_BIT = 1;
     const int EAST_BIT = 2;
     const int SOUTH_BIT = 4;

@@ -1,10 +1,11 @@
 #include "PlayerObject.hpp"
-#include "Game.hpp"
+#include "../Game.hpp"
+#include "../World.hpp"
 #include <iostream>
-PlayerObject::PlayerObject(Game& game, int worldId)
-    : WorldObject(game, WorldObject::ObjectType::PlayerObject)
+PlayerObject::PlayerObject(Game& game, World& world)
+    : WorldObject(game, world, WorldObject::ObjectType::PlayerObject)
 {
-    sprite = game.getPlayerSprite(worldId);
+    sprite = game.getPlayerSprite(world.worldId);
 }
 
 PlayerObject::~PlayerObject()
