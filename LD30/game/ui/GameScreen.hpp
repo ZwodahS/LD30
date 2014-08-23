@@ -1,6 +1,10 @@
 #ifndef _GAME_UI_GAMESCREEN_HPP_
 #define _GAME_UI_GAMESCREEN_HPP_
 #include "DisplayObject.hpp"
+#include "../KeyMap.hpp"
+#include "../../zf/zf_term.hpp"
+#include <vector>
+class World;
 class GameScreen : public DisplayObject
 {
 public:
@@ -14,5 +18,19 @@ public:
     virtual void childReturned(DisplayObject* child, DisplayData* data);
     virtual void update(const sf::Time& delta);
     virtual void draw(const sf::Time& delta);
+
+private:
+    int currentWorld;
+    /** World orders 
+     *  [0][1]
+     *  [3][2]
+     */
+    std::vector<sf::IntRect> worldRegions;
+    std::vector<zf::TermWindow*> worldWindows;
+    std::vector<World*> worlds;
+    zf::TermWindow* overlayWindow;
+
+    std::vector<Action> worldActions;
+    void selectWorld(int world);
 };
 #endif

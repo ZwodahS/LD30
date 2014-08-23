@@ -3,6 +3,7 @@
 #include "../../zf/zf_conversion.hpp"
 #include "DisplayManager.hpp"
 #include "MainScreen.hpp"
+#include <iostream>
 RootObject::RootObject(DisplayManager& manager)
     : DisplayObject(manager), fps(nullptr), currentChild(nullptr)
 {

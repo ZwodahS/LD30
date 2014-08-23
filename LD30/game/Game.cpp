@@ -1,9 +1,10 @@
 #include "Game.hpp"
 #include "c_colors.hpp"
+#include "../zf/zf_sprite.hpp"
 #include <iostream>
 const std::string Game::Title("LD30");
-const sf::Vector2i Game::WorldSize(40, 30);
-const sf::Vector2i Game::TermSize(2 * WorldSize.x, 2 * WorldSize.y + 1);
+const sf::Vector2i Game::WorldSize(20, 15);
+const sf::Vector2i Game::TermSize(2 * WorldSize.x + 1, 2 * WorldSize.y + 2);
 const sf::Vector2i Game::ImageSize(32, 32);
 const int Game::NO_KEY = -1;
 const int Game::ENTER_KEY = 10;
@@ -15,7 +16,7 @@ const int Game::RIGHT_KEY = 128 + 8;
 const int Game::Framerate = 30;
 
 Game::Game()
-    : renderWindow(nullptr), terminal(nullptr), cellSize(8), displayStack(nullptr)
+    : renderWindow(nullptr), terminal(nullptr), cellSize(16), displayStack(nullptr)
 {
 }
 
@@ -39,6 +40,7 @@ void Game::init()
 {
     initUI();
     initKeys();
+    initAssets();
 }
 
 void Game::initUI()
@@ -50,9 +52,7 @@ void Game::initUI()
     terminal = new zf::Terminal(*renderWindow, TermSize);
 
     terminal->init(sf::Vector2i(cellSize, cellSize), ImageSize);
-    terminal->autoLoad("data/font_32");
     displayStack = new DisplayManager(*this, *terminal, sf::IntRect(0, 0, TermSize.x, TermSize.y - 1), sf::IntRect(0, TermSize.y - 1, TermSize.x, 1));
-    displayStack->putDisplay(*displayStack->makeRoot());
 }
 
 void Game::initKeys()
@@ -73,15 +73,12 @@ void Game::initKeys()
 
 }
 
-void Game::initAssets()
-{
-}
-
 void Game::run()
 {
     bool quit(false);
     sf::Clock clock;
     
+    displayStack->putDisplay(*displayStack->makeRoot());
     while (!quit && renderWindow->isOpen() && !displayStack->empty())
     {
         sf::Time delta = clock.restart();
@@ -162,4 +159,30 @@ int Game::getNextKey()
         keyQueue.pop_front();
     }
     return outKey;
+}
+
+//////////////////// Assets ////////////////////
+void Game::initAssets()
+{
+    terminal->autoLoad("data/font_32");
+}
+
+sf::Sprite Game::getPlayerSprite(int worldId)
+{
+    sf::Color color = worldId < 0 || worldId >= 4 ? sf::Color(255, 255, 255) :
+                worldId == 0 ? sf::Color(255, 100, 100) :
+                worldId == 1 ? sf::Color(100, 255, 100) :
+                worldId == 2 ? sf::Color(100, 100, 255) :
+                sf::Color(255, 255, 100);
+    return zf::setCopyColor(terminal->getSpecialChar(zf::Fill).createSprite(), color);
+}
+
+sf::Sprite Game::getCharSprite(char c)
+{
+    return terminal ? terminal->getChar(c).createSprite() : sf::Sprite();
+}
+
+sf::Sprite Game::getSpecialCharSprite(int c)
+{
+    return terminal ? terminal->getChar(c).createSprite() : sf::Sprite();
 }

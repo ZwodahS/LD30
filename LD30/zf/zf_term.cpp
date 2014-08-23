@@ -361,7 +361,7 @@ namespace zf
         }
     }
 
-    void Terminal::init(const sf::Vector2i& cellSize, const sf::Vector2i& spriteSize)
+    void Terminal::init(const sf::Vector2i& cellSize, const sf::Vector2i& spriteSize, const int maxRow, const int maxCol)
     {
         if (inited)
         {
@@ -369,14 +369,12 @@ namespace zf
         }
         inited = true;
         this->cellSize = cellSize;
-        const int ROW = 15;
-        const int COL = 15;
         ascii_starts = 0;
         ascii_ends = ascii_starts;
 
         float scale = cellSize.x * 1.0f / spriteSize.x;
 
-        const sf::Vector2i spritesheetSize(spriteSize.x * COL, spriteSize.y * ROW);
+        const sf::Vector2i spritesheetSize(spriteSize.x * maxCol, spriteSize.y * maxRow);
         {
             charTexture = new sf::Texture();
             charTexture->create(spritesheetSize.x, spritesheetSize.y);
@@ -389,7 +387,7 @@ namespace zf
                 region.defaultScaleY = scale;
                 characters.push_back(region);
                 col++;
-                if (col == COL)
+                if (col == maxCol)
                 {
                     col = 0;
                     row++;
@@ -405,7 +403,7 @@ namespace zf
                 region.defaultScaleY = scale;
                 specialCharacters.push_back(region);
                 col++;
-                if (col == COL)
+                if (col == maxCol)
                 {
                     col = 0;
                     row++;
@@ -413,6 +411,7 @@ namespace zf
                 special_ends++;
             }
         }
+        spriteSlotLeft = maxRow * maxCol;
     }
 
     const sf::IntRect& Terminal::getTermBound() const
@@ -552,6 +551,8 @@ namespace zf
         if (charRegion.texture)
         {
             charSpriteSheet.addImage(image, charRegion.srcClip.left, charRegion.srcClip.top);
+            spriteSlotLeft--;
+            spriteSlotUsed++;
             return true;
         }
         return false;
@@ -573,6 +574,8 @@ namespace zf
         if (charRegion.texture)
         {
             charSpriteSheet.addImage(image, charRegion.srcClip.left, charRegion.srcClip.top);
+            spriteSlotLeft--;
+            spriteSlotUsed++;
             return true;
         }
         return false;
@@ -599,6 +602,11 @@ namespace zf
             }
             it++;
         }
+    }
+
+    std::pair<int, int> Terminal::getSpriteSlotStatus() const
+    {
+        return std::pair<int, int>(spriteSlotLeft, spriteSlotUsed);
     }
 }
 

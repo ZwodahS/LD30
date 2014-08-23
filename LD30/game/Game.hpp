@@ -39,7 +39,6 @@ public:
 private:
     void initUI();
     void initKeys();
-    void initAssets();
 
     int cellSize;
     sf::Vector2i screenSize;
@@ -61,5 +60,12 @@ private:
 public:
 private:
     DisplayManager* displayStack;
+//////////////////// Assets ////////////////////
+public:
+    sf::Sprite getPlayerSprite(int worldId);
+    sf::Sprite getCharSprite(char c);
+    sf::Sprite getSpecialCharSprite(int c);
+private:
+    void initAssets();
 };
 #endif

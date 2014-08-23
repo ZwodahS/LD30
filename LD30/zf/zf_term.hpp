@@ -202,7 +202,7 @@ namespace zf
          * 
          * Assumption : square cell
          */
-        void init(const sf::Vector2i& cellSize, const sf::Vector2i& spriteSize);
+        void init(const sf::Vector2i& cellSize, const sf::Vector2i& spriteSize, const int maxRow = 15, const int maxCol = 15);
         
         /**
          * Get the term bound 
@@ -268,6 +268,10 @@ namespace zf
         TextureRegion getSpecialChar(int c) const;
 
         void bringToFront(TermWindow& window);
+        /**
+         * Return <int, int> representing <used, left>
+         */
+        std::pair<int, int> getSpriteSlotStatus() const;
     private:
         /**
          * directly put this cell into this position.
@@ -310,6 +314,9 @@ namespace zf
 
         bool inited;
         friend TermWindow;
+
+        int spriteSlotLeft;
+        int spriteSlotUsed;
     };
 
 };
