@@ -71,6 +71,35 @@ void GameScreen::childReturned(DisplayObject* child, DisplayData* data)
 
 void GameScreen::update(const sf::Time& delta)
 {
+    for (auto world : worlds)
+    {
+        world->update(delta);
+    }
+    /**
+     * damn hackish, I should have another container to do it.
+     */
+    {
+        auto blocks = worlds[0]->getOutputBlocks();
+        for (auto block : blocks)
+        {
+            worlds[1]->spawnObject(block);
+        }
+        blocks = worlds[1]->getOutputBlocks();
+        for (auto block : blocks)
+        {
+            worlds[2]->spawnObject(block);
+        }
+        blocks = worlds[2]->getOutputBlocks();
+        for (auto block : blocks)
+        {
+            worlds[3]->spawnObject(block);
+        }
+        blocks = worlds[3]->getOutputBlocks();
+        for (auto block : blocks)
+        {
+            worlds[0]->spawnObject(block);
+        }
+    }
 }
 
 void GameScreen::draw(const sf::Time& delta)

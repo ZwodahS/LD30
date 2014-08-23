@@ -5,9 +5,9 @@
 #include <iostream>
 const sf::Color BlockObject::colors[4] = { sf::Color(200, 120, 120, 255), sf::Color(120, 200, 120, 255), sf::Color(120, 120, 200, 255), sf::Color(200, 200, 120, 255) };
 BlockObject::BlockObject(Game& game, World& world, int colorType, zf::Direction orientation, int level)
-    : EnvironmentObject(game, world, EnvObjectType::BlockType), orientation(orientation), colorType(colorType), level(level)
+    : WorldObject(game, world, ObjectType::BlockObject), orientation(orientation), colorType(colorType), level(level)
 {
-    auto outDirection = getOutputDirection();
+    auto outDirection = getOutputDirections();
     if (outDirection.size() == 2)
     {
         int bitValue = zf::toBit(outDirection[0]) | zf::toBit(outDirection[1]);
@@ -28,12 +28,12 @@ void BlockObject::draw(zf::TermWindow* window, const sf::Time& delta)
     window->putSprite_xyf(position.x, position.y, sprite);
 }
 
-std::vector<zf::Direction> BlockObject::getOutputDirection() const
+std::vector<zf::Direction> BlockObject::getOutputDirections() const
 {
-    return getOutputDirection(orientation);
+    return getOutputDirections(orientation);
 }
 
-std::vector<zf::Direction> BlockObject::getOutputDirection(zf::Direction orientation)
+std::vector<zf::Direction> BlockObject::getOutputDirections(zf::Direction orientation)
 {
     std::vector<zf::Direction> output;
     if (orientation == zf::Direction::North || orientation == zf::Direction::South 
@@ -54,4 +54,33 @@ std::vector<zf::Direction> BlockObject::getOutputDirection(zf::Direction orienta
         }
     }
     return output;
+}
+
+std::vector<BlockObject*> BlockObject::getConnectedBlocks() const
+{
+    std::vector<BlockObject*> connected;
+    if (world)
+    {
+        auto outDirection = getOutputDirections();
+        for (auto direction : outDirection)
+        {
+            auto mod = zf::getModifier(direction);
+            auto object = world->getObject(position + mod);
+            if (object && object->type == WorldObject::ObjectType::BlockObject)
+            {
+                auto blockObject = static_cast<BlockObject*>(object);
+                if (blockObject->canConnectFrom(zf::oppositeOf(direction)))
+                {
+                    connected.push_back(blockObject);
+                }
+            }
+        }
+    }
+    return connected;
+}
+
+bool BlockObject::canConnectFrom(zf::Direction direction) const
+{
+    auto outDirections = getOutputDirections();
+    return std::find(outDirections.begin(), outDirections.end(), direction) != outDirections.end();
 }

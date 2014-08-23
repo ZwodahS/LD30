@@ -58,6 +58,56 @@ void World::draw(zf::TermWindow* window, zf::TermWindow* overlayWindow, const sf
     }
 }
 
+void World::update(const sf::Time& delta)
+{
+    for (auto block : blockObjects)
+    {
+        auto connected = block->getConnectedBlocks();
+        if (connected.size() >= 2)
+        {
+            block->markedForRemoval = true;
+            block->isSpawnElsewhere = true;
+            for (auto connectedBlock : connected)
+            {
+                connectedBlock->markedForRemoval = true;
+            }
+        }
+    }
+    for (auto it = objectsAsList.begin(); it != objectsAsList.end();)
+    {
+        if ((**it).markedForRemoval)
+        {
+            auto object = *it;
+            it = objectsAsList.erase(it);
+            removeFromGrid(object);
+            if (object->type == WorldObject::ObjectType::BlockObject)
+            {
+                removeFromBlockList(static_cast<BlockObject*>(object));
+            }
+            if (object->isSpawnElsewhere)
+            {
+                object->world = nullptr;
+                outputBlocks.push_back(object);
+            }
+            else
+            {
+                delete object;
+            }
+        }
+        else
+        {
+            it++;
+        }
+    }
+}
+
+std::vector<WorldObject*> World::getOutputBlocks()
+{
+    std::vector<WorldObject*> out = outputBlocks;
+    outputBlocks.clear();
+    return out;
+}
+
 void World::setSelected(bool selected)
 {
     this->selected = selected;
@@ -104,6 +154,20 @@ bool World::inRange(const sf::Vector2i& position) const
     return position.x >= 0 && position.y >= 0 && position.x < Game::WorldSize.x && position.y < Game::WorldSize.y;
 }
 
+bool World::spawnObject(WorldObject* object)
+{
+    auto availablePositions = getAvailablePositions();
+    object->world = this;
+    object->reset();
+    if (availablePositions.size() == 0)
+    {
+        return false;
+    }
+    auto position = rng::randomItem(availablePositions, sf::Vector2i(0, 0), true);
+    addObject(object, position);
+    return true;
+}
+
 bool World::canAddObject(WorldObject* object, const sf::Vector2i& position) const
 {
     if (!inRange(position))
@@ -122,6 +186,10 @@ bool World::addObject(WorldObject* object, const sf::Vector2i& position)
     objects[position.x][position.y] = object;
     objectsAsList.push_back(object);
     object->position = position;
+    if (object->type == WorldObject::ObjectType::BlockObject)
+    {
+        blockObjects.push_back(static_cast<BlockObject*>(object));
+    }
     return true;
 }
 
@@ -157,4 +225,34 @@ void World::moveObject(WorldObject& object, const sf::Vector2i& position)
     objects[object.position.x][object.position.y] = nullptr;
     object.position = position;
     objects[object.position.x][object.position.y] = &object;
+}
+
+std::vector<WorldObject*> World::getAdjacentBlocks(const sf::Vector2i& position) const
+{
+    std::vector<WorldObject*> objects;
+    for (auto direction : zf::AdjacentDirection)
+    {
+        auto mod = zf::getModifier(direction);
+        auto targetPosition = mod + position;
+        auto object = getObject(targetPosition);
+        if (object)
+        {
+            objects.push_back(object);
+        }
+    }
+    return objects;
+}
+
+void World::removeFromGrid(WorldObject* object)
+{
+    objects[object->position.x][object->position.y] = nullptr;
+}
+
+void World::removeFromBlockList(BlockObject* block)
+{
+    auto found = std::find(blockObjects.begin(), blockObjects.end(), block);
+    if (found != blockObjects.end())
+    {
+        blockObjects.erase(found);
+    }
 }

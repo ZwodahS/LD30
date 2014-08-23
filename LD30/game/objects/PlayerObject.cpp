@@ -16,3 +16,8 @@ void PlayerObject::draw(zf::TermWindow* window, const sf::Time& delta)
 {
     window->putSprite_xyf(position.x, position.y, sprite);
 }
+
+bool PlayerObject::canPush(zf::Direction direction)
+{
+    return false;
+}

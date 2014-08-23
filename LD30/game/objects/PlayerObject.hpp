@@ -5,9 +5,10 @@ class PlayerObject : public WorldObject
 {
 public:
     PlayerObject(Game& game, World& world);
-    ~PlayerObject();
+    virtual ~PlayerObject();
 
     void draw(zf::TermWindow* window, const sf::Time& delta);
+    bool canPush(zf::Direction direction);
 private:
     sf::Sprite sprite;
 };

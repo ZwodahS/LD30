@@ -11,17 +11,26 @@ public:
     enum class ObjectType
     {
         PlayerObject,
-        EnvironmentObject,
+        BlockObject,
     };
     WorldObject(Game& game, World& world, ObjectType type);
-    ~WorldObject();
+    virtual ~WorldObject();
+
+    void reset();
 
     virtual void draw(zf::TermWindow* window, const sf::Time& delta) = 0;
     virtual bool canPush(zf::Direction direction);
 
     const ObjectType type;
-    World& world;
+    World* world;
     sf::Vector2i position;
     Game& game;
+
+    bool markedForRemoval;
+    /**
+     * Used together with markedForRemoval,
+     * this prevent it from being deleted. Instead it is returned to the gamescreen.
+     */
+    bool isSpawnElsewhere;
 };
 #endif
