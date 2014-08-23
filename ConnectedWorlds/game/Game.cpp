@@ -1,7 +1,7 @@
 #include "Game.hpp"
 #include "c_colors.hpp"
 #include "../zf/zf_sprite.hpp"
-#include "ResourcePath.hpp"
+#include "../ResourcePath.hpp"
 #include <iostream>
 const std::string Game::Title("LD30");
 const sf::Vector2i Game::WorldSize(15, 15);
