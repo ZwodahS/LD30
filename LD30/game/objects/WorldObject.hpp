@@ -2,6 +2,7 @@
 #define _GAME_OBJECTS_WORLDOBJECT_HPP_
 #include <SFML/Graphics.hpp>
 #include "../../zf/zf_term.hpp"
+#include "../../zf/zf_direction.hpp"
 class Game;
 class World;
 class WorldObject 
@@ -16,6 +17,7 @@ public:
     ~WorldObject();
 
     virtual void draw(zf::TermWindow* window, const sf::Time& delta) = 0;
+    virtual bool canPush(zf::Direction direction);
 
     const ObjectType type;
     World& world;

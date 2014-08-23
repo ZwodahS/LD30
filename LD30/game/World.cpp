@@ -143,6 +143,11 @@ void World::move(zf::Direction direction)
             {
                 moveObject(*player, targetPosition);
             }
+            else if (object->canPush(direction))
+            {
+                moveObject(*player, targetPosition);
+                moveObject(*object, targetPosition + mod);
+            }
         }
     }
 }
@@ -153,4 +158,3 @@ void World::moveObject(WorldObject& object, const sf::Vector2i& position)
     object.position = position;
     objects[object.position.x][object.position.y] = &object;
 }
-
