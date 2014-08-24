@@ -29,7 +29,7 @@ void SandWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf::
         window->clear(sf::Color(70, 70, 0));
     }
     World::draw(window, objectsWindow, infoWindow, overlayWindow, delta);
-    infoWindow->putString_xy(0, 0, "(3)");
+    infoWindow->putString_xy(0, 0, "(1)");
     infoWindow->putString("F"+zf::intToString(player->food));
 }
 

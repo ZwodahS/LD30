@@ -28,7 +28,7 @@ void ForestWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf
         window->clear(sf::Color(0, 70, 0));
     }
     World::draw(window, objectsWindow, infoWindow, overlayWindow, delta);
-    infoWindow->putString_xy(0, 0, "(2)");
+    infoWindow->putString_xy(0, 0, "(3)");
     infoWindow->putString("F"+zf::intToString(player->food));
 }
 

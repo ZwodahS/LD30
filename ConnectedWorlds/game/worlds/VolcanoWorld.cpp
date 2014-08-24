@@ -30,7 +30,7 @@ void VolcanoWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, z
         window->clear(sf::Color(70, 0, 0));
     }
     World::draw(window, objectsWindow, infoWindow, overlayWindow, delta);
-    infoWindow->putString_xy(0, 0, "(1)");
+    infoWindow->putString_xy(0, 0, "(4)");
     infoWindow->putString("F"+zf::intToString(player->food));
     infoWindow->putString(" V"+zf::intToString(volcano->time));
 }
