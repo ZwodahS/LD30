@@ -7,13 +7,13 @@ const sf::Color BlockObject::colors[4] = {
     sf::Color(255, 120, 120, 255), 
     sf::Color(120, 255, 120, 255), 
     sf::Color(120, 120, 255, 255), 
-    sf::Color(255, 255, 120, 255) 
+    sf::Color(255, 120, 255, 255) 
 };
 const sf::Color BlockObject::grabbedColors[4] = { 
     sf::Color(255, 180, 180, 255), 
     sf::Color(180, 255, 180, 255), 
     sf::Color(180, 180, 255, 255), 
-    sf::Color(255, 255, 180, 255) 
+    sf::Color(255, 180, 255, 255) 
 };
 BlockObject::BlockObject(Game& game, World& world, int colorType, zf::Direction orientation, int level)
     : WorldObject(game, world, ObjectType::BlockObject), orientation(orientation), colorType(colorType), level(level)

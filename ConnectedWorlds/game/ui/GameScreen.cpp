@@ -16,10 +16,16 @@ GameScreen::~GameScreen()
 bool GameScreen::init(DisplayData* data)
 {
     auto worldSize = manager.game.WorldSize;
-    worldRegions.push_back(sf::IntRect(0, 0, worldSize.x, worldSize.y));
-    worldRegions.push_back(sf::IntRect(worldSize.x + 1, 0, worldSize.x, worldSize.y));
-    worldRegions.push_back(sf::IntRect(worldSize.x + 1, worldSize.y + 1, worldSize.x, worldSize.y));
-    worldRegions.push_back(sf::IntRect(0, worldSize.y + 1, worldSize.x, worldSize.y));
+    const int Xs[2] = { 0, worldSize.x + 1 };
+    const int Ys[2] = { 1, worldSize.y + 2 };
+    infoRegions.push_back(sf::IntRect(Xs[0], Ys[0], worldSize.x, 1));
+    worldRegions.push_back(sf::IntRect(Xs[0], Ys[0] + 1, worldSize.x, worldSize.y));
+    infoRegions.push_back(sf::IntRect(Xs[1], Ys[0], worldSize.x, 1));
+    worldRegions.push_back(sf::IntRect(Xs[1], Ys[0] + 1, worldSize.x, worldSize.y));
+    infoRegions.push_back(sf::IntRect(Xs[1], Ys[1], worldSize.x, 1));
+    worldRegions.push_back(sf::IntRect(Xs[1], Ys[1] + 1, worldSize.x, worldSize.y));
+    infoRegions.push_back(sf::IntRect(Xs[0], Ys[1], worldSize.x, 1));
+    worldRegions.push_back(sf::IntRect(Xs[0], Ys[1] + 1, worldSize.x, worldSize.y));
     int worldId = 0;
     for (auto region : worldRegions)
     {
@@ -28,6 +34,12 @@ bool GameScreen::init(DisplayData* data)
         worldWindows.push_back(window);
         worlds.push_back(world);
     } 
+    
+    for (auto region : infoRegions)
+    {
+        auto window = manager.terminal.newWindow(region);
+        infoWindows.push_back(window);
+    }
     auto termSize = manager.game.TermSize;
     overlayWindow = manager.terminal.newWindow(sf::IntRect(0, 0, termSize.x, termSize.y));
     worldActions.push_back(Action::Up);
@@ -106,7 +118,7 @@ void GameScreen::draw(const sf::Time& delta)
 {
     for (int i = 0; i < worlds.size(); i++)
     {
-        worlds[i]->draw(worldWindows[i], overlayWindow, delta);
+        worlds[i]->draw(worldWindows[i], infoWindows[i], overlayWindow, delta);
     }
 }
 

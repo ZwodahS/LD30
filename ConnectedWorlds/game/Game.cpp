@@ -3,24 +3,6 @@
 #include "../zf/zf_sprite.hpp"
 #include "../ResourcePath.hpp"
 #include <iostream>
-const std::string Game::Title("LD30");
-const sf::Vector2i Game::WorldSize(15, 15);
-const sf::Vector2i Game::TermSize(2 * WorldSize.x + 1, 2 * WorldSize.y + 2);
-const sf::Vector2i Game::ImageSize(32, 32);
-const int Game::NO_KEY = -1;
-const int Game::ENTER_KEY = 10;
-const int Game::ESCAPE_KEY = 27;
-const int Game::UP_KEY = 128 + 1;
-const int Game::DOWN_KEY = 128 + 2;
-const int Game::LEFT_KEY = 128 + 4;
-const int Game::RIGHT_KEY = 128 + 8;
-const int Game::Framerate = 30;
-#ifdef APPBUNDLE
-const std::string Game::RootPath = resourcePath() + "/";
-#else
-const std::string Game::RootPath = "";
-#endif
-
 Game::Game()
     : renderWindow(nullptr), terminal(nullptr), cellSize(24), displayStack(nullptr)
 {

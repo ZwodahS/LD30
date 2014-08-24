@@ -142,10 +142,12 @@ namespace zf
          * clear the window by flooding the window with a single color.
          */
         void clear(const sf::Color& color = sf::Color(0, 0, 0, 255));
-        /**
-         * clear the window by setting all sprite to sf::Sprite()
-         */
-        void clearAllSprites();
+        void clear_r(sf::IntRect region, const sf::Color& color = sf::Color(0, 0, 0, 255));
+
+        void empty();
+        void empty_r(sf::IntRect region);
+
+
         void setVisible(bool visibility);
         void bringToFront();
     private:

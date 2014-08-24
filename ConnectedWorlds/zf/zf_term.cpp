@@ -263,11 +263,17 @@ namespace zf
 
     void TermWindow::clear(const sf::Color& clearColor)
     {
+        clear_r(sf::IntRect(0, 0, bound.width, bound.height), clearColor);
+    }
+
+    void TermWindow::clear_r(sf::IntRect region, const sf::Color& color)
+    {
+        region = zf::fitRectByShrinking(region, sf::IntRect(0, 0, bound.width, bound.height));
         sf::Sprite fill = screen.getSpecialChar(Fill).createSprite();
-        fill.setColor(clearColor);
-        for (int x = 0; x < bound.width; x++)
+        fill.setColor(color);
+        for (int x = 0; x < region.width; x++)
         {
-            for (int y = 0; y < bound.height; y++)
+            for (int y = 0; y < region.height; y++)
             {
                 cells[x][y].foreground = sf::Sprite();
                 cells[x][y].background = fill;
@@ -275,11 +281,17 @@ namespace zf
         }
     }
 
-    void TermWindow::clearAllSprites()
+    void TermWindow::empty()
     {
-        for (int x = 0; x < bound.width; x++)
+        empty_r(sf::IntRect(0, 0, bound.width, bound.height));
+    }
+
+    void TermWindow::empty_r(sf::IntRect region)
+    {
+        region = zf::fitRectByShrinking(region, sf::IntRect(0, 0, bound.width, bound.height));
+        for (int x = 0; x < region.width; x++)
         {
-            for (int y = 0; y < bound.height; y++)
+            for (int y = 0; y < region.height; y++)
             {
                 cells[x][y].foreground = sf::Sprite();
                 cells[x][y].background = sf::Sprite();

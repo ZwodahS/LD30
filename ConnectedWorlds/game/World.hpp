@@ -19,7 +19,7 @@ public:
     ~World();
 
     const int worldId;
-    void draw(zf::TermWindow* window, zf::TermWindow* overlayWindow, const sf::Time& delta);
+    void draw(zf::TermWindow* window, zf::TermWindow* infoWindow, zf::TermWindow* overlayWindow, const sf::Time& delta);
     void update(const sf::Time& delta);
 
     void setSelected(bool selected);

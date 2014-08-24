@@ -42,7 +42,7 @@ World::~World()
 {
 }
 
-void World::draw(zf::TermWindow* window, zf::TermWindow* overlayWindow, const sf::Time& delta)
+void World::draw(zf::TermWindow* window, zf::TermWindow* infoWindow, zf::TermWindow* overlayWindow, const sf::Time& delta)
 {
     if (selected)
     {

@@ -26,6 +26,9 @@ private:
      *  [3][2]
      */
     std::vector<sf::IntRect> worldRegions;
+    std::vector<sf::IntRect> infoRegions;
+    
+    std::vector<zf::TermWindow*> infoWindows;
     std::vector<zf::TermWindow*> worldWindows;
     std::vector<World*> worlds;
     zf::TermWindow* overlayWindow;
