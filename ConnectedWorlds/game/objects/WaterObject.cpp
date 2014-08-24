@@ -1,0 +1,37 @@
+#include "WaterObject.hpp"
+#include "../Game.hpp"
+#include "../worlds/World.hpp"
+#include "../../zf/zf_sprite.hpp"
+#include "../f_rng.hpp"
+#include <iostream>
+int WaterObject::ProbabilityGrowth = 10;
+WaterObject::WaterObject(Game& game, World& world)
+    : WorldObject(game, world, ObjectType::WaterObject), flood(true), floodMeter(0)
+{
+    sprite = zf::setCopyColor(game.getCharSprite('~'), sf::Color(0, 0, 255, 255));
+    background = zf::setCopyColor(game.getSpecialCharSprite(zf::Fill), sf::Color(0, 0, 255, 0));
+}
+
+WaterObject::~WaterObject()
+{
+}
+
+void WaterObject::draw(zf::TermWindow* window, const sf::Time& delta)
+{
+    background.setColor(sf::Color(0, 0, 255, floodMeter * 25));
+    window->putSprite_xyfb(position.x, position.y, sprite, background);
+}
+
+void WaterObject::update(const sf::Time& delta)
+{
+    timePassed += delta.asSeconds();
+    WorldObject::update(delta);
+    if (timePassed >= 1)
+    {
+        timePassed -= 1;
+        if (flood && floodMeter < 10 && rng::randomInt(0, 100) < ProbabilityGrowth)
+        {
+            floodMeter++;
+        }
+    }
+}

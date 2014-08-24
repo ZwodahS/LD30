@@ -9,5 +9,7 @@ public:
 
     virtual void draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf::TermWindow* infoWindow, zf::TermWindow* overlayWindow, const sf::Time& delta);
     virtual void update(const sf::Time& delta);
+
+    virtual void spawnWater(const sf::Vector2i& position, zf::Direction direction);
 };
 #endif
