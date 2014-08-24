@@ -6,6 +6,8 @@ ForestWorld::ForestWorld(Game& game)
 {
     player = new PlayerObject(game, *this);
     addObject(player, sf::Vector2i(7, 7));
+
+    spawnObject(new TreeObject(game, *this));
 }
 
 ForestWorld::~ForestWorld()

@@ -56,14 +56,14 @@ bool GameScreen::init(DisplayData* data)
         auto window = manager.terminal.newWindow(region);
         infoWindows.push_back(window);
     }
-    World* vWorld = new VolcanoWorld(manager.game);
-    worlds.push_back(vWorld);
-    World* fWorld = new ForestWorld(manager.game);
-    worlds.push_back(fWorld);
     World* dWorld = new SandWorld(manager.game);
     worlds.push_back(dWorld);
     World* wWorld = new WaterWorld(manager.game);
     worlds.push_back(wWorld);
+    World* fWorld = new ForestWorld(manager.game);
+    worlds.push_back(fWorld);
+    World* vWorld = new VolcanoWorld(manager.game);
+    worlds.push_back(vWorld);
 
     auto termSize = manager.game.TermSize;
     overlayWindow = manager.terminal.newWindow(sf::IntRect(0, 0, termSize.x, termSize.y));

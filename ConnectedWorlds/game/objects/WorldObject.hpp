@@ -16,6 +16,7 @@ public:
         WaterObject,
         SandObject,
         VolcanoObject,
+        TreeObject,
     };
     WorldObject(Game& game, World& world, ObjectType type);
     virtual ~WorldObject();

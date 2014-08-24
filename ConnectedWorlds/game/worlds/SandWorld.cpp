@@ -14,6 +14,7 @@ SandWorld::~SandWorld()
 
 void SandWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf::TermWindow* infoWindow, zf::TermWindow* overlayWindow, const sf::Time& delta)
 {
+    infoWindow->empty();
     objectsWindow->empty();
     if (!selected)
     {

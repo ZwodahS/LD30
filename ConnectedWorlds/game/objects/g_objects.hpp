@@ -5,3 +5,4 @@
 #include "../objects/WaterObject.hpp"
 #include "../objects/SandObject.hpp"
 #include "../objects/VolcanoObject.hpp"
+#include "../objects/TreeObject.hpp"

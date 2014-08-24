@@ -2,8 +2,8 @@
 #include "../Game.hpp"
 #include "../worlds/World.hpp"
 #include <iostream>
-const sf::Color AshObject::color = sf::Color(10, 10, 10, 255);
-const sf::Color AshObject::grabbedColor = sf::Color(50, 50, 50, 255);
+const sf::Color AshObject::color = sf::Color(255, 50, 50, 255);
+const sf::Color AshObject::grabbedColor = sf::Color(255, 150, 150, 255);
 AshObject::AshObject(Game& game, World& world, zf::Direction orientation)
     : WorldObject(game, world, ObjectType::AshObject), orientation(orientation)
 {
