@@ -6,6 +6,7 @@
 World::World(Game& game, World::Type worldType)
     : selected(false), game(game), player(nullptr), worldType(worldType)
     , worldId(worldType == Type::Volcano ? 0 : worldType == Type::Forest ? 1 : worldType == Type::Sand ? 2 : 3), isAlive(true)
+    , isActive(false)
 {
     for (int x = 0; x < Game::WorldSize.x; x++)
     {

@@ -564,7 +564,7 @@ namespace zf
         /// basic ascii character
         for (int i = 32; i < 127; i++)
         {
-            image.loadFromFile(path + "/basic/" + std::to_string(i) + ".png");
+            image.loadFromFile(path + "/basic/" + intToString(i) + ".png");
             if (!addCharImage(i, image))
             {
                 std::cout << "-- Fail to add char " << char(i) << std::endl;
@@ -573,11 +573,11 @@ namespace zf
         std::vector<std::string> extendedLoadStrings;
         for (int i = 0; i < 16; i++)
         {
-            extendedLoadStrings.push_back("border_" + std::to_string(i) + ".png");
+            extendedLoadStrings.push_back("border_" + intToString(i) + ".png");
         }
         for (int i = 0; i < 16; i++)
         {
-            extendedLoadStrings.push_back("cross_" + std::to_string(i) + ".png");
+            extendedLoadStrings.push_back("cross_" + intToString(i) + ".png");
         }
         extendedLoadStrings.push_back("center_dot.png");
         extendedLoadStrings.push_back("alternate_1.png");

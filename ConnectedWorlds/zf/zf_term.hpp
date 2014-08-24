@@ -30,11 +30,12 @@
  *      .1 zf_spritesheet.hpp
  *      .2 zf_rect.hpp
  *      .3 zf_sprite.hpp
- *
+ *      .4 zf_conversion.hpp # for replacing to_string method
  */
 #include "zf_spritesheet.hpp"
 #include "zf_rect.hpp"
 #include "zf_sprite.hpp"
+#include "zf_conversion.hpp"
 namespace zf
 {
     //////////////////// special characters are used in term screen ////////////////////

@@ -48,6 +48,8 @@ public:
     int countEmptySpot(const sf::Vector2i& position) const;
 
     bool isAlive;
+
+    bool isActive;
 protected:
     bool selected;
     Game& game;

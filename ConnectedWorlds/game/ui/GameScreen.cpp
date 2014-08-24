@@ -11,7 +11,8 @@
 #include <iostream>
 const std::string GameScreen::OutDataType("GS_OUT");
 GameScreen::GameScreen(DisplayManager& manager)
-    : DisplayObject(manager), currentWorld(0), child(nullptr), result(nullptr), paused(false)
+    : DisplayObject(manager), currentWorld(0), child(nullptr), result(nullptr), paused(false), numActiveWorld(0)
+    , printHelp(true)
 {
     for (int i = 0; i < 4; i++)
     {
@@ -159,6 +160,7 @@ void GameScreen::childReturned(DisplayObject* child, DisplayData* data)
     {
         done = true;
     }
+    this->child = nullptr;
 }
 
 void GameScreen::update(const sf::Time& delta)
@@ -167,11 +169,131 @@ void GameScreen::update(const sf::Time& delta)
     {
         for (auto world : worlds)
         {
-            world->update(delta);
+            if (world->isActive)
+            {
+                world->update(delta);
+            }
+        }
+        if (numActiveWorld == 0)
+        {
+            worlds[0]->isActive = true;
+            numActiveWorld = 1;
+            if (printHelp)
+            {
+                child = manager.makeFirstHelpScreen();
+                manager.putDisplay(*child);
+            }
         }
         /**
          * damn hackish, I should have another container to do it.
          */
+        if (numActiveWorld == 1)
+        {
+            auto blocks = worlds[0]->getOutputBlocks();
+            if (blocks.size() >= 1)
+            {
+                if (printHelp)
+                {
+                    child = manager.makeMessagePopup("2 world now !");
+                    manager.putDisplay(*child);
+                }
+                worlds[1]->isActive = true;
+                numActiveWorld = 2;
+            }
+            for (auto block : blocks)
+            {
+                if (!worlds[1]->spawnObject(block))
+                {
+                    delete block;
+                }
+            }
+        }
+        else if (numActiveWorld == 2)
+        {
+            auto blocks = worlds[0]->getOutputBlocks();
+            for (auto block : blocks)
+            {
+                if (!worlds[1]->spawnObject(block))
+                {
+                    delete block;
+                }
+            }
+            blocks = worlds[1]->getOutputBlocks();
+            if (blocks.size() >= 1)
+            {
+                child = manager.makeMessagePopup("3 World NOW !");
+                manager.putDisplay(*child);
+                worlds[2]->isActive = true;
+                numActiveWorld = 3;
+            }
+            for (auto block : blocks)
+            {
+                if (!worlds[2]->spawnObject(block))
+                {
+                    delete block;
+                }
+            }
+        }
+        else if (numActiveWorld == 3)
+        {
+            int foodCount(0);
+            auto blocks = worlds[0]->getOutputBlocks();
+            for (auto block : blocks)
+            {
+                if (!worlds[1]->spawnObject(block))
+                {
+                    delete block;
+                }
+            }
+            blocks = worlds[1]->getOutputBlocks();
+            for (auto block : blocks)
+            {
+                if (!worlds[2]->spawnObject(block))
+                {
+                    delete block;
+                }
+            }
+            blocks = worlds[2]->getOutputBlocks();
+            if (blocks.size() >= 1)
+            {
+                child = manager.makeMessagePopup("4 World NOW !");
+                manager.putDisplay(*child);
+                worlds[3]->isActive = true;
+                numActiveWorld = 4;
+            }
+            for (auto block : blocks)
+            {
+                if (block->type == WorldObject::ObjectType::TreeObject)
+                {
+                    foodCount+=1;
+                    delete block;
+                }
+                else if (block->type == WorldObject::ObjectType::AshObject)
+                {
+                    delete block;
+                    worlds[3]->spawnObject(new StoneObject(manager.game, *worlds[3]));
+                }
+                else
+                {
+                    if (!worlds[3]->spawnObject(block))
+                    {
+                        delete block;
+                    }
+                }
+            }
+            for (int i = 0; i < foodCount; i++)
+            {
+                for (int w = 0; w < worlds.size(); w++)
+                {
+                    auto food = new FoodObject(manager.game, *worlds[w]);
+                    if (!worlds[w]->spawnObject(food))
+                    {
+                        delete food;
+                    }
+                }
+            }
+        }
+        else
         {
             int foodCount(0);
             auto blocks = worlds[0]->getOutputBlocks();
@@ -260,9 +382,12 @@ void GameScreen::draw(const sf::Time& delta)
 {
     for (int i = 0; i < worlds.size(); i++)
     {
-        worlds[i]->draw(worldWindows[i], objectsWindow[i], infoWindows[i], overlayWindow, delta);
+        if (worlds[i]->isActive)
+        {
+            worlds[i]->draw(worldWindows[i], objectsWindow[i], infoWindows[i], overlayWindow, delta);
+        }
     }
-    {
+    if (worlds[1]->isActive){
         auto w1Region = worldRegions[0];
         int x = zf::rightOf(w1Region) + 1;
         for (int y = w1Region.top; y < w1Region.top + w1Region.height; y++)
@@ -270,7 +395,7 @@ void GameScreen::draw(const sf::Time& delta)
             overlayWindow->putSprite_xyf(x, y, arrows[zf::Right]);
         }
     }
-    {
+    if (worlds[2]->isActive){
         auto w2Region = worldRegions[1];
         int y = zf::bottomOf(w2Region) + 1;
         for (int x = w2Region.left; x < w2Region.left + w2Region.width; x++)
@@ -278,7 +403,7 @@ void GameScreen::draw(const sf::Time& delta)
             overlayWindow->putSprite_xyf(x, y, arrows[zf::Down]);
         }
     }
-    {
+    if (worlds[3]->isActive){
         auto w3Region = worldRegions[2];
         int x = zf::leftOf(w3Region) - 1;
         for (int y = w3Region.top; y < w3Region.top + w3Region.height; y++)
@@ -286,7 +411,7 @@ void GameScreen::draw(const sf::Time& delta)
             overlayWindow->putSprite_xyf(x, y, arrows[zf::Left]);
         }
     }
-    {
+    if (worlds[3]->isActive){
         auto w4Region = worldRegions[3];
         int y = zf::topOf(w4Region) - 1;
         for (int x = w4Region.left; x < w4Region.left + w4Region.width; x++)
@@ -298,7 +423,7 @@ void GameScreen::draw(const sf::Time& delta)
 
 void GameScreen::selectWorld(int world)
 {
-    if (world < 0 || world >= 4)
+    if (world < 0 || world >= 4 || !worlds[currentWorld]->isActive)
     {
         return;
     }

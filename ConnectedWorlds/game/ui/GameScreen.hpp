@@ -36,7 +36,9 @@ public:
 
 private:
     bool paused;
+    bool printHelp;
     DisplayObject* child;
+    int numActiveWorld;
 
     int currentWorld;
     /** World orders 

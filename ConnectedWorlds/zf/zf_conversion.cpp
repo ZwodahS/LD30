@@ -35,7 +35,7 @@ namespace zf
         std::istringstream buffer(str);
         int temp;
         buffer >> temp;
-        if (str != std::to_string(temp)) //if the converted value is different then return 0 (similar to atoi)
+        if (str != intToString(temp)) //if the converted value is different then return 0 (similar to atoi)
         {
             return false;
         }
@@ -45,8 +45,16 @@ namespace zf
 
     std::string intToString(int value)
     {
+#ifdef NO_STD_TO_STRING
+        std::stringstream sstr;
+        sstr << value;
+        std::string str1 = sstr.str();
+        return str1;
+#else
         // TODO Might need to fix for some compiler with weird c++11 behavior.
         return std::to_string(value);
+#endif
+
     }
 
     bool stringToBool(const std::string& str, bool& value)
@@ -80,7 +88,7 @@ namespace zf
             max *= 10;
         }
         int p = value * max;
-        std::string out = std::to_string(p);
+        std::string out = intToString(p);
         if (numDecimal != 0)
         {
             out.insert(out.size() - numDecimal, ".");

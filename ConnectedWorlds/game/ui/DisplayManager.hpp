@@ -30,7 +30,10 @@ public:
     DisplayObject* makeGameScreen();
     DisplayObject* makeMessagePopup(const std::string& message);
 
-
+    DisplayObject* makeFirstHelpScreen();
+    DisplayObject* makeSecondHelpScreen();
+    DisplayObject* makeThirdHelpScreen();
+    DisplayObject* makeFourthHelpScreen();
 
 private:
     std::list<DisplayObject*> stack;

@@ -5,6 +5,10 @@
 #include "PopupDisplay.hpp"
 #include "GameScreen.hpp"
 #include "RootObject.hpp"
+#include "FirstHelpScreen.hpp"
+#include "SecondHelpScreen.hpp"
+#include "ThirdHelpScreen.hpp"
+#include "FourthHelpScreen.hpp"
 #include <iostream>
 DisplayManager::DisplayManager(Game& game, zf::Terminal& term, const sf::IntRect& displayRegion, const sf::IntRect& debugRegion)
     : game(game), terminal(term), displayRegion(displayRegion), debugRegion(debugRegion)
@@ -96,5 +100,12 @@ DisplayObject* DisplayManager::makeMessagePopup(const std::string& message)
     DisplayObject* object = new PopupDisplay(*this);
     PopupDisplay::InData data(message);
     object->init(&data);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeFirstHelpScreen()
+{
+    DisplayObject* object = new FirstHelpScreen(*this);
+    object->init(nullptr);
     return object;
 }
