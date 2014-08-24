@@ -18,8 +18,15 @@ WaterObject::~WaterObject()
 
 void WaterObject::draw(zf::TermWindow* window, const sf::Time& delta)
 {
-    background.setColor(sf::Color(0, 0, 255, floodMeter * 25));
-    window->putSprite_xyfb(position.x, position.y, sprite, background);
+    if (flood) 
+    {
+        background.setColor(sf::Color(0, 0, 255, floodMeter * 25));
+        window->putSprite_xyfb(position.x, position.y, sprite, background);
+    }
+    else
+    {
+        window->putSprite_xyf(position.x, position.y, sprite);
+    }
 }
 
 void WaterObject::update(const sf::Time& delta)

@@ -261,6 +261,31 @@ void World::move(zf::Direction direction)
                             spawnObject(sandSource);
                         }
                     }
+                    else if (object->type == WorldObject::ObjectType::SandObject && objectObstacle->type == WorldObject::ObjectType::WaterObject)
+                    {
+                        auto sandSource = static_cast<SandObject*>(object);
+                        auto waterTarget = static_cast<WaterObject*>(objectObstacle);
+                        if (waterTarget->flood)
+                        {
+                            removeFromGrid(waterTarget);
+                            removeFromList(waterTarget);
+                            waterTarget->flood = false;
+                            waterTarget->floodMeter = 0;
+                            outputBlocks.push_back(waterTarget);
+                            sandSource->count-=1;
+                            if (sandSource->count <= 0)
+                            {
+                                removeFromGrid(sandSource);
+                                removeFromList(sandSource);
+                                delete sandSource;
+                            }
+                            else
+                            {
+                                moveObject(*sandSource, objectTargetPosition);
+                            }
+                            moveObject(*player, targetPosition);
+                        }
+                    }
                 }
             }
         }
