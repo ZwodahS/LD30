@@ -9,7 +9,7 @@ WaterObject::WaterObject(Game& game, World& world)
     : WorldObject(game, world, ObjectType::WaterObject), flood(true), floodMeter(0)
 {
     sprite = zf::setCopyColor(game.getSpecialCharSprite(game.Special_Water), sf::Color(0, 0, 255, 255));
-    background = zf::setCopyColor(game.getSpecialCharSprite(zf::Fill), sf::Color(0, 0, 255, 0));
+    background = zf::setCopyColor(game.getSpecialCharSprite(zf::Fill), sf::Color(100, 100, 255, 0));
 }
 
 WaterObject::~WaterObject()
@@ -20,7 +20,7 @@ void WaterObject::draw(zf::TermWindow* window, const sf::Time& delta)
 {
     if (flood) 
     {
-        background.setColor(sf::Color(0, 0, 255, floodMeter * 25));
+        background.setColor(sf::Color(100, 100, 255, floodMeter * 25));
         window->putSprite_xyfb(position.x, position.y, sprite, background);
     }
     else

@@ -66,11 +66,11 @@ void MainScreen::destroy()
 bool MainScreen::processKey(int key)
 {
     auto action = manager.game.keyMap.getMapping(key);
-    if (action == Action::Left)
+    if (action == Action::Left || action == Action::World_Left)
     {
         selected = selected <= 0 ? 0 : selected >= NumOptions ? NumOptions - 1 : selected - 1;
     }
-    else if (action == Action::Right)
+    else if (action == Action::Right || action == Action::World_Right)
     {
         selected = selected < 0 ? 0 : selected >= NumOptions - 1 ? NumOptions - 1 : selected + 1;
     }

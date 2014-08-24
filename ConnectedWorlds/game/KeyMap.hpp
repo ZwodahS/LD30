@@ -10,6 +10,11 @@ enum class Action
     Left,
     Right,
     Down,
+
+    World_Up,
+    World_Down,
+    World_Left,
+    World_Right,
     Select,
     Cancel,
 };

@@ -117,6 +117,38 @@ bool GameScreen::processKey(int key)
         {
             selectWorld(key - '1');
         }
+        else if (action == Action::World_Up)
+        {
+            int newWorld = currentWorld == 0 ? 0 :
+                           currentWorld == 1 ? 1 :
+                           currentWorld == 2 ? 1 :
+                           currentWorld == 3 ? 0 : 0; 
+            selectWorld(newWorld);
+        }
+        else if (action == Action::World_Down)
+        {
+            int newWorld = currentWorld == 0 ? 3 :
+                           currentWorld == 1 ? 2 :
+                           currentWorld == 2 ? 2 :
+                           currentWorld == 3 ? 3 : 3; 
+            selectWorld(newWorld);
+        }
+        else if (action == Action::World_Left)
+        {
+            int newWorld = currentWorld == 0 ? 0 :
+                           currentWorld == 1 ? 0 :
+                           currentWorld == 2 ? 3 :
+                           currentWorld == 3 ? 3 : 3; 
+            selectWorld(newWorld);
+        }
+        else if (action == Action::World_Right)
+        {
+            int newWorld = currentWorld == 0 ? 1 :
+                           currentWorld == 1 ? 1 :
+                           currentWorld == 2 ? 2 :
+                           currentWorld == 3 ? 2 : 2; 
+            selectWorld(newWorld);
+        }
     }
     return true;
 }
@@ -145,12 +177,18 @@ void GameScreen::update(const sf::Time& delta)
             auto blocks = worlds[0]->getOutputBlocks();
             for (auto block : blocks)
             {
-                worlds[1]->spawnObject(block);
+                if (!worlds[1]->spawnObject(block))
+                {
+                    delete block;
+                }
             }
             blocks = worlds[1]->getOutputBlocks();
             for (auto block : blocks)
             {
-                worlds[2]->spawnObject(block);
+                if (!worlds[2]->spawnObject(block))
+                {
+                    delete block;
+                }
             }
             blocks = worlds[2]->getOutputBlocks();
             for (auto block : blocks)
@@ -167,7 +205,10 @@ void GameScreen::update(const sf::Time& delta)
                 }
                 else
                 {
-                    worlds[3]->spawnObject(block);
+                    if (!worlds[3]->spawnObject(block))
+                    {
+                        delete block;
+                    }
                 }
             }
             blocks = worlds[3]->getOutputBlocks();
@@ -178,10 +219,14 @@ void GameScreen::update(const sf::Time& delta)
 
             for (int i = 0; i < foodCount; i++)
             {
-                worlds[0]->spawnObject(new FoodObject(manager.game, *worlds[0]));
-                worlds[1]->spawnObject(new FoodObject(manager.game, *worlds[1]));
-                worlds[2]->spawnObject(new FoodObject(manager.game, *worlds[2]));
-                worlds[3]->spawnObject(new FoodObject(manager.game, *worlds[3]));
+                for (int w = 0; w < worlds.size(); w++)
+                {
+                    auto food = new FoodObject(manager.game, *worlds[w]);
+                    if (!worlds[w]->spawnObject(food))
+                    {
+                        delete food;
+                    }
+                }
             }
         }
         if (worlds[0]->isAlive & worlds[1]->isAlive & worlds[2]->isAlive & worlds[3]->isAlive)

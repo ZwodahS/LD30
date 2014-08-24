@@ -46,7 +46,7 @@ void WaterWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf:
     }
     else
     {
-        window->clear(sf::Color(0, 0, 70));
+        window->clear(sf::Color(0, 0, 50));
     }
     World::draw(window, objectsWindow, infoWindow, overlayWindow, delta);
     infoWindow->putString_xy(0, 0, "(4)");

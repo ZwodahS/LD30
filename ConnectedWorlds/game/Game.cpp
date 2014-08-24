@@ -55,6 +55,11 @@ void Game::initKeys()
     keyMap.addMapping('j', Action::Down);
     keyMap.addMapping('l', Action::Right);
 
+    keyMap.addMapping(UP_KEY, Action::World_Up);
+    keyMap.addMapping(DOWN_KEY, Action::World_Down);
+    keyMap.addMapping(LEFT_KEY, Action::World_Left);
+    keyMap.addMapping(RIGHT_KEY, Action::World_Right);
+
     keyMap.addMapping(' ', Action::Select);
     keyMap.addMapping(ENTER_KEY, Action::Select);
     keyMap.addMapping(ESCAPE_KEY, Action::Cancel);
