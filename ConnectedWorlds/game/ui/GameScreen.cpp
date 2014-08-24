@@ -123,7 +123,10 @@ bool GameScreen::processKey(int key)
 
 void GameScreen::childReturned(DisplayObject* child, DisplayData* data)
 {
-    done = true;
+    if (result)
+    {
+        done = true;
+    }
 }
 
 void GameScreen::update(const sf::Time& delta)
@@ -157,6 +160,11 @@ void GameScreen::update(const sf::Time& delta)
                     foodCount+=1;
                     delete block;
                 }
+                else if (block->type == WorldObject::ObjectType::AshObject)
+                {
+                    delete block;
+                    worlds[3]->spawnObject(new StoneObject(manager.game, *worlds[3]));
+                }
                 else
                 {
                     worlds[3]->spawnObject(block);
@@ -178,6 +186,17 @@ void GameScreen::update(const sf::Time& delta)
         }
         if (worlds[0]->isAlive & worlds[1]->isAlive & worlds[2]->isAlive & worlds[3]->isAlive)
         {
+            auto vWorld = static_cast<VolcanoWorld*>(worlds[3]);
+            if (vWorld->volcano->blocked)
+            {
+                child = manager.makeMessagePopup("Victory ");
+                manager.putDisplay(*child);
+                if (result)
+                {
+                    delete result;
+                }
+                result = new OutData(Result::Victory);
+            }
         }
         else
         {

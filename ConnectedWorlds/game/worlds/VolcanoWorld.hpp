@@ -10,9 +10,11 @@ public:
 
     virtual void draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf::TermWindow* infoWindow, zf::TermWindow* overlayWindow, const sf::Time& delta);
     virtual void update(const sf::Time& delta);
-private:
+
     VolcanoObject* volcano;
+private:
     bool erupt(int amount); // return false if not enough place to erupt
     float seconds;
+
 };
 #endif

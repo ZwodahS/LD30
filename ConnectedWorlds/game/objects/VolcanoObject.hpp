@@ -13,6 +13,7 @@ public:
     virtual bool canBeGrabbed() const;
 
     int time;
+    bool blocked;
 private:
     sf::Sprite background;
     sf::Sprite sprite;

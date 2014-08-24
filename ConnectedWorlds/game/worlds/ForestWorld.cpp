@@ -1,6 +1,7 @@
 #include "ForestWorld.hpp"
 #include "../objects/g_objects.hpp"
 #include "../../zf/zf_conversion.hpp"
+#include "../f_rng.hpp"
 ForestWorld::ForestWorld(Game& game)
     : World(game, World::Type::Forest)
 {

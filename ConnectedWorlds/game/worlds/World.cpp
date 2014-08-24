@@ -219,7 +219,6 @@ void World::move(zf::Direction direction)
                     }
                 }
             }
-
         }
         else
         {
@@ -309,6 +308,15 @@ void World::move(zf::Direction direction)
                             moveObject(*treeSource, objectTargetPosition);
                             moveObject(*player, targetPosition);
                         }
+                    }
+                    else if (object->type == WorldObject::ObjectType::StoneObject && objectObstacle->type == WorldObject::ObjectType::VolcanoObject)
+                    {
+                        auto volcanoTarget = static_cast<VolcanoObject*>(objectObstacle);
+                        volcanoTarget->blocked = true;
+                        removeFromGrid(object);
+                        removeFromList(object);
+                        delete object;
+                        moveObject(*player, targetPosition);
                     }
                 }
             }
