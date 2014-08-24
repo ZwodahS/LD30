@@ -131,6 +131,13 @@ void World::processAction(Action action)
     {
         move(zf::Direction::East);
     }
+    else if (action == Action::Select)
+    {
+        if (player)
+        {
+            player->toggleGrab();
+        }
+    }
 }
 
 std::vector<sf::Vector2i> World::getAvailablePositions() const
@@ -202,19 +209,44 @@ void World::move(zf::Direction direction)
 {
     if (player)
     {
-        auto mod = zf::getModifier(direction);
-        auto targetPosition = player->position + mod;
-        if (inRange(targetPosition))
+        if (player->isGrabbing())
         {
-            auto object = getObject(targetPosition);
-            if (!object)
+            auto grabbed = player->getGrabbedObjects();
+            bool canMove = true;
+            for (auto object : grabbed)
             {
-                moveObject(*player, targetPosition);
+                if (!object->canGrabbed(direction, *player, grabbed))
+                {
+                    canMove = false;
+                    break;
+                }
             }
-            else if (object->canPush(direction))
+            if (canMove)
             {
-                moveObject(*player, targetPosition);
-                moveObject(*object, targetPosition + mod);
+                auto mod = zf::getModifier(direction);
+                moveObject(*player, player->position + mod);
+                for (auto object : grabbed)
+                {
+                    moveObject (*object, object->position + mod);
+                }
+            }
+        }
+        else
+        {
+            auto mod = zf::getModifier(direction);
+            auto targetPosition = player->position + mod;
+            if (inRange(targetPosition))
+            {
+                auto object = getObject(targetPosition);
+                if (!object)
+                {
+                    moveObject(*player, targetPosition);
+                }
+                else if (object->canPush(direction))
+                {
+                    moveObject(*player, targetPosition);
+                    moveObject(*object, targetPosition + mod);
+                }
             }
         }
     }

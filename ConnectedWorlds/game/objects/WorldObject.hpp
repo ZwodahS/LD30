@@ -19,12 +19,18 @@ public:
     void reset();
 
     virtual void draw(zf::TermWindow* window, const sf::Time& delta) = 0;
-    virtual bool canPush(zf::Direction direction);
+    virtual bool canPush(zf::Direction direction) const;
+    virtual bool canGrabbed(zf::Direction direction, WorldObject& grabber, std::vector<WorldObject*> otherGrabbedObjects) const;
+    virtual bool canBeGrabbed() const;
+    virtual bool grab();
+    virtual void drop();
 
     const ObjectType type;
     World* world;
     sf::Vector2i position;
     Game& game;
+
+    bool grabbed;
 
     bool markedForRemoval;
     /**

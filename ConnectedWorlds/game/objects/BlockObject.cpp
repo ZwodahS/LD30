@@ -84,3 +84,8 @@ bool BlockObject::canConnectFrom(zf::Direction direction) const
     auto outDirections = getOutputDirections();
     return std::find(outDirections.begin(), outDirections.end(), direction) != outDirections.end();
 }
+
+bool BlockObject::canBeGrabbed() const
+{
+    return true;
+}

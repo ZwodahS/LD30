@@ -27,6 +27,7 @@ public:
     std::vector<BlockObject*> getConnectedBlocks() const;
     
     bool canConnectFrom(zf::Direction direction) const;
+    bool canBeGrabbed() const;
 private:
     sf::Sprite background;
     sf::Sprite sprite;

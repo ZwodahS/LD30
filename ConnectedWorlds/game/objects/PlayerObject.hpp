@@ -8,8 +8,18 @@ public:
     virtual ~PlayerObject();
 
     void draw(zf::TermWindow* window, const sf::Time& delta);
-    bool canPush(zf::Direction direction);
+    bool canPush(zf::Direction direction) const;
+
+    bool isGrabbing() const;
+    /**
+     * If the player is already holding things, they will be dropped.
+     * If no, then it willl grab surrounding things.
+     */
+    void toggleGrab();
+
+    const std::vector<WorldObject*>& getGrabbedObjects() const;
 private:
     sf::Sprite sprite;
+    std::vector<WorldObject*> grabbedObjects;
 };
 #endif

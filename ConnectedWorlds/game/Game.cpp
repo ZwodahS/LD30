@@ -16,7 +16,7 @@ const int Game::LEFT_KEY = 128 + 4;
 const int Game::RIGHT_KEY = 128 + 8;
 const int Game::Framerate = 30;
 #ifdef APPBUNDLE
-const std::string Game::RootPath = resourcePath();
+const std::string Game::RootPath = resourcePath() + "/";
 #else
 const std::string Game::RootPath = "";
 #endif
@@ -170,7 +170,7 @@ int Game::getNextKey()
 //////////////////// Assets ////////////////////
 void Game::initAssets()
 {
-    terminal->autoLoad(RootPath + "/data/font_32");
+    terminal->autoLoad(RootPath + "data/font_32");
 }
 
 sf::Sprite Game::getPlayerSprite(int worldId)

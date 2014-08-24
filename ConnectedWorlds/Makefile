@@ -1,10 +1,10 @@
 WARNING= -Wextra -Wno-switch -Wno-sign-compare -Wno-missing-braces -Wno-unused-parameter
 OPTIMIZE= -fno-exceptions
 
-TARGET=notHack
+TARGET=game
 BIN=bin
 
-BOOST=-l boost_system -l boost_filesystem
+# BOOST=-l boost_system -l boost_filesystem
 SFML=-framework sfml-graphics -framework sfml-system -framework sfml-window
 
 OBJDIR=obj
