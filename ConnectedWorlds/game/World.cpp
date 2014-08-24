@@ -211,25 +211,34 @@ void World::move(zf::Direction direction)
     {
         if (player->isGrabbing())
         {
-            auto grabbed = player->getGrabbedObjects();
+            auto mod = zf::getModifier(direction);
+            auto playerTargetPosition = player->position + mod;
             bool canMove = true;
-            for (auto object : grabbed)
+            if (inRange(playerTargetPosition))
             {
-                if (!object->canGrabbed(direction, *player, grabbed))
+                auto grabbed = player->getGrabbedObjects();
+                auto destinationObject = getObject(playerTargetPosition);
+                if (!destinationObject || std::find(grabbed.begin(), grabbed.end(), destinationObject) != grabbed.end())
                 {
-                    canMove = false;
-                    break;
+                    for (auto object : grabbed)
+                    {
+                        if (!object->canGrabbed(direction, *player, grabbed))
+                        {
+                            canMove = false;
+                            break;
+                        }
+                    }
+                    if (canMove)
+                    {
+                        moveObject(*player, player->position + mod);
+                        for (auto object : grabbed)
+                        {
+                            moveObject (*object, object->position + mod);
+                        }
+                    }
                 }
             }
-            if (canMove)
-            {
-                auto mod = zf::getModifier(direction);
-                moveObject(*player, player->position + mod);
-                for (auto object : grabbed)
-                {
-                    moveObject (*object, object->position + mod);
-                }
-            }
+
         }
         else
         {

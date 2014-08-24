@@ -59,7 +59,7 @@ std::vector<zf::Direction> BlockObject::getOutputDirections(zf::Direction orient
 std::vector<BlockObject*> BlockObject::getConnectedBlocks() const
 {
     std::vector<BlockObject*> connected;
-    if (world)
+    if (!grabbed && world)
     {
         auto outDirection = getOutputDirections();
         for (auto direction : outDirection)
@@ -81,6 +81,10 @@ std::vector<BlockObject*> BlockObject::getConnectedBlocks() const
 
 bool BlockObject::canConnectFrom(zf::Direction direction) const
 {
+    if (grabbed)
+    {
+        return false;
+    }
     auto outDirections = getOutputDirections();
     return std::find(outDirections.begin(), outDirections.end(), direction) != outDirections.end();
 }
