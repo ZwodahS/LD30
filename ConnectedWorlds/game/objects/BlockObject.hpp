@@ -13,6 +13,7 @@ class BlockObject : public WorldObject
 {
 public:
     static const sf::Color colors[4];
+    static const sf::Color grabbedColors[4];
     BlockObject(Game& game, World& world, int colorType, zf::Direction orientation, int level = 1);
     virtual ~BlockObject();
 
@@ -29,7 +30,8 @@ public:
     bool canConnectFrom(zf::Direction direction) const;
     bool canBeGrabbed() const;
 private:
-    sf::Sprite background;
+    sf::Sprite normalBackground;
+    sf::Sprite grabbedBackground;
     sf::Sprite sprite;
     /**
      * There are 2 orientation.

@@ -3,7 +3,18 @@
 #include "../World.hpp"
 #include "../../zf/zf_term.hpp"
 #include <iostream>
-const sf::Color BlockObject::colors[4] = { sf::Color(200, 120, 120, 255), sf::Color(120, 200, 120, 255), sf::Color(120, 120, 200, 255), sf::Color(200, 200, 120, 255) };
+const sf::Color BlockObject::colors[4] = { 
+    sf::Color(255, 120, 120, 255), 
+    sf::Color(120, 255, 120, 255), 
+    sf::Color(120, 120, 255, 255), 
+    sf::Color(255, 255, 120, 255) 
+};
+const sf::Color BlockObject::grabbedColors[4] = { 
+    sf::Color(255, 180, 180, 255), 
+    sf::Color(180, 255, 180, 255), 
+    sf::Color(180, 180, 255, 255), 
+    sf::Color(255, 255, 180, 255) 
+};
 BlockObject::BlockObject(Game& game, World& world, int colorType, zf::Direction orientation, int level)
     : WorldObject(game, world, ObjectType::BlockObject), orientation(orientation), colorType(colorType), level(level)
 {
@@ -14,8 +25,10 @@ BlockObject::BlockObject(Game& game, World& world, int colorType, zf::Direction 
         sprite = game.getSpecialCharSprite(zf::Cross[bitValue]);
     }
     sprite.setColor(sf::Color::White);
-    background = game.getSpecialCharSprite(zf::Fill);
-    background.setColor(colors[colorType]);
+    normalBackground = game.getSpecialCharSprite(zf::Fill);
+    normalBackground.setColor(colors[colorType]);
+    grabbedBackground = normalBackground;
+    grabbedBackground.setColor(grabbedColors[colorType]);
 }
 
 BlockObject::~BlockObject()
@@ -24,7 +37,7 @@ BlockObject::~BlockObject()
 
 void BlockObject::draw(zf::TermWindow* window, const sf::Time& delta)
 {
-    window->putSprite_xyb(position.x, position.y, background);
+    window->putSprite_xyb(position.x, position.y, grabbed ? grabbedBackground : normalBackground);
     window->putSprite_xyf(position.x, position.y, sprite);
 }
 
