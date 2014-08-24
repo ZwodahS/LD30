@@ -12,5 +12,7 @@ public:
     virtual void update(const sf::Time& delta);
 private:
     VolcanoObject* volcano;
+    bool erupt(int amount); // return false if not enough place to erupt
+    float seconds;
 };
 #endif

@@ -9,14 +9,7 @@ VolcanoWorld::VolcanoWorld(Game& game)
     addObject(player, sf::Vector2i(6, 7));
     volcano = new VolcanoObject(game, *this);
     addObject(volcano, sf::Vector2i(7, 7)); 
-    for (int i = 0; i < 10; i++)
-    {
-        AshObject* object = new AshObject(game, *this, zf::SurroundingDirection[rng::randomInt(0, 7)]);
-        if (!spawnObject(object))
-        {
-            delete object;
-        }
-    }
+    erupt(7);
 }
 
 VolcanoWorld::~VolcanoWorld()
@@ -43,4 +36,32 @@ void VolcanoWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, z
 void VolcanoWorld::update(const sf::Time& delta)
 {
     World::update(delta);
+    seconds += delta.asSeconds();
+    if (seconds > 1)
+    {
+        seconds -= 1;
+        volcano->time -= 1;
+    }
+    if (volcano->time <= 0)
+    {
+        volcano->time = 20;
+        if (!erupt(rng::randomInt(5, 10)))
+        {
+            // GAMEOVER
+        }
+    }
+}
+
+bool VolcanoWorld::erupt(int amount)
+{
+    for (int i = 0; i < amount; i++)
+    {
+        AshObject* object = new AshObject(game, *this, zf::SurroundingDirection[rng::randomInt(0, 7)]);
+        if (!spawnObject(object))
+        {
+            delete object;
+            return false;
+        }
+    }
+    return true;
 }

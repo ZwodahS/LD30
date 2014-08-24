@@ -170,7 +170,7 @@ void Game::initAssets()
     image.loadFromFile(RootPath + "data/others/sand_4.png");
     terminal->addSpecialCharImage(Special_Sand4, image);
     image.loadFromFile(RootPath + "data/others/unit.png");
-    std::cout << terminal->addSpecialCharImage(Special_Unit, image) << std::endl;
+    terminal->addSpecialCharImage(Special_Unit, image);
     image.loadFromFile(RootPath + "data/others/volcano.png");
     terminal->addSpecialCharImage(Special_Volcano, image);
 }
