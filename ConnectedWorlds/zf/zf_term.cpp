@@ -36,8 +36,14 @@ namespace zf
     const int Cross[16] = {16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
     const int Center_dot = 32;
     const int Alternate[2] = { 33, 34 };
-    const int Fill = 35;
+    const int Up = 0;
+    const int Right = 1;
+    const int Down = 2;
+    const int Left = 3;
+    const int Arrow[4] = { 35, 36 , 37, 38 };
+    const int Fill = 39;
     const int TotalSpecialChar = Fill + 1;
+    const int TotalRequired = 127 - 32 + TotalSpecialChar;
 
     //////////////////// TermCell ////////////////////
     TermCell::TermCell(const sf::Sprite& fg, const sf::Sprite& bg)
@@ -403,7 +409,6 @@ namespace zf
         ascii_ends = ascii_starts;
 
         float scale = cellSize.x * 1.0f / spriteSize.x;
-
         const sf::Vector2i spritesheetSize(spriteSize.x * maxCol, spriteSize.y * maxRow);
         {
             charTexture = new sf::Texture();
@@ -424,7 +429,7 @@ namespace zf
                 }
                 ascii_ends++;
             }
-            special_starts = ascii_ends + 1;
+            special_starts = ascii_ends;
             special_ends = special_starts;
             for (int i = 0; i < TotalSpecialChar; i++)
             {
@@ -440,8 +445,21 @@ namespace zf
                 }
                 special_ends++;
             }
+            while(row != maxRow)
+            {
+                // create all the spare location
+                auto region = charSpriteSheet.createRegion(sf::IntRect(col * spriteSize.x, row * spriteSize.y, spriteSize.x, spriteSize.y));
+                region.defaultScaleX = scale;
+                region.defaultScaleY = scale;
+                specialCharacters.push_back(region);
+                col++;
+                if (col == maxCol)
+                {
+                    col = 0;
+                    row++;
+                }
+            }
         }
-        spriteSlotLeft = maxRow * maxCol;
     }
 
     const sf::IntRect& Terminal::getTermBound() const
@@ -564,6 +582,10 @@ namespace zf
         extendedLoadStrings.push_back("center_dot.png");
         extendedLoadStrings.push_back("alternate_1.png");
         extendedLoadStrings.push_back("alternate_2.png");
+        extendedLoadStrings.push_back("arrow_up.png");
+        extendedLoadStrings.push_back("arrow_right.png");
+        extendedLoadStrings.push_back("arrow_down.png");
+        extendedLoadStrings.push_back("arrow_left.png");
         extendedLoadStrings.push_back("fill.png");
         for (int i = 0; i < extendedLoadStrings.size(); i++)
         {
@@ -581,8 +603,6 @@ namespace zf
         if (charRegion.texture)
         {
             charSpriteSheet.addImage(image, charRegion.srcClip.left, charRegion.srcClip.top);
-            spriteSlotLeft--;
-            spriteSlotUsed++;
             return true;
         }
         return false;
@@ -604,8 +624,6 @@ namespace zf
         if (charRegion.texture)
         {
             charSpriteSheet.addImage(image, charRegion.srcClip.left, charRegion.srcClip.top);
-            spriteSlotLeft--;
-            spriteSlotUsed++;
             return true;
         }
         return false;
@@ -632,11 +650,6 @@ namespace zf
             }
             it++;
         }
-    }
-
-    std::pair<int, int> Terminal::getSpriteSlotStatus() const
-    {
-        return std::pair<int, int>(spriteSlotLeft, spriteSlotUsed);
     }
 }
 

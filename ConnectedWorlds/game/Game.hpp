@@ -31,6 +31,15 @@ public:
     static const sf::Vector2i ImageSize;
     // by default we will use a cell size of 8 by 8, if the player do a 2x then we do 16 by 16
     static const std::string Title;
+/**
+ * Should be constant but I need to calculate it on run time.
+ */
+    int Special_Sand1;
+    int Special_Sand2;
+    int Special_Sand3;
+    int Special_Sand4;
+    int Special_Unit;
+    int Special_Volcano;
 //////////////////// Basic stuffs ////////////////////
 public:
     Game();

@@ -153,6 +153,26 @@ int Game::getNextKey()
 void Game::initAssets()
 {
     terminal->autoLoad(RootPath + "data/font_32");
+    int current = zf::TotalSpecialChar;
+    Special_Sand1 = current++;
+    Special_Sand2 = current++;
+    Special_Sand3 = current++;
+    Special_Sand4 = current++;
+    Special_Unit = current++;
+    Special_Volcano = current++;
+    sf::Image image;
+    image.loadFromFile(RootPath + "data/others/sand_1.png");
+    terminal->addSpecialCharImage(Special_Sand1, image);
+    image.loadFromFile(RootPath + "data/others/sand_2.png");
+    terminal->addSpecialCharImage(Special_Sand2, image);
+    image.loadFromFile(RootPath + "data/others/sand_3.png");
+    terminal->addSpecialCharImage(Special_Sand3, image);
+    image.loadFromFile(RootPath + "data/others/sand_4.png");
+    terminal->addSpecialCharImage(Special_Sand4, image);
+    image.loadFromFile(RootPath + "data/others/unit.png");
+    std::cout << terminal->addSpecialCharImage(Special_Unit, image) << std::endl;
+    image.loadFromFile(RootPath + "data/others/volcano.png");
+    terminal->addSpecialCharImage(Special_Volcano, image);
 }
 
 sf::Sprite Game::getPlayerSprite(int worldId)
@@ -162,7 +182,7 @@ sf::Sprite Game::getPlayerSprite(int worldId)
                 worldId == 1 ? sf::Color(100, 255, 100) :
                 worldId == 2 ? sf::Color(255, 255, 100) :
                 sf::Color(100, 100, 255);
-    return zf::setCopyColor(terminal->getChar('@').createSprite(), color);
+    return zf::setCopyColor(terminal->getSpecialChar(Special_Unit).createSprite(), color);
 }
 
 sf::Sprite Game::getCharSprite(char c)

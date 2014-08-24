@@ -1,6 +1,7 @@
 #include "VolcanoWorld.hpp"
 #include "../objects/g_objects.hpp"
 #include "../f_rng.hpp"
+#include "../../zf/zf_conversion.hpp"
 VolcanoWorld::VolcanoWorld(Game& game)
     : World(game, World::Type::Volcano)
 {
@@ -34,6 +35,9 @@ void VolcanoWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, z
         window->clear(sf::Color(100, 75, 75));
     }
     World::draw(window, objectsWindow, infoWindow, overlayWindow, delta);
+    infoWindow->putString_xy(0, 0, "(1)");
+    infoWindow->putString("F"+zf::intToString(player->food));
+    infoWindow->putString(" V"+zf::intToString(volcano->time));
 }
 
 void VolcanoWorld::update(const sf::Time& delta)

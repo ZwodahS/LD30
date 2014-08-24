@@ -11,7 +11,10 @@ public:
     virtual bool canPush(zf::Direction) const;
     virtual bool canGrabbed(zf::Direction direction, WorldObject& grabber, std::vector<WorldObject*> otherGrabbedObjects) const;
     virtual bool canBeGrabbed() const;
+
+    int time;
 private:
+    sf::Sprite background;
     sf::Sprite sprite;
 };
 #endif

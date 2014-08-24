@@ -39,11 +39,13 @@ namespace zf
 {
     //////////////////// special characters are used in term screen ////////////////////
     extern const int NORTH_BIT, EAST_BIT, SOUTH_BIT, WEST_BIT;
+    extern const int Up, Right, Down, Left;
     extern const int Border[16];
     extern const int Cross[16];
     extern const int Center_dot;
     extern const int Diagonal[2];
     extern const int Alternate[2];
+    extern const int Arrow[4];
     extern const int Fill;
     extern const int TotalSpecialChar;
 
@@ -270,13 +272,12 @@ namespace zf
         TextureRegion getChar(char c) const;
 
         bool addSpecialCharImage(int c, const sf::Image& image);
+        /** 
+         * return -1 if fail
+         */
         TextureRegion getSpecialChar(int c) const;
 
         void bringToFront(TermWindow& window);
-        /**
-         * Return <int, int> representing <used, left>
-         */
-        std::pair<int, int> getSpriteSlotStatus() const;
     private:
         /**
          * directly put this cell into this position.
@@ -319,9 +320,6 @@ namespace zf
 
         bool inited;
         friend TermWindow;
-
-        int spriteSlotLeft;
-        int spriteSlotUsed;
     };
 
 };

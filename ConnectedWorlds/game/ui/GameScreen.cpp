@@ -11,6 +11,11 @@
 GameScreen::GameScreen(DisplayManager& manager)
     : DisplayObject(manager), currentWorld(0)
 {
+    for (int i = 0; i < 4; i++)
+    {
+        arrows[i] = manager.game.getSpecialCharSprite(zf::Arrow[i]);
+        arrows[i].setColor(sf::Color(100, 100, 100, 255));
+    }
 }
 
 GameScreen::~GameScreen()
@@ -21,15 +26,16 @@ bool GameScreen::init(DisplayData* data)
 {
     auto worldSize = manager.game.WorldSize;
     const int Xs[2] = { 0, worldSize.x + 1 };
-    const int Ys[2] = { 0, worldSize.y + 1 };
+    const int Ys[2] = { 0, worldSize.y + 2 };
     infoRegions.push_back(sf::IntRect(Xs[0], Ys[0], worldSize.x, 1));
     worldRegions.push_back(sf::IntRect(Xs[0], Ys[0] + 1, worldSize.x, worldSize.y));
     infoRegions.push_back(sf::IntRect(Xs[1], Ys[0], worldSize.x, 1));
     worldRegions.push_back(sf::IntRect(Xs[1], Ys[0] + 1, worldSize.x, worldSize.y));
-    infoRegions.push_back(sf::IntRect(Xs[1], Ys[1], worldSize.x, 1));
-    worldRegions.push_back(sf::IntRect(Xs[1], Ys[1] + 1, worldSize.x, worldSize.y));
-    infoRegions.push_back(sf::IntRect(Xs[0], Ys[1], worldSize.x, 1));
-    worldRegions.push_back(sf::IntRect(Xs[0], Ys[1] + 1, worldSize.x, worldSize.y));
+
+    infoRegions.push_back(sf::IntRect(Xs[1], Ys[1] + worldSize.y, worldSize.x, 1));
+    worldRegions.push_back(sf::IntRect(Xs[1], Ys[1], worldSize.x, worldSize.y));
+    infoRegions.push_back(sf::IntRect(Xs[0], Ys[1] + worldSize.y, worldSize.x, 1));
+    worldRegions.push_back(sf::IntRect(Xs[0], Ys[1], worldSize.x, worldSize.y));
     int worldId = 0;
     for (auto region : worldRegions)
     {
@@ -138,7 +144,7 @@ void GameScreen::draw(const sf::Time& delta)
         int x = zf::rightOf(w1Region) + 1;
         for (int y = w1Region.top; y < w1Region.top + w1Region.height; y++)
         {
-            overlayWindow->putChar_xy(x, y, '>', sf::Color(100, 100, 100, 255));
+            overlayWindow->putSprite_xyf(x, y, arrows[zf::Right]);
         }
     }
     {
@@ -146,7 +152,7 @@ void GameScreen::draw(const sf::Time& delta)
         int y = zf::bottomOf(w2Region) + 1;
         for (int x = w2Region.left; x < w2Region.left + w2Region.width; x++)
         {
-            overlayWindow->putChar_xy(x, y, 'v', sf::Color(100, 100, 100, 255));
+            overlayWindow->putSprite_xyf(x, y, arrows[zf::Down]);
         }
     }
     {
@@ -154,7 +160,7 @@ void GameScreen::draw(const sf::Time& delta)
         int x = zf::leftOf(w3Region) - 1;
         for (int y = w3Region.top; y < w3Region.top + w3Region.height; y++)
         {
-            overlayWindow->putChar_xy(x, y, '<', sf::Color(100, 100, 100, 255));
+            overlayWindow->putSprite_xyf(x, y, arrows[zf::Left]);
         }
     }
     {
@@ -162,7 +168,7 @@ void GameScreen::draw(const sf::Time& delta)
         int y = zf::topOf(w4Region) - 1;
         for (int x = w4Region.left; x < w4Region.left + w4Region.width; x++)
         {
-            overlayWindow->putChar_xy(x, y, '^', sf::Color(100, 100, 100, 255));
+            overlayWindow->putSprite_xyf(x, y, arrows[zf::Up]);
         }
     }
 }

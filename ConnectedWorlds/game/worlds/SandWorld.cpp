@@ -1,5 +1,6 @@
 #include "SandWorld.hpp"
 #include "../objects/g_objects.hpp"
+#include "../../zf/zf_conversion.hpp"
 SandWorld::SandWorld(Game& game)
     : World(game, World::Type::Sand)
 {
@@ -23,6 +24,8 @@ void SandWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf::
         window->clear(sf::Color(100, 100, 75));
     }
     World::draw(window, objectsWindow, infoWindow, overlayWindow, delta);
+    infoWindow->putString_xy(0, 0, "(3)");
+    infoWindow->putString("F"+zf::intToString(player->food));
 }
 
 void SandWorld::update(const sf::Time& delta)

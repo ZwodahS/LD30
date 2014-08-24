@@ -37,5 +37,7 @@ private:
 
     std::vector<Action> worldActions;
     void selectWorld(int world);
+
+    sf::Sprite arrows[4];
 };
 #endif

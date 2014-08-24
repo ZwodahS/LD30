@@ -16,6 +16,8 @@ public:
      * If no, then it willl grab surrounding things.
      */
     void toggleGrab();
+    int food;
+    int work;
 
     const std::vector<WorldObject*>& getGrabbedObjects() const;
 private:

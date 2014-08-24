@@ -1,5 +1,6 @@
 #include "ForestWorld.hpp"
 #include "../objects/g_objects.hpp"
+#include "../../zf/zf_conversion.hpp"
 ForestWorld::ForestWorld(Game& game)
     : World(game, World::Type::Forest)
 {
@@ -23,6 +24,8 @@ void ForestWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf
         window->clear(sf::Color(75, 100, 75));
     }
     World::draw(window, objectsWindow, infoWindow, overlayWindow, delta);
+    infoWindow->putString_xy(0, 0, "(2)");
+    infoWindow->putString("F"+zf::intToString(player->food));
 }
 
 void ForestWorld::update(const sf::Time& delta)

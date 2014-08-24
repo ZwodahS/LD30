@@ -3,7 +3,7 @@
 #include "../worlds/World.hpp"
 #include <iostream>
 PlayerObject::PlayerObject(Game& game, World& world)
-    : WorldObject(game, world, WorldObject::ObjectType::PlayerObject)
+    : WorldObject(game, world, WorldObject::ObjectType::PlayerObject), food(100), work(0)
 {
     sprite = game.getPlayerSprite(world.worldId);
 }

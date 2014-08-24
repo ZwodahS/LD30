@@ -3,11 +3,11 @@
 #include "../worlds/World.hpp"
 #include <iostream>
 VolcanoObject::VolcanoObject(Game& game, World& world)
-    : WorldObject(game, world, ObjectType::VolcanoObject)
+    : WorldObject(game, world, ObjectType::VolcanoObject), time(20)
 {
-    sprite = game.getCharSprite('^');
-    sprite.setColor(sf::Color(255, 0, 0, 255));
-
+    background = game.getSpecialCharSprite(zf::Fill);
+    background.setColor(sf::Color(200, 50, 50));
+    sprite = game.getSpecialCharSprite(game.Special_Volcano);
 }
 
 VolcanoObject::~VolcanoObject()
@@ -16,7 +16,7 @@ VolcanoObject::~VolcanoObject()
 
 void VolcanoObject::draw(zf::TermWindow* window, const sf::Time& delta)
 {
-    window->putSprite_xyf(position.x, position.y, sprite);
+    window->putSprite_xyfb(position.x, position.y, sprite, background);
 }
 
 bool VolcanoObject::canPush(zf::Direction) const
