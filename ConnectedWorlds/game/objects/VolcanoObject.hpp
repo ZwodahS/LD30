@@ -8,7 +8,7 @@ public:
     virtual ~VolcanoObject();
 
     virtual void draw(zf::TermWindow* window, const sf::Time& delta);
-    virtual bool canPush(zf::Direction) const;
+    virtual bool isPushable() const;
     virtual bool canGrabbed(zf::Direction direction, WorldObject& grabber, std::vector<WorldObject*> otherGrabbedObjects) const;
     virtual bool canBeGrabbed() const;
 

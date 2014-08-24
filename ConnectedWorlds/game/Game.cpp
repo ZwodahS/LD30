@@ -4,7 +4,7 @@
 #include "../ResourcePath.hpp"
 #include <iostream>
 Game::Game()
-    : renderWindow(nullptr), terminal(nullptr), cellSize(16), displayStack(nullptr)
+    : renderWindow(nullptr), terminal(nullptr), cellSize(24), displayStack(nullptr)
 {
 }
 

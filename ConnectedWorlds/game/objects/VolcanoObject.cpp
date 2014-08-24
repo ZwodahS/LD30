@@ -19,7 +19,7 @@ void VolcanoObject::draw(zf::TermWindow* window, const sf::Time& delta)
     window->putSprite_xyfb(position.x, position.y, sprite, background);
 }
 
-bool VolcanoObject::canPush(zf::Direction) const
+bool VolcanoObject::isPushable() const
 {
     return false;
 }

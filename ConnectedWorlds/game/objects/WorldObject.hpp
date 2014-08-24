@@ -25,7 +25,7 @@ public:
 
     virtual void draw(zf::TermWindow* window, const sf::Time& delta) = 0;
     virtual void update(const sf::Time& delta);
-    virtual bool canPush(zf::Direction direction) const;
+    virtual bool isPushable() const;
     virtual bool canGrabbed(zf::Direction direction, WorldObject& grabber, std::vector<WorldObject*> otherGrabbedObjects) const;
     virtual bool canBeGrabbed() const;
     virtual bool grab();

@@ -14,17 +14,9 @@ void WorldObject::update(const sf::Time& delta)
 {
 }
 
-bool WorldObject::canPush(zf::Direction direction) const
+bool WorldObject::isPushable() const
 {
-    auto mod = zf::getModifier(direction);
-    auto targetPosition = position + mod;
-    if (world && world->inRange(targetPosition))
-    {
-        auto object = world->getObject(targetPosition);
-        return object ? false : true;
-        // return object ? object->canPush(direction) : true; // cascading push
-    }
-    return false;
+    return true;
 }
 
 bool WorldObject::canBeGrabbed() const

@@ -234,7 +234,10 @@ void World::move(zf::Direction direction)
                 {
                     auto objectTargetPosition = object->position + mod;
                     auto objectObstacle = getObject(objectTargetPosition);
-                    if (!objectObstacle)
+                    if (!object->isPushable())
+                    {
+                    }
+                    else if (!objectObstacle)
                     {
                         moveObject(*player, targetPosition);
                         moveObject(*object, targetPosition + mod);
