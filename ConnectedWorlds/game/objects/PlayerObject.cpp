@@ -1,6 +1,6 @@
 #include "PlayerObject.hpp"
 #include "../Game.hpp"
-#include "../World.hpp"
+#include "../worlds/World.hpp"
 #include <iostream>
 PlayerObject::PlayerObject(Game& game, World& world)
     : WorldObject(game, world, WorldObject::ObjectType::PlayerObject)

@@ -1,0 +1,7 @@
+#include "../objects/WorldObject.hpp"
+#include "../objects/PlayerObject.hpp"
+#include "../objects/AshObject.hpp"
+#include "../objects/FoodObject.hpp"
+#include "../objects/WaterObject.hpp"
+#include "../objects/SandObject.hpp"
+#include "../objects/VolcanoObject.hpp"

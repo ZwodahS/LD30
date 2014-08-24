@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "World.hpp"
+#include "worlds/World.hpp"
 // need to enforce order of definition
 const std::string Game::Title("Connected Worlds");
 const sf::Vector2i Game::WorldSize(15, 15);

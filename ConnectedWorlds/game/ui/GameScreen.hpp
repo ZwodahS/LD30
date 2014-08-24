@@ -29,7 +29,9 @@ private:
     std::vector<sf::IntRect> infoRegions;
     
     std::vector<zf::TermWindow*> infoWindows;
-    std::vector<zf::TermWindow*> worldWindows;
+    // decided to split them up .
+    std::vector<zf::TermWindow*> worldWindows; 
+    std::vector<zf::TermWindow*> objectsWindow;
     std::vector<World*> worlds;
     zf::TermWindow* overlayWindow;
 

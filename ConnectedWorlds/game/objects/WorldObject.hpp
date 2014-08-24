@@ -11,7 +11,11 @@ public:
     enum class ObjectType
     {
         PlayerObject,
-        BlockObject,
+        AshObject,
+        FoodObject,
+        WaterObject,
+        SandObject,
+        VolcanoObject,
     };
     WorldObject(Game& game, World& world, ObjectType type);
     virtual ~WorldObject();

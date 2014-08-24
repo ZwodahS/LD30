@@ -13,6 +13,8 @@ vpath %.cpp game/
 vpath %.hpp game/
 vpath %.cpp game/ui
 vpath %.hpp game/ui
+vpath %.cpp game/worlds
+vpath %.hpp game/worlds
 vpath %.cpp game/objects
 vpath %.hpp game/objects
 vpath %.cpp zf/

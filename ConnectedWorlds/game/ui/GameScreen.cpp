@@ -1,6 +1,10 @@
 #include "GameScreen.hpp"
 #include "../Game.hpp"
-#include "../World.hpp"
+#include "../worlds/World.hpp"
+#include "../worlds/VolcanoWorld.hpp"
+#include "../worlds/ForestWorld.hpp"
+#include "../worlds/SandWorld.hpp"
+#include "../worlds/WaterWorld.hpp"
 #include "../../zf/zf_rect.hpp"
 #include "../../zf/zf_sprite.hpp"
 #include <iostream>
@@ -17,7 +21,7 @@ bool GameScreen::init(DisplayData* data)
 {
     auto worldSize = manager.game.WorldSize;
     const int Xs[2] = { 0, worldSize.x + 1 };
-    const int Ys[2] = { 1, worldSize.y + 2 };
+    const int Ys[2] = { 0, worldSize.y + 1 };
     infoRegions.push_back(sf::IntRect(Xs[0], Ys[0], worldSize.x, 1));
     worldRegions.push_back(sf::IntRect(Xs[0], Ys[0] + 1, worldSize.x, worldSize.y));
     infoRegions.push_back(sf::IntRect(Xs[1], Ys[0], worldSize.x, 1));
@@ -30,9 +34,9 @@ bool GameScreen::init(DisplayData* data)
     for (auto region : worldRegions)
     {
         auto window = manager.terminal.newWindow(region);
-        World* world = new World(manager.game, worldId++);
         worldWindows.push_back(window);
-        worlds.push_back(world);
+        window = manager.terminal.newWindow(region);
+        objectsWindow.push_back(window);
     } 
     
     for (auto region : infoRegions)
@@ -40,6 +44,15 @@ bool GameScreen::init(DisplayData* data)
         auto window = manager.terminal.newWindow(region);
         infoWindows.push_back(window);
     }
+    World* vWorld = new VolcanoWorld(manager.game);
+    worlds.push_back(vWorld);
+    World* fWorld = new ForestWorld(manager.game);
+    worlds.push_back(fWorld);
+    World* dWorld = new SandWorld(manager.game);
+    worlds.push_back(dWorld);
+    World* wWorld = new WaterWorld(manager.game);
+    worlds.push_back(wWorld);
+
     auto termSize = manager.game.TermSize;
     overlayWindow = manager.terminal.newWindow(sf::IntRect(0, 0, termSize.x, termSize.y));
     worldActions.push_back(Action::Up);
@@ -118,7 +131,7 @@ void GameScreen::draw(const sf::Time& delta)
 {
     for (int i = 0; i < worlds.size(); i++)
     {
-        worlds[i]->draw(worldWindows[i], infoWindows[i], overlayWindow, delta);
+        worlds[i]->draw(worldWindows[i], objectsWindow[i], infoWindows[i], overlayWindow, delta);
     }
     {
         auto w1Region = worldRegions[0];

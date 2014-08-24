@@ -4,7 +4,7 @@
 #include "../ResourcePath.hpp"
 #include <iostream>
 Game::Game()
-    : renderWindow(nullptr), terminal(nullptr), cellSize(24), displayStack(nullptr)
+    : renderWindow(nullptr), terminal(nullptr), cellSize(16), displayStack(nullptr)
 {
 }
 
@@ -160,8 +160,8 @@ sf::Sprite Game::getPlayerSprite(int worldId)
     sf::Color color = worldId < 0 || worldId >= 4 ? sf::Color(255, 255, 255) :
                 worldId == 0 ? sf::Color(255, 100, 100) :
                 worldId == 1 ? sf::Color(100, 255, 100) :
-                worldId == 2 ? sf::Color(100, 100, 255) :
-                sf::Color(255, 255, 100);
+                worldId == 2 ? sf::Color(255, 255, 100) :
+                sf::Color(100, 100, 255);
     return zf::setCopyColor(terminal->getChar('@').createSprite(), color);
 }
 

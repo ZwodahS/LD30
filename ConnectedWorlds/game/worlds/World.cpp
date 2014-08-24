@@ -1,12 +1,11 @@
 #include "World.hpp"
-#include "objects/WorldObject.hpp"
-#include "objects/PlayerObject.hpp"
-#include "objects/BlockObject.hpp"
-#include "Game.hpp"
-#include "f_rng.hpp"
+#include "../objects/g_objects.hpp"
+#include "../Game.hpp"
+#include "../f_rng.hpp"
 #include <iostream>
-World::World(Game& game, int worldId)
-    : selected(false), game(game), player(nullptr), worldId(worldId)
+World::World(Game& game, World::Type worldType)
+    : selected(false), game(game), player(nullptr), worldType(worldType)
+    , worldId(worldType == Type::Volcano ? 0 : worldType == Type::Forest ? 1 : worldType == Type::Sand ? 2 : 3)
 {
     for (int x = 0; x < Game::WorldSize.x; x++)
     {
@@ -17,59 +16,44 @@ World::World(Game& game, int worldId)
         } 
         objects.push_back(columns);
     }
-    player = new PlayerObject(game, *this);
-    addObject(player, sf::Vector2i(5, 5));
-    
-    std::vector<BlockObject*> blocks;
-    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::North, 1));
-    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::NorthEast, 1));
-    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::NorthWest, 1));
-    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::South, 1));
-    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::SouthEast, 1));
-    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::SouthWest, 1));
-    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::East, 1));
-    blocks.push_back(new BlockObject(game, *this, worldId, zf::Direction::West, 1));
-
-    auto availablePositions = getAvailablePositions();
-    for (auto block : blocks)
-    {
-        auto position = rng::randomItem(availablePositions, sf::Vector2i(0, 0), true);
-        addObject(block, position);
-    }
 }
 
 World::~World()
 {
-}
-
-void World::draw(zf::TermWindow* window, zf::TermWindow* infoWindow, zf::TermWindow* overlayWindow, const sf::Time& delta)
-{
-    if (selected)
+    if (player)
     {
-        window->clear(sf::Color(150, 150, 150, 255));
-    }
-    else 
-    {
-        window->clear(sf::Color(80, 80, 80, 255));
+        delete player;
     }
     for (auto object : objectsAsList)
     {
-        object->draw(window, delta);
+        delete object;
+    }
+}
+
+void World::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf::TermWindow* infoWindow, zf::TermWindow* overlayWindow, const sf::Time& delta)
+{
+    for (auto object : objectsAsList)
+    {
+        object->draw(objectsWindow, delta);
     }
 }
 
 void World::update(const sf::Time& delta)
 {
-    for (auto block : blockObjects)
+    for (auto block : objectsAsList)
     {
-        auto connected = block->getConnectedBlocks();
-        if (connected.size() >= 2)
+        if (block->type == WorldObject::ObjectType::AshObject)
         {
-            block->markedForRemoval = true;
-            block->isSpawnElsewhere = true;
-            for (auto connectedBlock : connected)
+            AshObject* object = static_cast<AshObject*>(block);
+            auto connected = object->getConnectedBlocks();
+            if (connected.size() >= 2)
             {
-                connectedBlock->markedForRemoval = true;
+                block->markedForRemoval = true;
+                block->isSpawnElsewhere = true;
+                for (auto connectedBlock : connected)
+                {
+                    connectedBlock->markedForRemoval = true;
+                }
             }
         }
     }
@@ -80,10 +64,6 @@ void World::update(const sf::Time& delta)
             auto object = *it;
             it = objectsAsList.erase(it);
             removeFromGrid(object);
-            if (object->type == WorldObject::ObjectType::BlockObject)
-            {
-                removeFromBlockList(static_cast<BlockObject*>(object));
-            }
             if (object->isSpawnElsewhere)
             {
                 object->world = nullptr;
@@ -193,10 +173,6 @@ bool World::addObject(WorldObject* object, const sf::Vector2i& position)
     objects[position.x][position.y] = object;
     objectsAsList.push_back(object);
     object->position = position;
-    if (object->type == WorldObject::ObjectType::BlockObject)
-    {
-        blockObjects.push_back(static_cast<BlockObject*>(object));
-    }
     return true;
 }
 
@@ -287,13 +263,4 @@ std::vector<WorldObject*> World::getAdjacentBlocks(const sf::Vector2i& position)
 void World::removeFromGrid(WorldObject* object)
 {
     objects[object->position.x][object->position.y] = nullptr;
-}
-
-void World::removeFromBlockList(BlockObject* block)
-{
-    auto found = std::find(blockObjects.begin(), blockObjects.end(), block);
-    if (found != blockObjects.end())
-    {
-        blockObjects.erase(found);
-    }
 }

@@ -1,22 +1,11 @@
-#include "BlockObject.hpp"
+#include "AshObject.hpp"
 #include "../Game.hpp"
-#include "../World.hpp"
-#include "../../zf/zf_term.hpp"
+#include "../worlds/World.hpp"
 #include <iostream>
-const sf::Color BlockObject::colors[4] = { 
-    sf::Color(255, 120, 120, 255), 
-    sf::Color(120, 255, 120, 255), 
-    sf::Color(120, 120, 255, 255), 
-    sf::Color(255, 120, 255, 255) 
-};
-const sf::Color BlockObject::grabbedColors[4] = { 
-    sf::Color(255, 180, 180, 255), 
-    sf::Color(180, 255, 180, 255), 
-    sf::Color(180, 180, 255, 255), 
-    sf::Color(255, 180, 255, 255) 
-};
-BlockObject::BlockObject(Game& game, World& world, int colorType, zf::Direction orientation, int level)
-    : WorldObject(game, world, ObjectType::BlockObject), orientation(orientation), colorType(colorType), level(level)
+const sf::Color AshObject::color = sf::Color(10, 10, 10, 255);
+const sf::Color AshObject::grabbedColor = sf::Color(50, 50, 50, 255);
+AshObject::AshObject(Game& game, World& world, zf::Direction orientation)
+    : WorldObject(game, world, ObjectType::AshObject), orientation(orientation)
 {
     auto outDirection = getOutputDirections();
     if (outDirection.size() == 2)
@@ -26,27 +15,27 @@ BlockObject::BlockObject(Game& game, World& world, int colorType, zf::Direction 
     }
     sprite.setColor(sf::Color::White);
     normalBackground = game.getSpecialCharSprite(zf::Fill);
-    normalBackground.setColor(colors[colorType]);
+    normalBackground.setColor(color);
     grabbedBackground = normalBackground;
-    grabbedBackground.setColor(grabbedColors[colorType]);
+    grabbedBackground.setColor(grabbedColor);
 }
 
-BlockObject::~BlockObject()
+AshObject::~AshObject()
 {
 }
 
-void BlockObject::draw(zf::TermWindow* window, const sf::Time& delta)
+void AshObject::draw(zf::TermWindow* window, const sf::Time& delta)
 {
     window->putSprite_xyb(position.x, position.y, grabbed ? grabbedBackground : normalBackground);
     window->putSprite_xyf(position.x, position.y, sprite);
 }
 
-std::vector<zf::Direction> BlockObject::getOutputDirections() const
+std::vector<zf::Direction> AshObject::getOutputDirections() const
 {
     return getOutputDirections(orientation);
 }
 
-std::vector<zf::Direction> BlockObject::getOutputDirections(zf::Direction orientation)
+std::vector<zf::Direction> AshObject::getOutputDirections(zf::Direction orientation)
 {
     std::vector<zf::Direction> output;
     if (orientation == zf::Direction::North || orientation == zf::Direction::South 
@@ -69,9 +58,9 @@ std::vector<zf::Direction> BlockObject::getOutputDirections(zf::Direction orient
     return output;
 }
 
-std::vector<BlockObject*> BlockObject::getConnectedBlocks() const
+std::vector<AshObject*> AshObject::getConnectedBlocks() const
 {
-    std::vector<BlockObject*> connected;
+    std::vector<AshObject*> connected;
     if (!grabbed && world)
     {
         auto outDirection = getOutputDirections();
@@ -79,9 +68,9 @@ std::vector<BlockObject*> BlockObject::getConnectedBlocks() const
         {
             auto mod = zf::getModifier(direction);
             auto object = world->getObject(position + mod);
-            if (object && object->type == WorldObject::ObjectType::BlockObject)
+            if (object && object->type == WorldObject::ObjectType::AshObject)
             {
-                auto blockObject = static_cast<BlockObject*>(object);
+                auto blockObject = static_cast<AshObject*>(object);
                 if (blockObject->canConnectFrom(zf::oppositeOf(direction)))
                 {
                     connected.push_back(blockObject);
@@ -92,7 +81,7 @@ std::vector<BlockObject*> BlockObject::getConnectedBlocks() const
     return connected;
 }
 
-bool BlockObject::canConnectFrom(zf::Direction direction) const
+bool AshObject::canConnectFrom(zf::Direction direction) const
 {
     if (grabbed)
     {
@@ -102,7 +91,7 @@ bool BlockObject::canConnectFrom(zf::Direction direction) const
     return std::find(outDirections.begin(), outDirections.end(), direction) != outDirections.end();
 }
 
-bool BlockObject::canBeGrabbed() const
+bool AshObject::canBeGrabbed() const
 {
     return true;
 }

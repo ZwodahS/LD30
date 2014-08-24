@@ -1,6 +1,6 @@
 #include "WorldObject.hpp"
 #include "../Game.hpp"
-#include "../World.hpp"
+#include "../worlds/World.hpp"
 WorldObject::WorldObject(Game& game, World& world, ObjectType type)
     : type(type), game(game), world(&world), markedForRemoval(false), isSpawnElsewhere(false), grabbed(false)
 {
