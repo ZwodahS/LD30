@@ -1,0 +1,13 @@
+{
+    "initial_food" : 100,
+    "player_fooddepleterate" : 10,
+    "player_workdepleterate" : 10,
+    "player_foodincreaseamount" : 25,
+    "player_movecost" : 1,
+    "player_grabcost" : 1,
+    "player_pushcost" : 1,
+    "water_floodprobability" : 10,
+    "volcano_eruptmin" : 5,
+    "volcano_eruptmax" : 10,
+    "volcano_eruptfreq" : 30
+}

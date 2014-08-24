@@ -215,7 +215,7 @@ void World::move(zf::Direction direction)
                         {
                             moveObject (*object, object->position + mod);
                         }
-                        player->doWork(1 + grabbed.size());
+                        player->doWork(game.balance.Player_MoveCost + grabbed.size() * game.balance.Player_GrabCost);
                     }
                 }
             }
@@ -231,7 +231,7 @@ void World::move(zf::Direction direction)
                 if (!object)
                 {
                     moveObject(*player, targetPosition);
-                    player->doWork(1);
+                    player->doWork(game.balance.Player_MoveCost);
                 }
                 else if (object->type == WorldObject::ObjectType::FoodObject)
                 {
@@ -251,7 +251,7 @@ void World::move(zf::Direction direction)
                     {
                         moveObject(*player, targetPosition);
                         moveObject(*object, targetPosition + mod);
-                        player->doWork(2);
+                        player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
                     /// cant push, see if we can combine
                     else if (object->type == WorldObject::ObjectType::SandObject && objectObstacle->type == WorldObject::ObjectType::SandObject)
@@ -270,6 +270,7 @@ void World::move(zf::Direction direction)
                             moveObject(*player, targetPosition);
                             spawnObject(sandSource);
                         }
+                        player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
                     else if (object->type == WorldObject::ObjectType::SandObject && objectObstacle->type == WorldObject::ObjectType::WaterObject)
                     {
@@ -295,6 +296,7 @@ void World::move(zf::Direction direction)
                             }
                             moveObject(*player, targetPosition);
                         }
+                        player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
                     else if (object->type == WorldObject::ObjectType::TreeObject && objectObstacle->type == WorldObject::ObjectType::WaterObject)
                     {
@@ -308,6 +310,7 @@ void World::move(zf::Direction direction)
                             moveObject(*treeSource, objectTargetPosition);
                             moveObject(*player, targetPosition);
                         }
+                        player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
                     else if (object->type == WorldObject::ObjectType::StoneObject && objectObstacle->type == WorldObject::ObjectType::VolcanoObject)
                     {
@@ -317,6 +320,7 @@ void World::move(zf::Direction direction)
                         removeFromList(object);
                         delete object;
                         moveObject(*player, targetPosition);
+                        player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
                 }
             }

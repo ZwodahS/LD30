@@ -4,7 +4,6 @@
 class WaterObject : public WorldObject
 {
 public:
-    static int ProbabilityGrowth;
     WaterObject(Game& game, World& world);
     virtual ~WaterObject();
 

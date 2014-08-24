@@ -4,8 +4,7 @@
 #include <iostream>
 int PlayerObject::FoodIncreaseAmount = 25;
 PlayerObject::PlayerObject(Game& game, World& world)
-    : WorldObject(game, world, WorldObject::ObjectType::PlayerObject), food(100), work(0)
-    , foodDepleteRate(10), workCostRate(10)
+    : WorldObject(game, world, WorldObject::ObjectType::PlayerObject), food(game.balance.Player_InitialFood), work(0)
 {
     sprite = game.getPlayerSprite(world.worldId);
 }
@@ -22,9 +21,9 @@ void PlayerObject::draw(zf::TermWindow* window, const sf::Time& delta)
 void PlayerObject::update(const sf::Time& delta)
 {
     foodDepleteCounter += delta.asSeconds();
-    if (foodDepleteCounter >= foodDepleteRate)
+    if (foodDepleteCounter >= game.balance.Player_FoodDepleteRate)
     {
-        foodDepleteCounter -= foodDepleteRate;
+        foodDepleteCounter -= game.balance.Player_FoodDepleteRate;
         food--;
     }
 }
@@ -32,9 +31,9 @@ void PlayerObject::update(const sf::Time& delta)
 void PlayerObject::doWork(int amount)
 {
     work += amount;
-    while (work > workCostRate)
+    while (work > game.balance.Player_WorkDepleteRate)
     {
-        work -= workCostRate;
+        work -= game.balance.Player_WorkDepleteRate;
         food--;
     }
 }
@@ -83,6 +82,6 @@ const std::vector<WorldObject*>& PlayerObject::getGrabbedObjects() const
 
 void PlayerObject::eat()
 {
-    food += FoodIncreaseAmount;
+    food += game.balance.Player_FoodIncreaseAmount;
     food = food >= 100 ? 100 : food;
 }

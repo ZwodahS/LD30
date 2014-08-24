@@ -1,5 +1,6 @@
 #include "VolcanoWorld.hpp"
 #include "../objects/g_objects.hpp"
+#include "../Game.hpp"
 #include "../f_rng.hpp"
 #include "../../zf/zf_conversion.hpp"
 VolcanoWorld::VolcanoWorld(Game& game)
@@ -45,8 +46,8 @@ void VolcanoWorld::update(const sf::Time& delta)
     }
     if (volcano->time <= 0)
     {
-        volcano->time = 20;
-        if (!erupt(rng::randomInt(5, 10)))
+        volcano->time = game.balance.Volcano_EruptFrequency;
+        if (!erupt(rng::randomInt(game.balance.Volcano_EruptMin, game.balance.Volcano_EruptMax)))
         {
             isAlive = false;
         }

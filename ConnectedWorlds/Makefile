@@ -9,6 +9,8 @@ SFML=-framework sfml-graphics -framework sfml-system -framework sfml-window
 
 OBJDIR=obj
 
+vpath %.cpp json11/
+vpath %.hpp json11/
 vpath %.cpp game/
 vpath %.hpp game/
 vpath %.cpp game/ui

@@ -4,7 +4,6 @@
 #include "../../zf/zf_sprite.hpp"
 #include "../f_rng.hpp"
 #include <iostream>
-int WaterObject::ProbabilityGrowth = 10;
 WaterObject::WaterObject(Game& game, World& world)
     : WorldObject(game, world, ObjectType::WaterObject), flood(true), floodMeter(0)
 {
@@ -36,7 +35,7 @@ void WaterObject::update(const sf::Time& delta)
     if (timePassed >= 1)
     {
         timePassed -= 1;
-        if (flood && floodMeter < 10 && rng::randomInt(0, 100) < ProbabilityGrowth)
+        if (flood && floodMeter < 10 && rng::randomInt(0, 100) < game.balance.Water_FloodProbability)
         {
             floodMeter++;
         }

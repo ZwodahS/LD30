@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include "BalanceConfig.hpp"
 #include "KeyMap.hpp"
 #include "../zf/zf_term.hpp"
 #include "ui/DisplayManager.hpp"
@@ -45,6 +46,8 @@ public:
 public:
     Game();
     ~Game();
+
+    BalanceConfig balance;
 
     void init();
     void run();

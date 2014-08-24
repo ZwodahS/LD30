@@ -26,6 +26,7 @@ Game::~Game()
 
 void Game::init()
 {
+    balance.load(RootPath + "data/balance.json");
     initUI();
     initKeys();
     initAssets();

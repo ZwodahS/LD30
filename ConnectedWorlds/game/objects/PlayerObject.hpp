@@ -19,9 +19,7 @@ public:
      */
     void toggleGrab();
     int food;
-    float foodDepleteRate;
     int work;
-    int workCostRate;
     void doWork(int amount);
     void eat();
     const std::vector<WorldObject*>& getGrabbedObjects() const;
