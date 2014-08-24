@@ -16,7 +16,9 @@ RootObject::~RootObject()
 
 bool RootObject::init(DisplayData* data)
 {
+#ifndef NODEBUG
     fps = manager.terminal.newWindow(manager.debugRegion);
+#endif
     return true;
 }
 
