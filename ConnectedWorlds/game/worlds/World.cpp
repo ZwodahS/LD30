@@ -230,11 +230,34 @@ void World::move(zf::Direction direction)
                     moveObject(*player, targetPosition);
                     player->doWork(1);
                 }
-                else if (object->canPush(direction))
+                else 
                 {
-                    moveObject(*player, targetPosition);
-                    moveObject(*object, targetPosition + mod);
-                    player->doWork(2);
+                    auto objectTargetPosition = object->position + mod;
+                    auto objectObstacle = getObject(objectTargetPosition);
+                    if (!objectObstacle)
+                    {
+                        moveObject(*player, targetPosition);
+                        moveObject(*object, targetPosition + mod);
+                        player->doWork(2);
+                    }
+                    /// cant push, see if we can combine
+                    else if (object->type == WorldObject::ObjectType::SandObject && objectObstacle->type == WorldObject::ObjectType::SandObject)
+                    {
+                        // merge the sand object
+                        auto sandSource = static_cast<SandObject*>(object);
+                        auto sandTarget = static_cast<SandObject*>(objectObstacle);
+                        if (sandSource->count + sandTarget->count <= 4)
+                        {
+                            // can only merge if their total is < 4
+                            sandTarget->count += sandSource->count;
+                            // respawn sandSource
+                            sandSource->count = 1;
+                            removeFromGrid(sandSource);
+                            removeFromList(sandSource);
+                            moveObject(*player, targetPosition);
+                            spawnObject(sandSource);
+                        }
+                    }
                 }
             }
         }
@@ -267,4 +290,13 @@ std::vector<WorldObject*> World::getAdjacentBlocks(const sf::Vector2i& position)
 void World::removeFromGrid(WorldObject* object)
 {
     objects[object->position.x][object->position.y] = nullptr;
+}
+
+void World::removeFromList(WorldObject* object)
+{
+    auto result = std::find(objectsAsList.begin(), objectsAsList.end(), object);
+    if (result != objectsAsList.end())
+    {
+        objectsAsList.erase(result);
+    }
 }

@@ -6,6 +6,10 @@ SandWorld::SandWorld(Game& game)
 {
     player = new PlayerObject(game, *this);
     addObject(player, sf::Vector2i(7, 7));
+    for (int i = 0; i < 10; i++)
+    {
+        spawnObject(new SandObject(game, *this));
+    }
 }
 
 SandWorld::~SandWorld()
@@ -31,5 +35,18 @@ void SandWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf::
 
 void SandWorld::update(const sf::Time& delta)
 {
+    for (auto block : objectsAsList)
+    {
+        if (block->type == WorldObject::ObjectType::SandObject)
+        {
+            SandObject* object = static_cast<SandObject*>(block);
+            if (object->count == 4)
+            {
+                block->markedForRemoval = true;
+                block->isSpawnElsewhere = true;
+                spawnObject(new SandObject(game, *this));
+            }
+        }
+    }
     World::update(delta);
 }

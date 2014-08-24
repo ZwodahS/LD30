@@ -55,8 +55,9 @@ protected:
     std::list<WorldObject*> objectsAsList;
     std::vector<WorldObject*> outputBlocks;
 
-    virtual void removeFromGrid(WorldObject* object);
-    virtual void move(zf::Direction direction);
-    virtual void moveObject(WorldObject& object, const sf::Vector2i& position);
+    void removeFromGrid(WorldObject* object);
+    void removeFromList(WorldObject* object);
+    void move(zf::Direction direction);
+    void moveObject(WorldObject& object, const sf::Vector2i& position);
 };
 #endif
