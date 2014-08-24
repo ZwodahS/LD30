@@ -26,6 +26,27 @@ void ThirdHelpScreen::firstDraw()
 {
     window->clear(sf::Color(20, 20, 20, 255));
     window->drawEdgeBorder(); 
+    int line = 1;
+    window->putString_row(0, line++, region.width, zf::TermWindow::TextAlignmentX::Center, 0, "(Tutorial part 3)");
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "Mr.G lives in the");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "forest world. There is");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "a seed here but it ");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "refuses to grow. ");
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "Oh ! It is raining !! ");
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "The seed have 5 stages");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "(");
+    window->putChar('.', sf::Color(0, 255, 0));
+    window->putChar(',', sf::Color(0, 255, 0));
+    window->putChar('i', sf::Color(0, 255, 0));
+    window->putChar('t', sf::Color(0, 255, 0));
+    window->putChar('T', sf::Color(0, 255, 0));
+    window->putString(")");
+    line++;
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "(Press Escape)");
 }
 
 void ThirdHelpScreen::destroy()

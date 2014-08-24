@@ -12,7 +12,7 @@
 const std::string GameScreen::OutDataType("GS_OUT");
 GameScreen::GameScreen(DisplayManager& manager)
     : DisplayObject(manager), currentWorld(0), child(nullptr), result(nullptr), paused(false), numActiveWorld(0)
-    , printHelp(true)
+    , printHelp(true), lasthelp(false)
 {
     for (int i = 0; i < 4; i++)
     {
@@ -161,6 +161,12 @@ void GameScreen::childReturned(DisplayObject* child, DisplayData* data)
         done = true;
     }
     this->child = nullptr;
+    if (numActiveWorld == 4 && !lasthelp)
+    {
+        lasthelp = true;
+        child = manager.makeLastHelpScreen();
+        manager.putDisplay(*child);
+    }
 }
 
 void GameScreen::update(const sf::Time& delta)
@@ -194,7 +200,7 @@ void GameScreen::update(const sf::Time& delta)
             {
                 if (printHelp)
                 {
-                    child = manager.makeMessagePopup("2 world now !");
+                    child = manager.makeSecondHelpScreen();
                     manager.putDisplay(*child);
                 }
                 worlds[1]->isActive = true;
@@ -221,7 +227,7 @@ void GameScreen::update(const sf::Time& delta)
             blocks = worlds[1]->getOutputBlocks();
             if (blocks.size() >= 1)
             {
-                child = manager.makeMessagePopup("3 World NOW !");
+                child = manager.makeThirdHelpScreen();
                 manager.putDisplay(*child);
                 worlds[2]->isActive = true;
                 numActiveWorld = 3;
@@ -256,7 +262,7 @@ void GameScreen::update(const sf::Time& delta)
             blocks = worlds[2]->getOutputBlocks();
             if (blocks.size() >= 1)
             {
-                child = manager.makeMessagePopup("4 World NOW !");
+                child = manager.makeFourthHelpScreen();
                 manager.putDisplay(*child);
                 worlds[3]->isActive = true;
                 numActiveWorld = 4;

@@ -26,6 +26,31 @@ void SecondHelpScreen::firstDraw()
 {
     window->clear(sf::Color(20, 20, 20, 255));
     window->drawEdgeBorder(); 
+    int line = 1;
+    window->putString_row(0, line++, region.width, zf::TermWindow::TextAlignmentX::Center, 0, "(Tutorial part 2)");
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "Mr.B is stuck in the");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "water world. ");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "The water look scary");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "and why is there a sand");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "here ?");
+    line++;
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "(");
+    window->putSprite_f(manager.game.getSpecialCharSprite(zf::Arrow[zf::Left]));
+    window->putSprite_f(manager.game.getSpecialCharSprite(zf::Arrow[zf::Up]));
+    window->putSprite_f(manager.game.getSpecialCharSprite(zf::Arrow[zf::Right]));
+    window->putSprite_f(manager.game.getSpecialCharSprite(zf::Arrow[zf::Down]));
+    window->putString(") or (1234)");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "to switch world.");
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "Push the sand block");
+    window->putSprite_f(zf::setCopyColor(manager.game.getSpecialCharSprite(manager.game.Special_Sand1), sf::Color(255, 255, 0)));
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "into the water");
+    window->putSprite_f(zf::setCopyColor(manager.game.getSpecialCharSprite(manager.game.Special_Water), sf::Color(0, 0, 255)));
+    line++;
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "(Press Escape)");
 }
 
 void SecondHelpScreen::destroy()

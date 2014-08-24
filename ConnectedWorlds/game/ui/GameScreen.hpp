@@ -39,6 +39,7 @@ private:
     bool printHelp;
     DisplayObject* child;
     int numActiveWorld;
+    bool lasthelp;
 
     int currentWorld;
     /** World orders 

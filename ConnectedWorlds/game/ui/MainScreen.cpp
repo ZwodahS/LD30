@@ -92,6 +92,8 @@ void MainScreen::update(const sf::Time& delta)
 void MainScreen::draw(const sf::Time& delta)
 {
     mainWindow->putString_row(0, 8, manager.displayRegion.width, zf::TermWindow::TextAlignmentX::Center, 0, "We are Connected...");
+    mainWindow->putString_row(0, manager.displayRegion.top + manager.displayRegion.width - 2, manager.displayRegion.width, zf::TermWindow::TextAlignmentX::Center, 0, "v1.0 (Ludumdare)");
+    mainWindow->putString_row(0, manager.displayRegion.top + manager.displayRegion.width - 1, manager.displayRegion.width, zf::TermWindow::TextAlignmentX::Center, 0, "By ZwodahS");
     for (int i = 0; i < NumOptions; i++)
     {
         int state = colors::Mod_Base | (i == selected ? colors::Mod_Selected : 0);

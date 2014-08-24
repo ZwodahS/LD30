@@ -9,6 +9,7 @@
 #include "SecondHelpScreen.hpp"
 #include "ThirdHelpScreen.hpp"
 #include "FourthHelpScreen.hpp"
+#include "LastHelpScreen.hpp"
 #include <iostream>
 DisplayManager::DisplayManager(Game& game, zf::Terminal& term, const sf::IntRect& displayRegion, const sf::IntRect& debugRegion)
     : game(game), terminal(term), displayRegion(displayRegion), debugRegion(debugRegion)
@@ -106,6 +107,34 @@ DisplayObject* DisplayManager::makeMessagePopup(const std::string& message)
 DisplayObject* DisplayManager::makeFirstHelpScreen()
 {
     DisplayObject* object = new FirstHelpScreen(*this);
+    object->init(nullptr);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeSecondHelpScreen()
+{
+    DisplayObject* object = new SecondHelpScreen(*this);
+    object->init(nullptr);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeThirdHelpScreen()
+{
+    DisplayObject* object = new ThirdHelpScreen(*this);
+    object->init(nullptr);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeFourthHelpScreen()
+{
+    DisplayObject* object = new FourthHelpScreen(*this);
+    object->init(nullptr);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeLastHelpScreen()
+{
+    DisplayObject* object = new LastHelpScreen(*this);
     object->init(nullptr);
     return object;
 }

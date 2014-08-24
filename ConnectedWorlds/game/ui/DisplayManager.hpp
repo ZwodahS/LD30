@@ -34,7 +34,7 @@ public:
     DisplayObject* makeSecondHelpScreen();
     DisplayObject* makeThirdHelpScreen();
     DisplayObject* makeFourthHelpScreen();
-
+    DisplayObject* makeLastHelpScreen();
 private:
     std::list<DisplayObject*> stack;
 };

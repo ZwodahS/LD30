@@ -26,6 +26,29 @@ void FourthHelpScreen::firstDraw()
 {
     window->clear(sf::Color(20, 20, 20, 255));
     window->drawEdgeBorder(); 
+    int line = 1;
+    window->putString_row(0, line++, region.width, zf::TermWindow::TextAlignmentX::Center, 0, "(Tutorial part 4)");
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "Mr.R lives near volcano");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "The volcano constantly ");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "release ashes which ");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "take up too much space");
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "We need to clear them.");
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "Oh and there is food");
+    window->putChar('%', sf::Color(0, 255, 0));
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "Connect the line to ");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "clear them.");
+    line++;
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "(Press Escape)", sf::Color(0, 255, 0));
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "'V' tells us how long");
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "till the next eruption.");
+    line++;
+    window->putString_row(1, line++, region.width, zf::TermWindow::TextAlignmentX::Left, 0, "If only we can block it");
 }
 
 void FourthHelpScreen::destroy()
