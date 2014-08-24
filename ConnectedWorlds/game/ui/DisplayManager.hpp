@@ -28,6 +28,8 @@ public:
     DisplayObject* makeRoot();
     DisplayObject* makeMainScreen();
     DisplayObject* makeGameScreen();
+    DisplayObject* makeMessagePopup(const std::string& message);
+
 
 
 private:

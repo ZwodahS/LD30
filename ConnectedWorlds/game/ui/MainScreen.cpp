@@ -3,6 +3,7 @@
 #include "../Game.hpp"
 #include "../KeyMap.hpp"
 #include "../c_colors.hpp"
+#include <iostream>
 const std::string MainScreen::OutDataType = "MS_OUT";
 const int MainScreen::NumOptions = 2;
 const std::string MainScreen::OptionsString[2] = { "Play!", "Quit!" };

@@ -18,6 +18,7 @@ VolcanoWorld::~VolcanoWorld()
 
 void VolcanoWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf::TermWindow* infoWindow, zf::TermWindow* overlayWindow, const sf::Time& delta)
 {
+    infoWindow->empty();
     objectsWindow->empty();
     if (!selected)
     {
@@ -47,7 +48,7 @@ void VolcanoWorld::update(const sf::Time& delta)
         volcano->time = 20;
         if (!erupt(rng::randomInt(5, 10)))
         {
-            // GAMEOVER
+            isAlive = false;
         }
     }
 }

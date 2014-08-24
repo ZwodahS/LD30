@@ -31,6 +31,6 @@ namespace zf
     /**
      * Center the rect with respect to referenceRect.
      */
-    sf::IntRect centerRegion(const sf::IntRect& rect, const sf::IntRect& referenceRect);
+    sf::IntRect centerRect(const sf::IntRect& rect, const sf::IntRect& referenceRect);
 }
 #endif

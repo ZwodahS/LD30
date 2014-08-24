@@ -3,6 +3,7 @@
 #include "../../zf/zf_conversion.hpp"
 #include "DisplayManager.hpp"
 #include "MainScreen.hpp"
+#include "GameScreen.hpp"
 #include <iostream>
 RootObject::RootObject(DisplayManager& manager)
     : DisplayObject(manager), fps(nullptr), currentChild(nullptr)
@@ -52,6 +53,11 @@ void RootObject::childReturned(DisplayObject* child, DisplayData* data)
                 {
                     done = true;
                 }
+            }
+            else if (data->type == GameScreen::OutDataType)
+            {
+                currentChild = manager.makeMainScreen();
+                manager.putDisplay(*currentChild);
             }
         }
     }

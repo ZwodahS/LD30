@@ -45,6 +45,8 @@ public:
      */
     virtual bool spawnObject(WorldObject* object);
     virtual std::vector<WorldObject*> getAdjacentBlocks(const sf::Vector2i& position) const;
+
+    bool isAlive;
 protected:
     bool selected;
     Game& game;

@@ -61,4 +61,11 @@ namespace zf
     }
     
     
+    sf::IntRect centerRect(const sf::IntRect& rect, const sf::IntRect& referenceRect)
+    {
+        // calculate the spare space.
+        int spareX = referenceRect.width - rect.width;
+        int spareY = referenceRect.height - rect.height;
+        return sf::IntRect(referenceRect.left + spareX / 2, referenceRect.top + spareY / 2, rect.width, rect.height);
+    }
 }

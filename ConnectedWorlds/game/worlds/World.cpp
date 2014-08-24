@@ -5,7 +5,7 @@
 #include <iostream>
 World::World(Game& game, World::Type worldType)
     : selected(false), game(game), player(nullptr), worldType(worldType)
-    , worldId(worldType == Type::Volcano ? 0 : worldType == Type::Forest ? 1 : worldType == Type::Sand ? 2 : 3)
+    , worldId(worldType == Type::Volcano ? 0 : worldType == Type::Forest ? 1 : worldType == Type::Sand ? 2 : 3), isAlive(true)
 {
     for (int x = 0; x < Game::WorldSize.x; x++)
     {
@@ -20,10 +20,6 @@ World::World(Game& game, World::Type worldType)
 
 World::~World()
 {
-    if (player)
-    {
-        delete player;
-    }
     for (auto object : objectsAsList)
     {
         delete object;
@@ -76,8 +72,13 @@ void World::update(const sf::Time& delta)
         }
         else
         {
+            (**it).update(delta);
             it++;
         }
+    }
+    if (player && player->food <= 0)
+    {
+        isAlive = false;
     }
 }
 
@@ -211,6 +212,7 @@ void World::move(zf::Direction direction)
                         {
                             moveObject (*object, object->position + mod);
                         }
+                        player->doWork(1 + grabbed.size());
                     }
                 }
             }
@@ -226,11 +228,13 @@ void World::move(zf::Direction direction)
                 if (!object)
                 {
                     moveObject(*player, targetPosition);
+                    player->doWork(1);
                 }
                 else if (object->canPush(direction))
                 {
                     moveObject(*player, targetPosition);
                     moveObject(*object, targetPosition + mod);
+                    player->doWork(2);
                 }
             }
         }

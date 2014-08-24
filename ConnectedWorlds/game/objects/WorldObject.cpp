@@ -10,6 +10,10 @@ WorldObject::~WorldObject()
 {
 }
 
+void WorldObject::update(const sf::Time& delta)
+{
+}
+
 bool WorldObject::canPush(zf::Direction direction) const
 {
     auto mod = zf::getModifier(direction);

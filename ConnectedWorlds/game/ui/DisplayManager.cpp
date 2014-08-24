@@ -2,6 +2,7 @@
 #include "DisplayObject.hpp"
 #include "DisplayData.hpp"
 #include "MainScreen.hpp"
+#include "PopupDisplay.hpp"
 #include "GameScreen.hpp"
 #include "RootObject.hpp"
 #include <iostream>
@@ -87,5 +88,13 @@ DisplayObject* DisplayManager::makeGameScreen()
 {
     DisplayObject* object = new GameScreen(*this);
     object->init(nullptr);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeMessagePopup(const std::string& message)
+{
+    DisplayObject* object = new PopupDisplay(*this);
+    PopupDisplay::InData data(message);
+    object->init(&data);
     return object;
 }

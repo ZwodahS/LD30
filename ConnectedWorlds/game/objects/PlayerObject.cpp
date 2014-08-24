@@ -4,6 +4,7 @@
 #include <iostream>
 PlayerObject::PlayerObject(Game& game, World& world)
     : WorldObject(game, world, WorldObject::ObjectType::PlayerObject), food(100), work(0)
+    , foodDepleteRate(10), workCostRate(10)
 {
     sprite = game.getPlayerSprite(world.worldId);
 }
@@ -15,6 +16,26 @@ PlayerObject::~PlayerObject()
 void PlayerObject::draw(zf::TermWindow* window, const sf::Time& delta)
 {
     window->putSprite_xyf(position.x, position.y, sprite);
+}
+
+void PlayerObject::update(const sf::Time& delta)
+{
+    foodDepleteCounter += delta.asSeconds();
+    if (foodDepleteCounter >= foodDepleteRate)
+    {
+        foodDepleteCounter -= foodDepleteRate;
+        food--;
+    }
+}
+
+void PlayerObject::doWork(int amount)
+{
+    work += amount;
+    while (work > workCostRate)
+    {
+        work -= workCostRate;
+        food--;
+    }
 }
 
 bool PlayerObject::canPush(zf::Direction direction) const

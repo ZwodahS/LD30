@@ -8,6 +8,7 @@ public:
     virtual ~PlayerObject();
 
     void draw(zf::TermWindow* window, const sf::Time& delta);
+    void update(const sf::Time& delta);
     bool canPush(zf::Direction direction) const;
 
     bool isGrabbing() const;
@@ -17,10 +18,14 @@ public:
      */
     void toggleGrab();
     int food;
+    float foodDepleteRate;
     int work;
+    int workCostRate;
+    void doWork(int amount);
 
     const std::vector<WorldObject*>& getGrabbedObjects() const;
 private:
+    float foodDepleteCounter;
     sf::Sprite sprite;
     std::vector<WorldObject*> grabbedObjects;
 };

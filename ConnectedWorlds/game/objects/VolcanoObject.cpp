@@ -3,7 +3,7 @@
 #include "../worlds/World.hpp"
 #include <iostream>
 VolcanoObject::VolcanoObject(Game& game, World& world)
-    : WorldObject(game, world, ObjectType::VolcanoObject), time(20)
+    : WorldObject(game, world, ObjectType::VolcanoObject), time(30)
 {
     background = game.getSpecialCharSprite(zf::Fill);
     background.setColor(sf::Color(200, 50, 50));
