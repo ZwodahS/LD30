@@ -5,6 +5,7 @@
 #include "../worlds/ForestWorld.hpp"
 #include "../worlds/SandWorld.hpp"
 #include "../worlds/WaterWorld.hpp"
+#include "../objects/g_objects.hpp"
 #include "../../zf/zf_rect.hpp"
 #include "../../zf/zf_sprite.hpp"
 #include <iostream>
@@ -137,6 +138,7 @@ void GameScreen::update(const sf::Time& delta)
          * damn hackish, I should have another container to do it.
          */
         {
+            int foodCount(0);
             auto blocks = worlds[0]->getOutputBlocks();
             for (auto block : blocks)
             {
@@ -150,12 +152,28 @@ void GameScreen::update(const sf::Time& delta)
             blocks = worlds[2]->getOutputBlocks();
             for (auto block : blocks)
             {
-                worlds[3]->spawnObject(block);
+                if (block->type == WorldObject::ObjectType::TreeObject)
+                {
+                    foodCount+=1;
+                    delete block;
+                }
+                else
+                {
+                    worlds[3]->spawnObject(block);
+                }
             }
             blocks = worlds[3]->getOutputBlocks();
             for (auto block : blocks)
             {
                 worlds[0]->spawnObject(block);
+            }
+
+            for (int i = 0; i < foodCount; i++)
+            {
+                worlds[0]->spawnObject(new FoodObject(manager.game, *worlds[0]));
+                worlds[1]->spawnObject(new FoodObject(manager.game, *worlds[1]));
+                worlds[2]->spawnObject(new FoodObject(manager.game, *worlds[2]));
+                worlds[3]->spawnObject(new FoodObject(manager.game, *worlds[3]));
             }
         }
         if (worlds[0]->isAlive & worlds[1]->isAlive & worlds[2]->isAlive & worlds[3]->isAlive)

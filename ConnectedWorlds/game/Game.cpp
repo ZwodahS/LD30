@@ -160,6 +160,7 @@ void Game::initAssets()
     Special_Sand4 = current++;
     Special_Unit = current++;
     Special_Volcano = current++;
+    Special_Water = current++;
     sf::Image image;
     image.loadFromFile(RootPath + "data/others/sand_1.png");
     terminal->addSpecialCharImage(Special_Sand1, image);
@@ -173,6 +174,8 @@ void Game::initAssets()
     terminal->addSpecialCharImage(Special_Unit, image);
     image.loadFromFile(RootPath + "data/others/volcano.png");
     terminal->addSpecialCharImage(Special_Volcano, image);
+    image.loadFromFile(RootPath + "data/others/water.png");
+    terminal->addSpecialCharImage(Special_Water, image);
 }
 
 sf::Sprite Game::getPlayerSprite(int worldId)

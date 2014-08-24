@@ -76,9 +76,12 @@ void World::update(const sf::Time& delta)
             it++;
         }
     }
-    if (player && player->food <= 0)
+    if (player && isAlive)
     {
-        isAlive = false;
+        if (player->food <= 0 || (countEmptySpot(player->position) == 0 && !player->isGrabbing()))
+        {
+            isAlive = false;
+        }
     }
 }
 
@@ -225,14 +228,22 @@ void World::move(zf::Direction direction)
             if (inRange(targetPosition))
             {
                 auto object = getObject(targetPosition);
+                auto objectTargetPosition = targetPosition + mod;
                 if (!object)
                 {
                     moveObject(*player, targetPosition);
                     player->doWork(1);
                 }
-                else 
+                else if (object->type == WorldObject::ObjectType::FoodObject)
                 {
-                    auto objectTargetPosition = object->position + mod;
+                    player->eat();
+                    removeFromGrid(object);
+                    removeFromList(object);
+                    delete object;
+                    moveObject(*player, targetPosition);
+                }
+                else if (inRange(objectTargetPosition))
+                {
                     auto objectObstacle = getObject(objectTargetPosition);
                     if (!object->isPushable())
                     {
@@ -286,6 +297,19 @@ void World::move(zf::Direction direction)
                             moveObject(*player, targetPosition);
                         }
                     }
+                    else if (object->type == WorldObject::ObjectType::TreeObject && objectObstacle->type == WorldObject::ObjectType::WaterObject)
+                    {
+                        auto treeSource = static_cast<TreeObject*>(object);
+                        auto waterTarget = static_cast<WaterObject*>(objectObstacle);
+                        if (treeSource->grow())
+                        {
+                            removeFromGrid(waterTarget);
+                            removeFromList(waterTarget);
+                            delete waterTarget;
+                            moveObject(*treeSource, objectTargetPosition);
+                            moveObject(*player, targetPosition);
+                        }
+                    }
                 }
             }
         }
@@ -327,4 +351,19 @@ void World::removeFromList(WorldObject* object)
     {
         objectsAsList.erase(result);
     }
+}
+
+int World::countEmptySpot(const sf::Vector2i& position) const
+{
+    int count = 0;
+    for (auto direction : zf::AdjacentDirection)
+    {
+        auto mod = zf::getModifier(direction);
+        auto target = position + mod;
+        if (inRange(target) && getObject(target) == nullptr)
+        {
+            count++;
+        }
+    }
+    return count;
 }

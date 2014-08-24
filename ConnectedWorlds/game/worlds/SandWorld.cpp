@@ -22,11 +22,11 @@ void SandWorld::draw(zf::TermWindow* window, zf::TermWindow* objectsWindow, zf::
     objectsWindow->empty();
     if (!selected)
     {
-        window->clear(sf::Color(50, 50, 32));
+        window->clear(sf::Color(70, 70, 50));
     }
     else
     {
-        window->clear(sf::Color(100, 100, 75));
+        window->clear(sf::Color(70, 70, 0));
     }
     World::draw(window, objectsWindow, infoWindow, overlayWindow, delta);
     infoWindow->putString_xy(0, 0, "(3)");

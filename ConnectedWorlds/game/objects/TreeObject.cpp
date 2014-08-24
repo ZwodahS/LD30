@@ -24,7 +24,7 @@ TreeObject::~TreeObject()
 
 void TreeObject::draw(zf::TermWindow* window, const sf::Time& delta)
 {
-    window->putSprite_xyf(position.x, position.y, sprite[currentStage]);
+    window->putSprite_xyf(position.x, position.y, sprite[currentStage >= STAGES ? STAGES - 1 : currentStage]);
     if (grabbed)
     {
         window->putSprite_xyb(position.x, position.y, background);
@@ -34,4 +34,19 @@ void TreeObject::draw(zf::TermWindow* window, const sf::Time& delta)
 bool TreeObject::canBeGrabbed() const
 {
     return true;
+}
+
+bool TreeObject::grow()
+{
+    if (currentStage == STAGES)
+    {
+        return false;
+    }
+    currentStage++;
+    return true;
+}
+
+bool TreeObject::hasFood() const
+{
+    return currentStage == STAGES;
 }

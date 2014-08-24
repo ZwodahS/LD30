@@ -10,8 +10,10 @@ public:
 
     virtual void draw(zf::TermWindow* window, const sf::Time& delta);
     bool canBeGrabbed() const;
-private:
+    bool grow();
+    bool hasFood() const;
     int currentStage;
+private:
     sf::Sprite background;
     sf::Sprite sprite[STAGES];
 };

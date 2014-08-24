@@ -45,6 +45,7 @@ public:
      */
     virtual bool spawnObject(WorldObject* object);
     virtual std::vector<WorldObject*> getAdjacentBlocks(const sf::Vector2i& position) const;
+    int countEmptySpot(const sf::Vector2i& position) const;
 
     bool isAlive;
 protected:

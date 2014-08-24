@@ -40,6 +40,7 @@ public:
     int Special_Sand4;
     int Special_Unit;
     int Special_Volcano;
+    int Special_Water;
 //////////////////// Basic stuffs ////////////////////
 public:
     Game();

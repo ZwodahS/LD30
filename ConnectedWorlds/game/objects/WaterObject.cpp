@@ -8,7 +8,7 @@ int WaterObject::ProbabilityGrowth = 10;
 WaterObject::WaterObject(Game& game, World& world)
     : WorldObject(game, world, ObjectType::WaterObject), flood(true), floodMeter(0)
 {
-    sprite = zf::setCopyColor(game.getCharSprite('~'), sf::Color(0, 0, 255, 255));
+    sprite = zf::setCopyColor(game.getSpecialCharSprite(game.Special_Water), sf::Color(0, 0, 255, 255));
     background = zf::setCopyColor(game.getSpecialCharSprite(zf::Fill), sf::Color(0, 0, 255, 0));
 }
 
@@ -41,4 +41,9 @@ void WaterObject::update(const sf::Time& delta)
             floodMeter++;
         }
     }
+}
+
+bool WaterObject::isPushable() const
+{
+    return false;
 }

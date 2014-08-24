@@ -4,6 +4,7 @@
 class PlayerObject : public WorldObject
 {
 public:
+    static int FoodIncreaseAmount;
     PlayerObject(Game& game, World& world);
     virtual ~PlayerObject();
 
@@ -22,7 +23,7 @@ public:
     int work;
     int workCostRate;
     void doWork(int amount);
-
+    void eat();
     const std::vector<WorldObject*>& getGrabbedObjects() const;
 private:
     float foodDepleteCounter;

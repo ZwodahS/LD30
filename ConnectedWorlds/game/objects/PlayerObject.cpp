@@ -2,6 +2,7 @@
 #include "../Game.hpp"
 #include "../worlds/World.hpp"
 #include <iostream>
+int PlayerObject::FoodIncreaseAmount = 25;
 PlayerObject::PlayerObject(Game& game, World& world)
     : WorldObject(game, world, WorldObject::ObjectType::PlayerObject), food(100), work(0)
     , foodDepleteRate(10), workCostRate(10)
@@ -78,4 +79,10 @@ void PlayerObject::toggleGrab()
 const std::vector<WorldObject*>& PlayerObject::getGrabbedObjects() const
 {
     return grabbedObjects;
+}
+
+void PlayerObject::eat()
+{
+    food += FoodIncreaseAmount;
+    food = food >= 100 ? 100 : food;
 }

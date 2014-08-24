@@ -9,6 +9,7 @@ SandObject::SandObject(Game& game, World& world)
     sprite[1] = zf::setCopyColor(game.getSpecialCharSprite(game.Special_Sand2), sf::Color(255, 255, 0, 255));
     sprite[2] = zf::setCopyColor(game.getSpecialCharSprite(game.Special_Sand3), sf::Color(255, 255, 0, 255));
     sprite[3] = zf::setCopyColor(game.getSpecialCharSprite(game.Special_Sand4), sf::Color(255, 255, 0, 255));
+    background = zf::setCopyColor(game.getSpecialCharSprite(zf::Fill), sf::Color(100, 100, 40, 255));
 }
 
 SandObject::~SandObject()
@@ -18,4 +19,13 @@ SandObject::~SandObject()
 void SandObject::draw(zf::TermWindow* window, const sf::Time& delta)
 {
     window->putSprite_xyf(position.x, position.y, sprite[count - 1]);
+    if (grabbed)
+    {
+        window->putSprite_xyb(position.x, position.y, background);
+    }
+}
+
+bool SandObject::canBeGrabbed() const
+{
+    return true;
 }

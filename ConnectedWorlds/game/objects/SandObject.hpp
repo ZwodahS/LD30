@@ -9,7 +9,9 @@ public:
 
     int count;
     virtual void draw(zf::TermWindow* window, const sf::Time& delta);
+    virtual bool canBeGrabbed() const;
 private:
     sf::Sprite sprite[4];
+    sf::Sprite background;
 };
 #endif
