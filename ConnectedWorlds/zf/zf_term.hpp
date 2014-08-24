@@ -126,6 +126,9 @@ namespace zf
         void putString(const std::string& str, const sf::Color& color = sf::Color(255, 255, 255, 255));
         void putString_xy(int x, int y, const std::string& str, const sf::Color& color = sf::Color(255, 255, 255, 255));
         void putString_row(int x, int y, int width, TextAlignmentX alignment, int offset, const std::string& message, const sf::Color& color = sf::Color(255, 255, 255, 255));
+
+        void putChar(char c, const sf::Color& color = sf::Color(255, 255, 255, 255));
+        void putChar_xy(int x, int y, char c, const sf::Color& color = sf::Color(255, 255, 255, 255));
          
         const bool& isVisible() const;
 

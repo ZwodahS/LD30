@@ -120,6 +120,38 @@ void GameScreen::draw(const sf::Time& delta)
     {
         worlds[i]->draw(worldWindows[i], infoWindows[i], overlayWindow, delta);
     }
+    {
+        auto w1Region = worldRegions[0];
+        int x = zf::rightOf(w1Region) + 1;
+        for (int y = w1Region.top; y < w1Region.top + w1Region.height; y++)
+        {
+            overlayWindow->putChar_xy(x, y, '>', sf::Color(100, 100, 100, 255));
+        }
+    }
+    {
+        auto w2Region = worldRegions[1];
+        int y = zf::bottomOf(w2Region) + 1;
+        for (int x = w2Region.left; x < w2Region.left + w2Region.width; x++)
+        {
+            overlayWindow->putChar_xy(x, y, 'v', sf::Color(100, 100, 100, 255));
+        }
+    }
+    {
+        auto w3Region = worldRegions[2];
+        int x = zf::leftOf(w3Region) - 1;
+        for (int y = w3Region.top; y < w3Region.top + w3Region.height; y++)
+        {
+            overlayWindow->putChar_xy(x, y, '<', sf::Color(100, 100, 100, 255));
+        }
+    }
+    {
+        auto w4Region = worldRegions[3];
+        int y = zf::topOf(w4Region) - 1;
+        for (int x = w4Region.left; x < w4Region.left + w4Region.width; x++)
+        {
+            overlayWindow->putChar_xy(x, y, '^', sf::Color(100, 100, 100, 255));
+        }
+    }
 }
 
 void GameScreen::selectWorld(int world)

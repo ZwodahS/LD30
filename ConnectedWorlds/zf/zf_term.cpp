@@ -190,6 +190,21 @@ namespace zf
         }
     }
 
+    void TermWindow::putChar(char c, const sf::Color& color)
+    {
+        auto sprite = screen.getChar(c).createSprite();
+        sprite.setColor(color);
+        putSprite_f(sprite);
+    }
+
+    void TermWindow::putChar_xy(int x, int y, char c, const sf::Color& color)
+    {
+        if (moveCursor(x, y))
+        {
+            putChar(c, color);
+        }
+    }
+
     const bool& TermWindow::isVisible() const
     {
         return visible;
