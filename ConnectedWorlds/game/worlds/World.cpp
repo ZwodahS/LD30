@@ -269,7 +269,14 @@ void World::move(zf::Direction direction)
                             removeFromGrid(sandSource);
                             removeFromList(sandSource);
                             moveObject(*player, targetPosition);
-                            spawnObject(sandSource);
+                            if (spawnSand())
+                            {
+                                spawnObject(sandSource);
+                            }
+                            else
+                            {
+                                delete sandSource;
+                            }
                         }
                         player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
@@ -379,4 +386,9 @@ int World::countEmptySpot(const sf::Vector2i& position) const
         }
     }
     return count;
+}
+
+bool World::spawnSand() const
+{
+    return false;
 }

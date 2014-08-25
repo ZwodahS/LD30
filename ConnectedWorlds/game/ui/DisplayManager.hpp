@@ -27,7 +27,7 @@ public:
     
     DisplayObject* makeRoot();
     DisplayObject* makeMainScreen();
-    DisplayObject* makeGameScreen();
+    DisplayObject* makeGameScreen(bool tutorial = true);
     DisplayObject* makeMessagePopup(const std::string& message);
 
     DisplayObject* makeFirstHelpScreen();

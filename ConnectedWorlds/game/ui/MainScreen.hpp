@@ -11,6 +11,7 @@ public:
     enum Choice
     {
         NewGame,
+        NewGame_NoTut,
         Exit,
     };
     class OutData : public DisplayData
@@ -33,11 +34,9 @@ public:
     virtual void draw(const sf::Time& delta);
 
     static const int NumOptions;
-    static const std::string OptionsString[2];
-    static const Choice OptionsChoice[2];
+    static const std::string OptionsString[3];
+    static const Choice OptionsChoice[3];
 
-    
-    std::vector<sf::IntRect> buttonRegions;
     int selected;
 private:
     zf::TermWindow* mainWindow;

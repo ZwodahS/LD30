@@ -62,5 +62,6 @@ protected:
     void removeFromList(WorldObject* object);
     void move(zf::Direction direction);
     void moveObject(WorldObject& object, const sf::Vector2i& position);
+    virtual bool spawnSand() const;
 };
 #endif

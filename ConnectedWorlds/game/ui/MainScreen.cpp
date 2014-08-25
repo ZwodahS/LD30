@@ -5,9 +5,9 @@
 #include "../c_colors.hpp"
 #include <iostream>
 const std::string MainScreen::OutDataType = "MS_OUT";
-const int MainScreen::NumOptions = 2;
-const std::string MainScreen::OptionsString[2] = { "Play!", "Quit!" };
-const MainScreen::  Choice MainScreen::OptionsChoice[2] = { MainScreen::NewGame, MainScreen::Exit };
+const int MainScreen::NumOptions = 3;
+const std::string MainScreen::OptionsString[3] = { "Play!", "Play (No tutorial)", "Quit!" };
+const MainScreen::  Choice MainScreen::OptionsChoice[3] = { MainScreen::NewGame, MainScreen::NewGame_NoTut, MainScreen::Exit };
 
 MainScreen::MainScreen(DisplayManager& manager)
     : DisplayObject(manager), mainWindow(nullptr), selected(0)
@@ -26,33 +26,12 @@ MainScreen::OutData::OutData(MainScreen::Choice choice)
 bool MainScreen::init(DisplayData* data)
 {
     mainWindow = manager.terminal.newWindow(manager.displayRegion);
-    {   // calculate the space needed by the buttons
-        int totalSizeRequired(0);
-
-        for (int i = 0; i < NumOptions; i++)
-        {
-            totalSizeRequired += OptionsString[i].size();
-            totalSizeRequired += 2; // add 2 for border.
-        }
-        auto terminalSize = manager.terminal.getTermBound();
-        int spaceAvailable = terminalSize.width - totalSizeRequired;
-        int maxSpaceBetweenButton = spaceAvailable / (NumOptions - 1);
-        int spaceBetweenButton = maxSpaceBetweenButton > 5 ? 5 : maxSpaceBetweenButton;
-        int spaceUsed = spaceBetweenButton * (NumOptions - 1);
-        int leftBegin = (spaceAvailable - spaceUsed) / 2;
-        int x = leftBegin;
-        for (int i = 0; i < NumOptions; i++)
-        {
-            buttonRegions.push_back(sf::IntRect(x, 15, OptionsString[i].size() + 2, 3));
-            x += buttonRegions[i].width + spaceBetweenButton;
-        }
-    }
     return true;
 }
 
 DisplayData* MainScreen::getReturnValue()
 {
-    return new OutData(selected == 0 ? NewGame : Exit); 
+    return new OutData(selected == 0 ? NewGame : selected == 1 ? NewGame_NoTut : Exit); 
 }
 
 void MainScreen::destroy()
@@ -66,11 +45,11 @@ void MainScreen::destroy()
 bool MainScreen::processKey(int key)
 {
     auto action = manager.game.keyMap.getMapping(key);
-    if (action == Action::Left || action == Action::World_Left)
+    if (action == Action::Up || action == Action::World_Up)
     {
         selected = selected <= 0 ? 0 : selected >= NumOptions ? NumOptions - 1 : selected - 1;
     }
-    else if (action == Action::Right || action == Action::World_Right)
+    else if (action == Action::Down || action == Action::World_Down)
     {
         selected = selected < 0 ? 0 : selected >= NumOptions - 1 ? NumOptions - 1 : selected + 1;
     }
@@ -97,7 +76,6 @@ void MainScreen::draw(const sf::Time& delta)
     for (int i = 0; i < NumOptions; i++)
     {
         int state = colors::Mod_Base | (i == selected ? colors::Mod_Selected : 0);
-        mainWindow->drawCenterBox(buttonRegions[i], colors::Button_Border[state]);
-        mainWindow->putString_xy(buttonRegions[i].left + 1, buttonRegions[i].top + 1, OptionsString[i], colors::Button_Text[state]);
+        mainWindow->putString_row(0, 15 + (i * 2), manager.displayRegion.width, zf::TermWindow::TextAlignmentX::Center, 0, OptionsString[i], colors::Button_Text[state]);
     }
 }

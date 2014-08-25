@@ -34,9 +34,9 @@ public:
     virtual void update(const sf::Time& delta);
     virtual void draw(const sf::Time& delta);
 
+    bool printHelp;
 private:
     bool paused;
-    bool printHelp;
     DisplayObject* child;
     int numActiveWorld;
     bool lasthelp;

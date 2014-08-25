@@ -1,8 +1,8 @@
 {
     "initial_food" : 100,
     "player_fooddepleterate" : 10,
-    "player_workdepleterate" : 5,
-    "player_foodincreaseamount" : 25,
+    "player_workdepleterate" : 10,
+    "player_foodincreaseamount" : 30,
     "player_movecost" : 1,
     "player_grabcost" : 1,
     "player_pushcost" : 1,

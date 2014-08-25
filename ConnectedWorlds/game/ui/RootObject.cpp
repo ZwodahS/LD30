@@ -51,6 +51,11 @@ void RootObject::childReturned(DisplayObject* child, DisplayData* data)
                     currentChild = manager.makeGameScreen();
                     manager.putDisplay(*currentChild);
                 }
+                else if (outData->choice == MainScreen::NewGame_NoTut)
+                {
+                    currentChild = manager.makeGameScreen(false);
+                    manager.putDisplay(*currentChild);
+                }
                 else if (outData->choice == MainScreen::Exit)
                 {
                     done = true;

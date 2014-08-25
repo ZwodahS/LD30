@@ -164,8 +164,11 @@ void GameScreen::childReturned(DisplayObject* child, DisplayData* data)
     if (numActiveWorld == 4 && !lasthelp)
     {
         lasthelp = true;
-        child = manager.makeLastHelpScreen();
-        manager.putDisplay(*child);
+        if (printHelp)
+        {
+            child = manager.makeLastHelpScreen();
+            manager.putDisplay(*child);
+        }
     }
 }
 
@@ -188,8 +191,8 @@ void GameScreen::update(const sf::Time& delta)
             {
                 child = manager.makeFirstHelpScreen();
                 manager.putDisplay(*child);
-                selectWorld(0);
             }
+            selectWorld(0);
         }
         /**
          * damn hackish, I should have another container to do it.
@@ -228,8 +231,11 @@ void GameScreen::update(const sf::Time& delta)
             blocks = worlds[1]->getOutputBlocks();
             if (blocks.size() >= 1)
             {
-                child = manager.makeThirdHelpScreen();
-                manager.putDisplay(*child);
+                if (printHelp)
+                {
+                    child = manager.makeThirdHelpScreen();
+                    manager.putDisplay(*child);
+                }
                 worlds[2]->isActive = true;
                 numActiveWorld = 3;
             }
@@ -263,8 +269,11 @@ void GameScreen::update(const sf::Time& delta)
             blocks = worlds[2]->getOutputBlocks();
             if (blocks.size() >= 1)
             {
-                child = manager.makeFourthHelpScreen();
-                manager.putDisplay(*child);
+                if (printHelp)
+                {
+                    child = manager.makeFourthHelpScreen();
+                    manager.putDisplay(*child);
+                }
                 worlds[3]->isActive = true;
                 numActiveWorld = 4;
             }

@@ -89,10 +89,11 @@ DisplayObject* DisplayManager::makeMainScreen()
     return object;
 }
 
-DisplayObject* DisplayManager::makeGameScreen()
+DisplayObject* DisplayManager::makeGameScreen(bool tutorial)
 {
-    DisplayObject* object = new GameScreen(*this);
+    GameScreen* object = new GameScreen(*this);
     object->init(nullptr);
+    object->printHelp = tutorial;
     return object;
 }
 

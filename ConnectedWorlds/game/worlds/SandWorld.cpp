@@ -50,3 +50,8 @@ void SandWorld::update(const sf::Time& delta)
     }
     World::update(delta);
 }
+
+bool SandWorld::spawnSand() const
+{
+    return true;
+}
