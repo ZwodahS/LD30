@@ -188,6 +188,7 @@ void GameScreen::update(const sf::Time& delta)
             {
                 child = manager.makeFirstHelpScreen();
                 manager.putDisplay(*child);
+                selectWorld(0);
             }
         }
         /**
@@ -429,7 +430,7 @@ void GameScreen::draw(const sf::Time& delta)
 
 void GameScreen::selectWorld(int world)
 {
-    if (world < 0 || world >= 4 || !worlds[currentWorld]->isActive)
+    if (world < 0 || world >= 4 || !worlds[world]->isActive)
     {
         return;
     }
