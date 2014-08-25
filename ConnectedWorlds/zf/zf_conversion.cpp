@@ -48,10 +48,8 @@ namespace zf
 #ifdef NO_STD_TO_STRING
         std::stringstream sstr;
         sstr << value;
-        std::string str1 = sstr.str();
-        return str1;
+        return sstr.str();
 #else
-        // TODO Might need to fix for some compiler with weird c++11 behavior.
         return std::to_string(value);
 #endif
 
