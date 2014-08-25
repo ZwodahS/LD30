@@ -563,6 +563,7 @@
 				INFOPLIST_FILE = "ConnectedWorlds/ConnectedWorlds-Info.plist";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
 			};
 			name = Debug;
 		};
@@ -577,6 +578,7 @@
 				INFOPLIST_FILE = "ConnectedWorlds/ConnectedWorlds-Info.plist";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
 			};
 			name = Release;
 		};
