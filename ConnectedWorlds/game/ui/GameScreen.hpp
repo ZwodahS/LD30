@@ -36,6 +36,7 @@ public:
 
     bool printHelp;
 private:
+    float totalTime;
     bool paused;
     DisplayObject* child;
     int numActiveWorld;

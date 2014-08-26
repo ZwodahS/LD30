@@ -16,6 +16,8 @@ class Game
 public:
 
     static const std::string RootPath;
+    static const std::string Version;
+    static const std::string VersionName;
     static const int NO_KEY;
     static const int ENTER_KEY;
     static const int ESCAPE_KEY;

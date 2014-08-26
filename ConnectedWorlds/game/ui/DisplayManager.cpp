@@ -105,6 +105,14 @@ DisplayObject* DisplayManager::makeMessagePopup(const std::string& message)
     return object;
 }
 
+DisplayObject* DisplayManager::makeMessagePopup(const std::list<std::string>& messages)
+{
+    DisplayObject* object = new PopupDisplay(*this);
+    PopupDisplay::InData data(messages);
+    object->init(&data);
+    return object;
+}
+
 DisplayObject* DisplayManager::makeFirstHelpScreen()
 {
     DisplayObject* object = new FirstHelpScreen(*this);

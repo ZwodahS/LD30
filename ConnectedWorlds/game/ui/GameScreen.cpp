@@ -12,7 +12,7 @@
 const std::string GameScreen::OutDataType("GS_OUT");
 GameScreen::GameScreen(DisplayManager& manager)
     : DisplayObject(manager), currentWorld(0), child(nullptr), result(nullptr), paused(false), numActiveWorld(0)
-    , printHelp(true), lasthelp(false)
+    , printHelp(true), lasthelp(false), totalTime(0)
 {
     for (int i = 0; i < 4; i++)
     {
@@ -176,6 +176,7 @@ void GameScreen::update(const sf::Time& delta)
 {
     if (!child && !paused)
     {
+        totalTime += delta.asSeconds();
         for (auto world : worlds)
         {
             if (world->isActive)
@@ -372,7 +373,10 @@ void GameScreen::update(const sf::Time& delta)
             auto vWorld = static_cast<VolcanoWorld*>(worlds[3]);
             if (vWorld->volcano->blocked)
             {
-                child = manager.makeMessagePopup("Victory ");
+                std::list<std::string> messages;
+                messages.push_back("Victory");
+                messages.push_back("You won in " + zf::intToString((int)totalTime) + "s");
+                child = manager.makeMessagePopup(messages);
                 manager.putDisplay(*child);
                 if (result)
                 {
@@ -383,7 +387,10 @@ void GameScreen::update(const sf::Time& delta)
         }
         else
         {
-            child = manager.makeMessagePopup("Game over ");
+            std::list<std::string> messages;
+            messages.push_back("Defeat");
+            messages.push_back("You survived " + zf::intToString((int)totalTime) + "s");
+            child = manager.makeMessagePopup(messages);
             manager.putDisplay(*child);
             if (result)
             {
@@ -435,6 +442,7 @@ void GameScreen::draw(const sf::Time& delta)
             overlayWindow->putSprite_xyf(x, y, arrows[zf::Up]);
         }
     }
+    overlayWindow->putString_row(0, overlayWindow->getBound().height - 1, overlayWindow->getBound().width, zf::TermWindow::TextAlignmentX::Center, 0, "T" + zf::intToString((int)totalTime));
 }
 
 void GameScreen::selectWorld(int world)

@@ -4,6 +4,7 @@
 #include "DIsplayData.hpp"
 #include <string>
 #include "../../zf/zf_term.hpp"
+#include <list>
 class PopupDisplay : public DisplayObject
 {
 public:
@@ -12,8 +13,9 @@ public:
     {
     public:
         InData(const std::string& message);
+        InData(const std::list<std::string>& messages);
 
-        std::string message;
+        std::list<std::string> messages;
     };
     PopupDisplay(DisplayManager& manager);
     ~PopupDisplay();
@@ -26,9 +28,10 @@ public:
     virtual void update(const sf::Time& delta);
     virtual void draw(const sf::Time& delta);
 
-    std::string message;
+    std::list<std::string> messages;
 private:
     sf::IntRect region;
     zf::TermWindow* window;
+    void firstDraw();
 };
 #endif

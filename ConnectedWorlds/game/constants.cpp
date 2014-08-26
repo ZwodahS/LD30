@@ -3,6 +3,8 @@
 #include "../ResourcePath.hpp"
 // need to enforce order of definition
 const std::string Game::Title("Connected Worlds");
+const std::string Game::Version("1.2.0");
+const std::string Game::VersionName("Post-LD");
 const sf::Vector2i Game::WorldSize(15, 15);
 const sf::Vector2i Game::TermSize(2 * WorldSize.x + 1, 2 * WorldSize.y + 4);
 const sf::Vector2i Game::ImageSize(32, 32);
