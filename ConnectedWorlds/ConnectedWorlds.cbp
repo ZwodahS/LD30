@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ConnectedWorlds" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/ConnectedWorlds" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DNO_STD_TO_STRING" />
+				</Compiler>
+				<Linker>
+					<Add library="C:\lib\SFML-2.1\lib\libsfml-graphics.a" />
+					<Add library="C:\lib\SFML-2.1\lib\libsfml-system.a" />
+					<Add library="C:\lib\SFML-2.1\lib\libsfml-window.a" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ConnectedWorlds" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DNO_STD_TO_STRING" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="C:\lib\SFML-2.1\lib\libsfml-graphics.a" />
+					<Add library="C:\lib\SFML-2.1\lib\libsfml-system.a" />
+					<Add library="C:\lib\SFML-2.1\lib\libsfml-window.a" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="ResourcePath.hpp" />
+		<Unit filename="data/font_32/basic/100.png" />
+		<Unit filename="data/font_32/basic/101.png" />
+		<Unit filename="data/font_32/basic/102.png" />
+		<Unit filename="data/font_32/basic/103.png" />
+		<Unit filename="data/font_32/basic/104.png" />
+		<Unit filename="data/font_32/basic/105.png" />
+		<Unit filename="data/font_32/basic/106.png" />
+		<Unit filename="data/font_32/basic/107.png" />
+		<Unit filename="data/font_32/basic/108.png" />
+		<Unit filename="data/font_32/basic/109.png" />
+		<Unit filename="data/font_32/basic/110.png" />
+		<Unit filename="data/font_32/basic/111.png" />
+		<Unit filename="data/font_32/basic/112.png" />
+		<Unit filename="data/font_32/basic/113.png" />
+		<Unit filename="data/font_32/basic/114.png" />
+		<Unit filename="data/font_32/basic/115.png" />
+		<Unit filename="data/font_32/basic/116.png" />
+		<Unit filename="data/font_32/basic/117.png" />
+		<Unit filename="data/font_32/basic/118.png" />
+		<Unit filename="data/font_32/basic/119.png" />
+		<Unit filename="data/font_32/basic/120.png" />
+		<Unit filename="data/font_32/basic/121.png" />
+		<Unit filename="data/font_32/basic/122.png" />
+		<Unit filename="data/font_32/basic/123.png" />
+		<Unit filename="data/font_32/basic/124.png" />
+		<Unit filename="data/font_32/basic/125.png" />
+		<Unit filename="data/font_32/basic/126.png" />
+		<Unit filename="data/font_32/basic/32.png" />
+		<Unit filename="data/font_32/basic/33.png" />
+		<Unit filename="data/font_32/basic/34.png" />
+		<Unit filename="data/font_32/basic/35.png" />
+		<Unit filename="data/font_32/basic/36.png" />
+		<Unit filename="data/font_32/basic/37.png" />
+		<Unit filename="data/font_32/basic/38.png" />
+		<Unit filename="data/font_32/basic/39.png" />
+		<Unit filename="data/font_32/basic/40.png" />
+		<Unit filename="data/font_32/basic/41.png" />
+		<Unit filename="data/font_32/basic/42.png" />
+		<Unit filename="data/font_32/basic/43.png" />
+		<Unit filename="data/font_32/basic/44.png" />
+		<Unit filename="data/font_32/basic/45.png" />
+		<Unit filename="data/font_32/basic/46.png" />
+		<Unit filename="data/font_32/basic/47.png" />
+		<Unit filename="data/font_32/basic/48.png" />
+		<Unit filename="data/font_32/basic/49.png" />
+		<Unit filename="data/font_32/basic/50.png" />
+		<Unit filename="data/font_32/basic/51.png" />
+		<Unit filename="data/font_32/basic/52.png" />
+		<Unit filename="data/font_32/basic/53.png" />
+		<Unit filename="data/font_32/basic/54.png" />
+		<Unit filename="data/font_32/basic/55.png" />
+		<Unit filename="data/font_32/basic/56.png" />
+		<Unit filename="data/font_32/basic/57.png" />
+		<Unit filename="data/font_32/basic/58.png" />
+		<Unit filename="data/font_32/basic/59.png" />
+		<Unit filename="data/font_32/basic/60.png" />
+		<Unit filename="data/font_32/basic/61.png" />
+		<Unit filename="data/font_32/basic/62.png" />
+		<Unit filename="data/font_32/basic/63.png" />
+		<Unit filename="data/font_32/basic/64.png" />
+		<Unit filename="data/font_32/basic/65.png" />
+		<Unit filename="data/font_32/basic/66.png" />
+		<Unit filename="data/font_32/basic/67.png" />
+		<Unit filename="data/font_32/basic/68.png" />
+		<Unit filename="data/font_32/basic/69.png" />
+		<Unit filename="data/font_32/basic/70.png" />
+		<Unit filename="data/font_32/basic/71.png" />
+		<Unit filename="data/font_32/basic/72.png" />
+		<Unit filename="data/font_32/basic/73.png" />
+		<Unit filename="data/font_32/basic/74.png" />
+		<Unit filename="data/font_32/basic/75.png" />
+		<Unit filename="data/font_32/basic/76.png" />
+		<Unit filename="data/font_32/basic/77.png" />
+		<Unit filename="data/font_32/basic/78.png" />
+		<Unit filename="data/font_32/basic/79.png" />
+		<Unit filename="data/font_32/basic/80.png" />
+		<Unit filename="data/font_32/basic/81.png" />
+		<Unit filename="data/font_32/basic/82.png" />
+		<Unit filename="data/font_32/basic/83.png" />
+		<Unit filename="data/font_32/basic/84.png" />
+		<Unit filename="data/font_32/basic/85.png" />
+		<Unit filename="data/font_32/basic/86.png" />
+		<Unit filename="data/font_32/basic/87.png" />
+		<Unit filename="data/font_32/basic/88.png" />
+		<Unit filename="data/font_32/basic/89.png" />
+		<Unit filename="data/font_32/basic/90.png" />
+		<Unit filename="data/font_32/basic/91.png" />
+		<Unit filename="data/font_32/basic/92.png" />
+		<Unit filename="data/font_32/basic/93.png" />
+		<Unit filename="data/font_32/basic/94.png" />
+		<Unit filename="data/font_32/basic/95.png" />
+		<Unit filename="data/font_32/basic/96.png" />
+		<Unit filename="data/font_32/basic/97.png" />
+		<Unit filename="data/font_32/basic/98.png" />
+		<Unit filename="data/font_32/basic/99.png" />
+		<Unit filename="data/font_32/special/alternate_1.png" />
+		<Unit filename="data/font_32/special/alternate_2.png" />
+		<Unit filename="data/font_32/special/arrow_down.png" />
+		<Unit filename="data/font_32/special/arrow_left.png" />
+		<Unit filename="data/font_32/special/arrow_right.png" />
+		<Unit filename="data/font_32/special/arrow_up.png" />
+		<Unit filename="data/font_32/special/blank.png" />
+		<Unit filename="data/font_32/special/border_0.png" />
+		<Unit filename="data/font_32/special/border_1.png" />
+		<Unit filename="data/font_32/special/border_10.png" />
+		<Unit filename="data/font_32/special/border_11.png" />
+		<Unit filename="data/font_32/special/border_12.png" />
+		<Unit filename="data/font_32/special/border_13.png" />
+		<Unit filename="data/font_32/special/border_14.png" />
+		<Unit filename="data/font_32/special/border_15.png" />
+		<Unit filename="data/font_32/special/border_2.png" />
+		<Unit filename="data/font_32/special/border_3.png" />
+		<Unit filename="data/font_32/special/border_4.png" />
+		<Unit filename="data/font_32/special/border_5.png" />
+		<Unit filename="data/font_32/special/border_6.png" />
+		<Unit filename="data/font_32/special/border_7.png" />
+		<Unit filename="data/font_32/special/border_8.png" />
+		<Unit filename="data/font_32/special/border_9.png" />
+		<Unit filename="data/font_32/special/center_dot.png" />
+		<Unit filename="data/font_32/special/cross_0.png" />
+		<Unit filename="data/font_32/special/cross_1.png" />
+		<Unit filename="data/font_32/special/cross_10.png" />
+		<Unit filename="data/font_32/special/cross_11.png" />
+		<Unit filename="data/font_32/special/cross_12.png" />
+		<Unit filename="data/font_32/special/cross_13.png" />
+		<Unit filename="data/font_32/special/cross_14.png" />
+		<Unit filename="data/font_32/special/cross_15.png" />
+		<Unit filename="data/font_32/special/cross_2.png" />
+		<Unit filename="data/font_32/special/cross_3.png" />
+		<Unit filename="data/font_32/special/cross_4.png" />
+		<Unit filename="data/font_32/special/cross_5.png" />
+		<Unit filename="data/font_32/special/cross_6.png" />
+		<Unit filename="data/font_32/special/cross_7.png" />
+		<Unit filename="data/font_32/special/cross_8.png" />
+		<Unit filename="data/font_32/special/cross_9.png" />
+		<Unit filename="data/font_32/special/fill.png" />
+		<Unit filename="data/others/sand_1.png" />
+		<Unit filename="data/others/sand_2.png" />
+		<Unit filename="data/others/sand_3.png" />
+		<Unit filename="data/others/sand_4.png" />
+		<Unit filename="data/others/unit.png" />
+		<Unit filename="data/others/volcano.png" />
+		<Unit filename="data/others/water.png" />
+		<Unit filename="game/BalanceConfig.cpp" />
+		<Unit filename="game/BalanceConfig.hpp" />
+		<Unit filename="game/Game.cpp" />
+		<Unit filename="game/Game.hpp" />
+		<Unit filename="game/KeyMap.cpp" />
+		<Unit filename="game/KeyMap.hpp" />
+		<Unit filename="game/c_colors.cpp" />
+		<Unit filename="game/c_colors.hpp" />
+		<Unit filename="game/constants.cpp" />
+		<Unit filename="game/f_log.cpp" />
+		<Unit filename="game/f_log.hpp" />
+		<Unit filename="game/f_rng.cpp" />
+		<Unit filename="game/f_rng.hpp" />
+		<Unit filename="game/objects/AshObject.cpp" />
+		<Unit filename="game/objects/AshObject.hpp" />
+		<Unit filename="game/objects/FoodObject.cpp" />
+		<Unit filename="game/objects/FoodObject.hpp" />
+		<Unit filename="game/objects/PlayerObject.cpp" />
+		<Unit filename="game/objects/PlayerObject.hpp" />
+		<Unit filename="game/objects/SandObject.cpp" />
+		<Unit filename="game/objects/SandObject.hpp" />
+		<Unit filename="game/objects/StoneObject.cpp" />
+		<Unit filename="game/objects/StoneObject.hpp" />
+		<Unit filename="game/objects/TreeObject.cpp" />
+		<Unit filename="game/objects/TreeObject.hpp" />
+		<Unit filename="game/objects/VolcanoObject.cpp" />
+		<Unit filename="game/objects/VolcanoObject.hpp" />
+		<Unit filename="game/objects/WaterObject.cpp" />
+		<Unit filename="game/objects/WaterObject.hpp" />
+		<Unit filename="game/objects/WorldObject.cpp" />
+		<Unit filename="game/objects/WorldObject.hpp" />
+		<Unit filename="game/objects/g_objects.hpp" />
+		<Unit filename="game/ui/DisplayData.cpp" />
+		<Unit filename="game/ui/DisplayData.hpp" />
+		<Unit filename="game/ui/DisplayManager.cpp" />
+		<Unit filename="game/ui/DisplayManager.hpp" />
+		<Unit filename="game/ui/DisplayObject.cpp" />
+		<Unit filename="game/ui/DisplayObject.hpp" />
+		<Unit filename="game/ui/FirstHelpScreen.cpp" />
+		<Unit filename="game/ui/FirstHelpScreen.hpp" />
+		<Unit filename="game/ui/FourthHelpScreen.cpp" />
+		<Unit filename="game/ui/FourthHelpScreen.hpp" />
+		<Unit filename="game/ui/GameScreen.cpp" />
+		<Unit filename="game/ui/GameScreen.hpp" />
+		<Unit filename="game/ui/LastHelpScreen.cpp" />
+		<Unit filename="game/ui/LastHelpScreen.hpp" />
+		<Unit filename="game/ui/MainScreen.cpp" />
+		<Unit filename="game/ui/MainScreen.hpp" />
+		<Unit filename="game/ui/PopupDisplay.cpp" />
+		<Unit filename="game/ui/PopupDisplay.hpp" />
+		<Unit filename="game/ui/RootObject.cpp" />
+		<Unit filename="game/ui/RootObject.hpp" />
+		<Unit filename="game/ui/SecondHelpScreen.cpp" />
+		<Unit filename="game/ui/SecondHelpScreen.hpp" />
+		<Unit filename="game/ui/ThirdHelpScreen.cpp" />
+		<Unit filename="game/ui/ThirdHelpScreen.hpp" />
+		<Unit filename="game/worlds/ForestWorld.cpp" />
+		<Unit filename="game/worlds/ForestWorld.hpp" />
+		<Unit filename="game/worlds/SandWorld.cpp" />
+		<Unit filename="game/worlds/SandWorld.hpp" />
+		<Unit filename="game/worlds/VolcanoWorld.cpp" />
+		<Unit filename="game/worlds/VolcanoWorld.hpp" />
+		<Unit filename="game/worlds/WaterWorld.cpp" />
+		<Unit filename="game/worlds/WaterWorld.hpp" />
+		<Unit filename="game/worlds/World.cpp" />
+		<Unit filename="game/worlds/World.hpp" />
+		<Unit filename="game/worlds/g_worlds.hpp" />
+		<Unit filename="json11/json11.cpp" />
+		<Unit filename="json11/json11.hpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="zf/zf_conversion.cpp" />
+		<Unit filename="zf/zf_conversion.hpp" />
+		<Unit filename="zf/zf_direction.cpp" />
+		<Unit filename="zf/zf_direction.hpp" />
+		<Unit filename="zf/zf_rect.cpp" />
+		<Unit filename="zf/zf_rect.hpp" />
+		<Unit filename="zf/zf_sprite.cpp" />
+		<Unit filename="zf/zf_sprite.hpp" />
+		<Unit filename="zf/zf_spritesheet.cpp" />
+		<Unit filename="zf/zf_spritesheet.hpp" />
+		<Unit filename="zf/zf_strings.cpp" />
+		<Unit filename="zf/zf_strings.hpp" />
+		<Unit filename="zf/zf_term.cpp" />
+		<Unit filename="zf/zf_term.hpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
