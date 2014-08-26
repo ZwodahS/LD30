@@ -178,8 +178,7 @@ bool World::spawnObject(WorldObject* object)
         return false;
     }
     auto position = rng::randomItem(availablePositions, sf::Vector2i(0, 0), true);
-    addObject(object, position);
-    return true;
+    return addObject(object, position);
 }
 
 bool World::canAddObject(WorldObject* object, const sf::Vector2i& position) const
