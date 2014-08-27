@@ -229,6 +229,10 @@
 		<Unit filename="game/ui/FourthHelpScreen.hpp" />
 		<Unit filename="game/ui/GameScreen.cpp" />
 		<Unit filename="game/ui/GameScreen.hpp" />
+		<Unit filename="game/ui/KeyChooserPopup.cpp" />
+		<Unit filename="game/ui/KeyChooserPopup.hpp" />
+		<Unit filename="game/ui/KeyConfigurationScreen.cpp" />
+		<Unit filename="game/ui/KeyConfigurationScreen.hpp" />
 		<Unit filename="game/ui/LastHelpScreen.cpp" />
 		<Unit filename="game/ui/LastHelpScreen.hpp" />
 		<Unit filename="game/ui/MainScreen.cpp" />
