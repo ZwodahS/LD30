@@ -26,6 +26,7 @@
 #include <SFML/Graphics.hpp>
 #include "../../zf/zf_term.hpp"
 class Game;
+class KeyMap;
 class DisplayObject;
 class DisplayManager
 {
@@ -52,6 +53,8 @@ public:
     DisplayObject* makeGameScreen(bool tutorial = true);
     DisplayObject* makeMessagePopup(const std::string& message);
     DisplayObject* makeMessagePopup(const std::list<std::string>& messages);
+    DisplayObject* makeConfigurationScreen(KeyMap& mapping);
+    DisplayObject* makeKeyChooser(const std::string& message);
 
     DisplayObject* makeFirstHelpScreen();
     DisplayObject* makeSecondHelpScreen();

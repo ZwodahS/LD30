@@ -73,20 +73,18 @@ void Game::initKeys()
     keyMap.addMapping('s', Action::Down);
     keyMap.addMapping('d', Action::Right);
 
-    keyMap.addMapping('k', Action::Up);
-    keyMap.addMapping('h', Action::Left);
-    keyMap.addMapping('j', Action::Down);
-    keyMap.addMapping('l', Action::Right);
-
     keyMap.addMapping(UP_KEY, Action::World_Up);
     keyMap.addMapping(DOWN_KEY, Action::World_Down);
     keyMap.addMapping(LEFT_KEY, Action::World_Left);
     keyMap.addMapping(RIGHT_KEY, Action::World_Right);
 
     keyMap.addMapping(' ', Action::Select);
-    keyMap.addMapping(ENTER_KEY, Action::Select);
     keyMap.addMapping(ESCAPE_KEY, Action::Cancel);
 
+    keyMap.addMapping('1', Action::World_1);
+    keyMap.addMapping('2', Action::World_2);
+    keyMap.addMapping('3', Action::World_3);
+    keyMap.addMapping('4', Action::World_4);
 }
 
 void Game::run()
@@ -224,4 +222,32 @@ sf::Sprite Game::getCharSprite(char c)
 sf::Sprite Game::getSpecialCharSprite(int c)
 {
     return terminal ? terminal->getSpecialChar(c).createSprite() : sf::Sprite();
+}
+
+sf::Sprite Game::keyToSprite(int c)
+{
+    if (c <= 127)
+    {
+        return getCharSprite(char(c));
+    }
+    else
+    {
+        if (c == UP_KEY)
+        {
+            return getSpecialCharSprite(zf::Arrow[zf::Up]);
+        }
+        else if (c == DOWN_KEY)
+        {
+            return getSpecialCharSprite(zf::Arrow[zf::Down]);
+        }
+        else if (c == LEFT_KEY)
+        {
+            return getSpecialCharSprite(zf::Arrow[zf::Left]);
+        }
+        else if (c== RIGHT_KEY)
+        {
+            return getSpecialCharSprite(zf::Arrow[zf::Right]);
+        }
+    }
+    return sf::Sprite();
 }

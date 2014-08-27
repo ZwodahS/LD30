@@ -26,6 +26,7 @@
 #include "DisplayManager.hpp"
 #include "MainScreen.hpp"
 #include "GameScreen.hpp"
+#include "../Game.hpp"
 #include <iostream>
 RootObject::RootObject(DisplayManager& manager)
     : DisplayObject(manager), fps(nullptr), currentChild(nullptr)
@@ -76,6 +77,11 @@ void RootObject::childReturned(DisplayObject* child, DisplayData* data)
                 else if (outData->choice == MainScreen::NewGame_NoTut)
                 {
                     currentChild = manager.makeGameScreen(false);
+                    manager.putDisplay(*currentChild);
+                }
+                else if (outData->choice == MainScreen::KeyConfiguration)
+                {
+                    currentChild = manager.makeConfigurationScreen(manager.game.keyMap);
                     manager.putDisplay(*currentChild);
                 }
                 else if (outData->choice == MainScreen::Exit)

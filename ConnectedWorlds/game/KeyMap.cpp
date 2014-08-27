@@ -21,7 +21,7 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details.
  */
 #include "KeyMap.hpp"
-
+#include <iostream>
 KeyMap::KeyMap()
 {
 }
@@ -30,23 +30,42 @@ KeyMap::~KeyMap()
 {
 }
 
-void KeyMap::addMapping(const int& c, const Action& key)
+void KeyMap::addMapping(int c, Action key)
 {
-    auto find = keyMappings.equal_range(c);
-    for (auto it = find.first; it != find.second; it++)
+    for (auto it = keyActionPair.begin(); it != keyActionPair.end(); )
     {
-        if ((*it).second == key)
+        if ((*it).first == c || (*it).second == key)
         {
-            // key-value pair already exist.
-            return;
+            it = keyActionPair.erase(it);
+        }
+        else
+        {
+            it++;
         }
     }
-    keyMappings.insert(std::pair<int, Action>(c, key));
+    keyActionPair.push_back(std::pair<int, Action>(c, key));
 }
 
-Action KeyMap::getMapping(const int& c) const
+Action KeyMap::getMapping(int c) const
 {
-    auto find = keyMappings.find(c);
-    return find != keyMappings.end() ? (*find).second : Action::None;
+    for (auto pair : keyActionPair)
+    {
+        if (pair.first == c)
+        {
+            return pair.second;
+        }
+    }
+    return Action::None;
 }
 
+int KeyMap::getKey(Action action) const
+{
+    for (auto pair : keyActionPair)
+    {
+        if (pair.second == action)
+        {
+            return pair.first;
+        }
+    }
+    return -1;
+}

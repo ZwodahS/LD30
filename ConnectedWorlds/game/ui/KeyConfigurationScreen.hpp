@@ -2,7 +2,7 @@
  *           DO WHAT THE F*** YOU WANT TO PUBLIC LICENSE
  *                   Version 2, December 2004
  *
- * Copyright (C) 2013- ZwodahS(ericnjf@gmail.com)
+ * Copyright (C) 2014- ZwodahS(ericnjf@gmail.com)
  * zwodahs.github.io
  *
  * Everyone is permitted to copy and distribute verbatim or modified
@@ -20,33 +20,28 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details.
  */
-#ifndef _GAME_UI_MAINSCREEN_HPP_
-#define _GAME_UI_MAINSCREEN_HPP_
+#ifndef _GAME_UI_KEYCONFIGURATIONSCREEN_HPP_
+#define _GAME_UI_KEYCONFIGURATIONSCREEN_HPP_
 #include "DisplayObject.hpp"
 #include "DisplayData.hpp"
+#include "../KeyMap.hpp"
 #include "../../zf/zf_term.hpp"
 #include <vector>
-class MainScreen : public DisplayObject
+class KeyMap;
+class KeyConfigurationScreen : public DisplayObject
 {
 public:
-    static const std::string OutDataType;
-    enum Choice
-    {
-        NewGame,
-        NewGame_NoTut,
-        KeyConfiguration,
-        Exit,
-    };
-    class OutData : public DisplayData
+
+    static const std::string InDataType;
+    class InData : public DisplayData
     {
     public:
-        OutData(Choice choice);
+        InData(KeyMap& mapping);
 
-        Choice choice;
+        KeyMap& mapping;
     };
-
-    MainScreen(DisplayManager& manager);
-    ~MainScreen();
+    KeyConfigurationScreen(DisplayManager& manager);
+    ~KeyConfigurationScreen();
 
     virtual bool init(DisplayData* data);
     virtual DisplayData* getReturnValue();
@@ -56,12 +51,13 @@ public:
     virtual void update(const sf::Time& delta);
     virtual void draw(const sf::Time& delta);
 
-    static const int NumOptions;
-    static const std::string OptionsString[4];
-    static const Choice OptionsChoice[4];
-
+    static const Action MappableActions[12];
+    static const std::string ActionStrings[12];
+    static const int NumOptions = 12 + 1;
     int selected;
 private:
+    DisplayObject* child;
     zf::TermWindow* mainWindow;
+    KeyMap* keyMap;
 };
 #endif

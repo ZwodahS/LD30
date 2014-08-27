@@ -104,7 +104,7 @@ public:
     sf::Sprite getPlayerSprite(int worldId);
     sf::Sprite getCharSprite(char c);
     sf::Sprite getSpecialCharSprite(int c);
-
+    sf::Sprite keyToSprite(int c);
 private:
     void initAssets();
 };

@@ -20,33 +20,35 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details.
  */
-#ifndef _GAME_UI_MAINSCREEN_HPP_
-#define _GAME_UI_MAINSCREEN_HPP_
+#ifndef _GAME_UI_KEYCHOOSEPOPUP_HPP_
+#define _GAME_UI_KEYCHOOSEPOPUP_HPP_
 #include "DisplayObject.hpp"
-#include "DisplayData.hpp"
+#include "DIsplayData.hpp"
+#include <string>
 #include "../../zf/zf_term.hpp"
-#include <vector>
-class MainScreen : public DisplayObject
+#include <list>
+class KeyChooserPopup : public DisplayObject
 {
 public:
     static const std::string OutDataType;
-    enum Choice
-    {
-        NewGame,
-        NewGame_NoTut,
-        KeyConfiguration,
-        Exit,
-    };
     class OutData : public DisplayData
     {
     public:
-        OutData(Choice choice);
+        OutData(int chosenKey);
 
-        Choice choice;
+        int chosenKey;
     };
 
-    MainScreen(DisplayManager& manager);
-    ~MainScreen();
+    static const std::string InDataType;
+    class InData : public DisplayData
+    {
+    public:
+        InData(const std::string& message);
+        
+        std::string message;
+    };
+    KeyChooserPopup(DisplayManager& manager);
+    ~KeyChooserPopup();
 
     virtual bool init(DisplayData* data);
     virtual DisplayData* getReturnValue();
@@ -56,12 +58,12 @@ public:
     virtual void update(const sf::Time& delta);
     virtual void draw(const sf::Time& delta);
 
-    static const int NumOptions;
-    static const std::string OptionsString[4];
-    static const Choice OptionsChoice[4];
-
-    int selected;
+    std::string message;
 private:
-    zf::TermWindow* mainWindow;
+    sf::IntRect region;
+    zf::TermWindow* window;
+    int chosenKey;
+    void firstDraw();
 };
 #endif
+

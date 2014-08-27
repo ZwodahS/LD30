@@ -27,6 +27,8 @@
 #include "PopupDisplay.hpp"
 #include "GameScreen.hpp"
 #include "RootObject.hpp"
+#include "KeyConfigurationScreen.hpp"
+#include "KeyChooserPopup.hpp"
 #include "FirstHelpScreen.hpp"
 #include "SecondHelpScreen.hpp"
 #include "ThirdHelpScreen.hpp"
@@ -131,6 +133,22 @@ DisplayObject* DisplayManager::makeMessagePopup(const std::list<std::string>& me
 {
     DisplayObject* object = new PopupDisplay(*this);
     PopupDisplay::InData data(messages);
+    object->init(&data);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeKeyChooser(const std::string& message)
+{
+    DisplayObject* object = new KeyChooserPopup(*this);
+    KeyChooserPopup::InData data(message);
+    object->init(&data);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeConfigurationScreen(KeyMap& mapping)
+{
+    DisplayObject* object = new KeyConfigurationScreen(*this);
+    KeyConfigurationScreen::InData data(mapping);
     object->init(&data);
     return object;
 }

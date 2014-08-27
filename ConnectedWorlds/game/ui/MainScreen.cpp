@@ -27,9 +27,9 @@
 #include "../c_colors.hpp"
 #include <iostream>
 const std::string MainScreen::OutDataType = "MS_OUT";
-const int MainScreen::NumOptions = 3;
-const std::string MainScreen::OptionsString[3] = { "Play!", "Play (No tutorial)", "Quit!" };
-const MainScreen::  Choice MainScreen::OptionsChoice[3] = { MainScreen::NewGame, MainScreen::NewGame_NoTut, MainScreen::Exit };
+const int MainScreen::NumOptions = 4;
+const std::string MainScreen::OptionsString[4] = { "Play!", "Play (No tutorial)", "Change key", "Quit!" };
+const MainScreen::  Choice MainScreen::OptionsChoice[4] = { MainScreen::NewGame, MainScreen::NewGame_NoTut, MainScreen::KeyConfiguration, MainScreen::Exit };
 
 MainScreen::MainScreen(DisplayManager& manager)
     : DisplayObject(manager), mainWindow(nullptr), selected(0)
@@ -53,7 +53,7 @@ bool MainScreen::init(DisplayData* data)
 
 DisplayData* MainScreen::getReturnValue()
 {
-    return new OutData(selected == 0 ? NewGame : selected == 1 ? NewGame_NoTut : Exit); 
+    return new OutData(selected == 0 ? NewGame : selected == 1 ? NewGame_NoTut : selected == 2 ? KeyConfiguration : Exit); 
 }
 
 void MainScreen::destroy()

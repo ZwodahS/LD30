@@ -25,6 +25,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <stdlib.h>
 enum class Action
 {
     None,
@@ -39,6 +40,11 @@ enum class Action
     World_Right,
     Select,
     Cancel,
+
+    World_1,
+    World_2,
+    World_3,
+    World_4,
 };
 
 namespace actions
@@ -54,12 +60,14 @@ public:
 
     /**
      * If category is "" 
+     * rather this is a "set"
      */
-    void addMapping(const int& c, const Action& key);
+    void addMapping(int c, Action key);
 
-    Action getMapping(const int& c) const;
+    Action getMapping(int c) const;
+    int getKey(Action action) const;
 
 private:
-    std::map<int, Action> keyMappings;
+    std::vector<std::pair<int, Action> > keyActionPair;
 };
 #endif
