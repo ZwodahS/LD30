@@ -12,6 +12,7 @@
 		E803585419A900BD0094DABC /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E803585119A900BD0094DABC /* sfml-window.framework */; };
 		E80899DF19AE427000041424 /* KeyChooserPopup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E80899DB19AE427000041424 /* KeyChooserPopup.cpp */; };
 		E80899E019AE427000041424 /* KeyConfigurationScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E80899DD19AE427000041424 /* KeyConfigurationScreen.cpp */; };
+		E850BBCB19AF8F2D00C5A9E2 /* MenuPopup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E850BBC919AF8F2D00C5A9E2 /* MenuPopup.cpp */; };
 		E8FDFB7619AA72D900374BBA /* BalanceConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FDFB1B19AA72D900374BBA /* BalanceConfig.cpp */; };
 		E8FDFB7719AA72D900374BBA /* c_colors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FDFB1D19AA72D900374BBA /* c_colors.cpp */; };
 		E8FDFB7819AA72D900374BBA /* constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8FDFB1F19AA72D900374BBA /* constants.cpp */; };
@@ -67,6 +68,8 @@
 		E80899DC19AE427000041424 /* KeyChooserPopup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KeyChooserPopup.hpp; sourceTree = "<group>"; };
 		E80899DD19AE427000041424 /* KeyConfigurationScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyConfigurationScreen.cpp; sourceTree = "<group>"; };
 		E80899DE19AE427000041424 /* KeyConfigurationScreen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KeyConfigurationScreen.hpp; sourceTree = "<group>"; };
+		E850BBC919AF8F2D00C5A9E2 /* MenuPopup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuPopup.cpp; sourceTree = "<group>"; };
+		E850BBCA19AF8F2D00C5A9E2 /* MenuPopup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MenuPopup.hpp; sourceTree = "<group>"; };
 		E8FDFB1B19AA72D900374BBA /* BalanceConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BalanceConfig.cpp; sourceTree = "<group>"; };
 		E8FDFB1C19AA72D900374BBA /* BalanceConfig.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BalanceConfig.hpp; sourceTree = "<group>"; };
 		E8FDFB1D19AA72D900374BBA /* c_colors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c_colors.cpp; sourceTree = "<group>"; };
@@ -248,6 +251,8 @@
 		E8FDFB3C19AA72D900374BBA /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				E850BBC919AF8F2D00C5A9E2 /* MenuPopup.cpp */,
+				E850BBCA19AF8F2D00C5A9E2 /* MenuPopup.hpp */,
 				E80899DB19AE427000041424 /* KeyChooserPopup.cpp */,
 				E80899DC19AE427000041424 /* KeyChooserPopup.hpp */,
 				E80899DD19AE427000041424 /* KeyConfigurationScreen.cpp */,
@@ -440,6 +445,7 @@
 				E8FDFB8C19AA72D900374BBA /* LastHelpScreen.cpp in Sources */,
 				E8FDFB9919AA72D900374BBA /* ResourcePath.mm in Sources */,
 				E8FDFB9B19AA72D900374BBA /* zf_direction.cpp in Sources */,
+				E850BBCB19AF8F2D00C5A9E2 /* MenuPopup.cpp in Sources */,
 				E8FDFB7E19AA72D900374BBA /* FoodObject.cpp in Sources */,
 				E8FDFB8319AA72D900374BBA /* VolcanoObject.cpp in Sources */,
 				E8FDFB7B19AA72D900374BBA /* Game.cpp in Sources */,

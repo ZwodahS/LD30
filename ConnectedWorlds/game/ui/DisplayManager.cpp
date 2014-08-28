@@ -25,6 +25,7 @@
 #include "DisplayData.hpp"
 #include "MainScreen.hpp"
 #include "PopupDisplay.hpp"
+#include "MenuPopup.hpp"
 #include "GameScreen.hpp"
 #include "RootObject.hpp"
 #include "KeyConfigurationScreen.hpp"
@@ -149,6 +150,14 @@ DisplayObject* DisplayManager::makeConfigurationScreen(KeyMap& mapping)
 {
     DisplayObject* object = new KeyConfigurationScreen(*this);
     KeyConfigurationScreen::InData data(mapping);
+    object->init(&data);
+    return object;
+}
+
+DisplayObject* DisplayManager::makeMenuPopup(bool tutorialMode)
+{
+    DisplayObject* object = new MenuPopup(*this);
+    MenuPopup::InData data(tutorialMode);
     object->init(&data);
     return object;
 }

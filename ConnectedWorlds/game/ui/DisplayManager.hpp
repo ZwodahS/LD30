@@ -55,6 +55,7 @@ public:
     DisplayObject* makeMessagePopup(const std::list<std::string>& messages);
     DisplayObject* makeConfigurationScreen(KeyMap& mapping);
     DisplayObject* makeKeyChooser(const std::string& message);
+    DisplayObject* makeMenuPopup(bool tutorialMode);
 
     DisplayObject* makeFirstHelpScreen();
     DisplayObject* makeSecondHelpScreen();

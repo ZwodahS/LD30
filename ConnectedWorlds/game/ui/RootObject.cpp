@@ -91,8 +91,22 @@ void RootObject::childReturned(DisplayObject* child, DisplayData* data)
             }
             else if (data->type == GameScreen::OutDataType)
             {
-                currentChild = manager.makeMainScreen();
-                manager.putDisplay(*currentChild);
+                auto outData = static_cast<GameScreen::OutData*>(data);
+                if (outData->result == GameScreen::Result::Restart_WithTutorial)
+                {
+                    currentChild = manager.makeGameScreen(true);
+                    manager.putDisplay(*currentChild);
+                }
+                else if (outData->result == GameScreen::Result::Restart_WithoutTutorial)
+                {
+                    currentChild = manager.makeGameScreen(false);
+                    manager.putDisplay(*currentChild);
+                }
+                else
+                {
+                    currentChild = manager.makeMainScreen();
+                    manager.putDisplay(*currentChild);
+                }
             }
         }
     }

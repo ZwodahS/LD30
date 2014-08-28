@@ -75,6 +75,10 @@ bool KeyConfigurationScreen::processKey(int key)
             done = true;
         }
     }
+    else if (action == Action::Cancel)
+    {
+        done = true;
+    }
     return true;
 }
 
@@ -99,6 +103,7 @@ void KeyConfigurationScreen::update(const sf::Time& delta)
 
 void KeyConfigurationScreen::draw(const sf::Time& delta)
 {
+    mainWindow->clear(sf::Color(20, 20, 20, 255));
     for (int i = 0; i < NumOptions - 1; i++)
     {
         int state = colors::Mod_Base | (i == selected ? colors::Mod_Selected : 0);

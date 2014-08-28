@@ -54,6 +54,8 @@ public:
     virtual bool grab();
     virtual void drop();
 
+    virtual void objectMoved();
+
     const ObjectType type;
     World* world;
     sf::Vector2i position;
