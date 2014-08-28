@@ -42,10 +42,13 @@ public:
     void toggleGrab();
     int food;
     int work;
+    bool canMove() const;
     void doWork(int amount);
+    virtual void objectMoved();
     void eat();
     const std::vector<WorldObject*>& getGrabbedObjects() const;
 private:
+    float moveDelay;
     float foodDepleteCounter;
     sf::Sprite sprite;
     std::vector<WorldObject*> grabbedObjects;

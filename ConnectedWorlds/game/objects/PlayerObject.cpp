@@ -27,6 +27,7 @@
 int PlayerObject::FoodIncreaseAmount = 25;
 PlayerObject::PlayerObject(Game& game, World& world)
     : WorldObject(game, world, WorldObject::ObjectType::PlayerObject), food(game.balance.Player_InitialFood), work(0)
+    , moveDelay(0)
 {
     sprite = game.getPlayerSprite(world.worldId);
 }
@@ -48,6 +49,8 @@ void PlayerObject::update(const sf::Time& delta)
         foodDepleteCounter -= game.balance.Player_FoodDepleteRate;
         food--;
     }
+    moveDelay -= delta.asSeconds();
+    moveDelay = moveDelay < 0 ? 0 : moveDelay;
 }
 
 void PlayerObject::doWork(int amount)
@@ -106,4 +109,14 @@ void PlayerObject::eat()
 {
     food += game.balance.Player_FoodIncreaseAmount;
     food = food >= 100 ? 100 : food;
+}
+
+bool PlayerObject::canMove() const
+{
+    return moveDelay <= 0;
+}
+
+void PlayerObject::objectMoved()
+{
+    moveDelay = 0.05;
 }
