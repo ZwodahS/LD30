@@ -237,6 +237,8 @@
 		<Unit filename="game/ui/LastHelpScreen.hpp" />
 		<Unit filename="game/ui/MainScreen.cpp" />
 		<Unit filename="game/ui/MainScreen.hpp" />
+		<Unit filename="game/ui/MenuPopup.cpp" />
+		<Unit filename="game/ui/MenuPopup.hpp" />
 		<Unit filename="game/ui/PopupDisplay.cpp" />
 		<Unit filename="game/ui/PopupDisplay.hpp" />
 		<Unit filename="game/ui/RootObject.cpp" />
