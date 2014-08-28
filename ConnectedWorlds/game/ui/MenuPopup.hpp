@@ -20,27 +20,44 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details.
  */
-#ifndef _GAME_UI_POPUPDISPLAY_HPP_
-#define _GAME_UI_POPUPDISPLAY_HPP_
+#ifndef _GAME_UI_MAINPOPUP_HPP_
+#define _GAME_UI_MAINPOPUP_HPP_
 #include "DisplayObject.hpp"
 #include "DisplayData.hpp"
 #include <string>
 #include "../../zf/zf_term.hpp"
-#include <list>
-class PopupDisplay : public DisplayObject
+class MenuPopup : public DisplayObject
 {
 public:
+    enum Choice
+    {
+        Resume,
+        Config,
+        Restart,
+        ToggleTutorial,
+        Exit,
+    };
+    static const std::string OutDataType;
+    class OutData : public DisplayData
+    {
+    public:
+        OutData(Choice choice, bool tutorialMode);
+
+        Choice choice;
+        bool tutorialMode;
+    };
+
     static const std::string InDataType;
     class InData : public DisplayData
     {
     public:
-        InData(const std::string& message);
-        InData(const std::list<std::string>& messages);
-
-        std::list<std::string> messages;
+         InData(bool currentTutorialMode);
+            
+         bool tutorialMode;
     };
-    PopupDisplay(DisplayManager& manager);
-    ~PopupDisplay();
+
+    MenuPopup(DisplayManager& manager);
+    ~MenuPopup();
 
     virtual bool init(DisplayData* data);
     virtual DisplayData* getReturnValue();
@@ -50,10 +67,14 @@ public:
     virtual void update(const sf::Time& delta);
     virtual void draw(const sf::Time& delta);
 
-    std::list<std::string> messages;
+    static const int NumOptions;
+    static const std::string OptionsString[5];
+    static const Choice OptionsChoice[5];
 private:
+    int selected;
+    bool tutorialMode;
     sf::IntRect region;
-    zf::TermWindow* window;
-    void firstDraw();
+    zf::TermWindow* mainWindow;
+    DisplayObject* child;
 };
 #endif

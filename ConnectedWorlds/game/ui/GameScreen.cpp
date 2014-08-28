@@ -21,6 +21,7 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details.
  */
 #include "GameScreen.hpp"
+#include "MenuPopup.hpp"
 #include "../Game.hpp"
 #include "../worlds/World.hpp"
 #include "../worlds/VolcanoWorld.hpp"
@@ -172,24 +173,54 @@ bool GameScreen::processKey(int key)
                            currentWorld == 3 ? 2 : 2; 
             selectWorld(newWorld);
         }
+        else if (action == Action::Cancel)
+        {
+            child = manager.makeMenuPopup(printHelp);
+            manager.putDisplay(*child);
+        }
     }
     return true;
 }
 
 void GameScreen::childReturned(DisplayObject* child, DisplayData* data)
 {
-    if (result)
+    if (data)
     {
-        done = true;
-    }
-    this->child = nullptr;
-    if (numActiveWorld == 4 && !lasthelp)
-    {
-        lasthelp = true;
-        if (printHelp)
+        if (data->type == MenuPopup::OutDataType)
         {
-            child = manager.makeLastHelpScreen();
-            manager.putDisplay(*child);
+            auto outData = static_cast<MenuPopup::OutData*>(data);
+            if (outData->choice == MenuPopup::Exit)
+            {
+                done = true;
+                result = new OutData(Result::Quit);
+            }
+            else if (outData->choice == MenuPopup::Restart)
+            {
+                done = true;
+                result = new OutData(printHelp ? Result::Restart_WithTutorial : Result::Restart_WithoutTutorial);
+            }
+            else
+            {
+                this->child = nullptr;
+                printHelp = outData->tutorialMode;
+            }
+        }
+    }
+    else
+    {
+        if (result)
+        {
+            done = true;
+        }
+        this->child = nullptr;
+        if (numActiveWorld == 4 && !lasthelp)
+        {
+            lasthelp = true;
+            if (printHelp)
+            {
+                child = manager.makeLastHelpScreen();
+                manager.putDisplay(*child);
+            }
         }
     }
 }

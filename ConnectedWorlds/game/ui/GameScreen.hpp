@@ -36,6 +36,9 @@ public:
     {
         Victory,
         Defeat,
+        Quit,
+        Restart_WithTutorial,
+        Restart_WithoutTutorial,
     };
     class OutData : public DisplayData
     {
