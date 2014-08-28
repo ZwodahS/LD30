@@ -77,3 +77,7 @@ bool WorldObject::canGrabbed(zf::Direction direction, WorldObject& grabber, std:
     }
     return false;
 }
+
+void WorldObject::objectMoved()
+{
+}

@@ -209,7 +209,7 @@ WorldObject* World::getObject(const sf::Vector2i& position) const
 
 void World::move(zf::Direction direction)
 {
-    if (player)
+    if (player and player->canMove())
     {
         if (player->isGrabbing())
         {
@@ -233,6 +233,7 @@ void World::move(zf::Direction direction)
                     if (canMove)
                     {
                         moveObject(*player, player->position + mod);
+                        player->objectMoved();
                         for (auto object : grabbed)
                         {
                             moveObject (*object, object->position + mod);
@@ -253,6 +254,7 @@ void World::move(zf::Direction direction)
                 if (!object)
                 {
                     moveObject(*player, targetPosition);
+                    player->objectMoved();
                     player->doWork(game.balance.Player_MoveCost);
                 }
                 else if (object->type == WorldObject::ObjectType::FoodObject)
@@ -262,6 +264,7 @@ void World::move(zf::Direction direction)
                     removeFromList(object);
                     delete object;
                     moveObject(*player, targetPosition);
+                    player->objectMoved();
                 }
                 else if (inRange(objectTargetPosition))
                 {
@@ -272,6 +275,7 @@ void World::move(zf::Direction direction)
                     else if (!objectObstacle)
                     {
                         moveObject(*player, targetPosition);
+                        player->objectMoved();
                         moveObject(*object, targetPosition + mod);
                         player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
@@ -290,6 +294,7 @@ void World::move(zf::Direction direction)
                             removeFromGrid(sandSource);
                             removeFromList(sandSource);
                             moveObject(*player, targetPosition);
+                            player->objectMoved();
                             if (spawnSand())
                             {
                                 spawnObject(sandSource);
@@ -324,6 +329,7 @@ void World::move(zf::Direction direction)
                                 moveObject(*sandSource, objectTargetPosition);
                             }
                             moveObject(*player, targetPosition);
+                            player->objectMoved();
                         }
                         player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
@@ -338,6 +344,7 @@ void World::move(zf::Direction direction)
                             delete waterTarget;
                             moveObject(*treeSource, objectTargetPosition);
                             moveObject(*player, targetPosition);
+                            player->objectMoved();
                         }
                         player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
@@ -349,6 +356,7 @@ void World::move(zf::Direction direction)
                         removeFromList(object);
                         delete object;
                         moveObject(*player, targetPosition);
+                        player->objectMoved();
                         player->doWork(game.balance.Player_MoveCost + game.balance.Player_PushCost);
                     }
                 }
